@@ -61,17 +61,17 @@ const handleCancelSubmit = () => {
           :height="100"
           :width="100"
         />
-        <h3
+        <div
           v-if="globalAlerts.title"
-          class="font-medium text-primary my-2"
-          :class="isConfirmDialog ? 'text-2xl' : 'text-3xl <sm:(text-xl)'"
+          class="font-medium text-primary"
+          :class="isConfirmDialog ? 'text-xl' : 'text-xl <sm:(text-lg)'"
         >
           {{ globalAlerts.title }}
-        </h3>
-        <p v-if="globalAlerts.text" class="text-xl <sm:(text-base)">{{ globalAlerts.text }}</p>
+        </div>
+        <p v-if="globalAlerts.text" class="text-lg <sm:(text-base)">{{ globalAlerts.text }}</p>
         <div
           v-if="globalAlerts.cancelButtonText || globalAlerts.confirmButtonText"
-          class="w-full flex justify-center gap-4 mt-6"
+          class="w-full flex justify-center gap-4 mt-4 max-w-[400px]"
         >
           <UButton
             v-if="globalAlerts.cancelButtonText"
@@ -96,7 +96,7 @@ const handleCancelSubmit = () => {
 #AlertWrapper {
   z-index: 9999 !important;
   .body-modal {
-    max-width: 400px;
+    min-width: 300px !important;
     box-shadow: 0px 2px 10px 0px #000000 !important;
   }
 }

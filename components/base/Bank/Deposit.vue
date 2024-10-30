@@ -346,7 +346,7 @@ onMounted(() => {
         </div> -->
       </div>
       <UButton
-        label="เติมเงิน"
+        :label="t('deposit')"
         type="submit"
         size="md"
         variant="solid"

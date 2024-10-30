@@ -1,0 +1,29 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "build-test": "nuxt build && node .output/server/index.mjs",
+    "clean": "rm -rf .nuxt dist node_modules .output bun.lockb"
+  },
+  "dependencies": {
+    "@nuxtjs/i18n": "^8.0.0",
+    "@pinia/nuxt": "^0.6.0",
+    "jwt-decode": "^4.0.0",
+    "nuxt": "^3.13.2",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@unocss/nuxt": "^0.63.6",
+    "add": "^2.0.6",
+    "nuxt3-notifications": "^1.2.3",
+    "sass": "^1.80.4",
+    "unocss": "^0.63.6"
+  }
+}

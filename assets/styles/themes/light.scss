@@ -1,0 +1,98 @@
+/*========================================================
+  LIGHT THEME
+=========================================================*/
+.light-theme {
+  // COLOR
+  --color-100: #e7e7e7;
+  --color-200: #d1d1d1;
+
+  // FONT
+  --font-primary: #393939;
+  --font-secondary: #6d6d6d;
+  --font-tertiary: #888888;
+  --font-highlight: #569ff7;
+  --font-error: #ff4c51;
+  --font-success: #39b22e;
+  --font-white: #ffffff;
+  --font-disabled: #acaab1;
+
+  // BUTTON
+  --shadow-primary: #31698f;
+  --button-primary-left: #4e65ff;
+  --button-primary-right: #5cdaed;
+  --button-secondary-bg: #ffffff;
+  --button-disable-left: #a29f9f;
+  --button-disable-right: #c3c3c3;
+  --button-hover-secondary-bg: #dde9ff;
+  --button-disable-secondary-border: #d1d1d1;
+  --button-press-tertiary-bg: #c2d6ff;
+  --button-press-tertiart-font: #569ff7;
+  --button-press-cancel-font: #569ff7;
+  --button-press-cancel-bg: #c2d6ff;
+
+  // CARD
+  --card-primary: #ffffff;
+  --card-secondary: #f4f4f4;
+
+  // ICON
+  --icon-default: #569ff7;
+  --icon-active: #ffffff;
+  --icon-inactive: #6d6d6d;
+  --icon-error: #ff4c51;
+
+  // INPUT
+  --input-label: var(--font-primary);
+  --input-border: #d1d1d1;
+  --input-bg: var(--card-primary);
+  --input-bg-disabled: #f3f2f3;
+  --input-text-disabled: var(--font-disabled);
+  --input-placeholder: var(--font-tertiary);
+  --input-error: var(--font-error);
+  --input-focus: var(--font-highlight);
+
+  // BUTTON COMPONENT
+  // Primary
+  --btn-font-primary: var(--font-white);
+  --btn-primary-left: var(--button-primary-left);
+  --btn-primary-right: var(--button-primary-right);
+  --btn-primary-disable-left: var(--button-disable-left);
+  --btn-primary-disable-right: var(--button-disable-right);
+  // Secondary
+  --btn-secondary: var(--button-secondary-bg);
+  --btn-secondary-font: var(--font-highlight);
+  --btn-secondary-left: var(--button-primary-left);
+  --btn-secondary-right: var(--button-primary-right);
+  --btn-hover-secondary: var(--button-hover-secondary-bg);
+  --btn-press-secondary: var(--button-press-tertiary-bg);
+  --btn-disable-secondary-font: var(--font-tertiary);
+  --btn-disable-secondary: var(--button-disable-secondary-border);
+  // Tertiary
+  --btn-tertiary: var(--card-secondary);
+  --btn-tertiary-font: var(--font-secondary);
+  --btn-hover-tertiary-font: var(--font-highlight);
+  --btn-hover-tertiary: var(--button-hover-secondary-bg);
+  --btn-press-tertiary: var(--button-press-tertiary-bg);
+  --btn-press-tertiary-font: var(--button-press-tertiart-font);
+  --btn-tertiary-disable-font: var(--font-secondary);
+  --btn-tertiary-disable-left: var(--button-disable-left);
+  --btn-tertiary-disable-right: var(--button-disable-right);
+  // Cancel
+  --btn-cancel: var(--font-error);
+  --btn-cancel-font: var(--font-white);
+  --btn-hover-cancel-font: var(--font-highlight);
+  --btn-hover-cancel: var(--button-hover-secondary-bg);
+  --btn-press-cancel: var(--button-press-cancel-bg);
+  --btn-press-cancel-font: var(--button-press-cancel-font);
+  --btn-cancel-disable-font: var(--font-secondary);
+  --btn-cancel-disable-left: var(--button-disable-left);
+  --btn-cancel-disable-right: var(--button-disable-right);
+  // Provider item
+  --provider-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
+  // VerticalNavigation
+  --vertical-navigation-bg-active: var(--icon-default);
+  --vertical-navigation-bg-click: #64aaff;
+  --vertical-navigation-text: var(--font-primary);
+  --vertical-navigation-text-active: var(--font-white);
+
+  --body: #ffffff;
+}

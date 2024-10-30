@@ -1,0 +1,31 @@
+@use 'sass:color';
+@use 'sass:string';
+@use 'sass:meta';
+
+// Function to convert hex to RGB
+@function hexToRGB($hex) {
+  @return color.channel($hex, 'red', $space: rgb),
+         color.channel($hex, 'green', $space: rgb),
+         color.channel($hex, 'blue', $space: rgb);
+}
+
+// Mixin to generate CSS variables from a settings map
+@mixin generate($setting) {
+  @each $name, $value in $setting {
+    --#{$name}: #{$value};
+  }
+}
+
+// Mixin to generate CSS variables for colors and RGB values
+@mixin generate_colors($colors) {
+  @each $color, $value in $colors {
+    // Check if the value is a color
+    @if meta.type-of($value) == 'color' {
+      --#{$color}: #{$value};
+      --RGB_#{$color}: #{hexToRGB($value)};
+    } @else {
+      --#{$color}: var(--#{$value});
+      --RGB_#{$color}: var(--RGB_#{$value});
+    }
+  }
+}

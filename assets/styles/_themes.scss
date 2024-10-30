@@ -1,3 +1,12 @@
 @use 'themes/dark' as *;
 @use 'themes/light' as *;
+@use 'mixins' as *;
 
+// Define Themes
+// .dark-theme {
+//   @include generate_colors($dark-theme);
+// }
+
+// .light-theme {
+//   @include generate_colors($light-theme);
+// }

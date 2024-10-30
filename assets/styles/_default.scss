@@ -1,0 +1,38 @@
+/*========================================================
+  DEFAULT STYLE
+=========================================================*/
+/* Reset CSS */
+@forward 'themes';
+@use 'mixins' as *;
+@use 'variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  background-color: var(--text-primary);
+  background-image: url('~/assets/images/backgrounds/bg.webp');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body {
+  overscroll-behavior: none;
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  font-size: var(--base-font-size);
+  line-height: var(--base-line-height);
+  font-weight: var(--base-font-weight);
+}
+
+:root {
+  @include generate($global-setting);
+  @include generate_colors($global-colors);
+}

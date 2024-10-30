@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: {
-        class: ''
+        class: '',
       },
       title: 'Test',
       meta: [
@@ -19,10 +19,26 @@ export default defineNuxtConfig({
             'width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no, initial-scale=1.0, viewport-fit=cover',
         },
       ],
-    }
+    },
   },
 
   css: ['~/assets/styles/main.scss'],
+
+  // Components
+  components: {
+    dirs: [
+      {
+        path: '~/components/base',
+        global: true,
+        prefix: 'base',
+      },
+      {
+        path: '~/components',
+        global: false,
+        pathPrefix: false,
+      },
+    ],
+  },
 
   modules: [
     '@nuxtjs/i18n',
@@ -30,8 +46,15 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt3-notifications',
     '@unocss/nuxt',
+    '@vueuse/nuxt',
+    'nuxt-icons',
+    '@nuxt/ui',
   ],
 
+  ui: {
+    global: true,
+  },
+  
   // Runtime Config
   runtimeConfig: {
     // The private keys which are only available server-side
@@ -44,7 +67,7 @@ export default defineNuxtConfig({
       theme: process.env.THEME,
     },
   },
-  
+
   // i18n
   i18n: {
     detectBrowserLanguage: {

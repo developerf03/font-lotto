@@ -3,7 +3,7 @@ export default {
   container: 'z-50 group',
   trigger: 'inline-flex w-full',
   width: '',
-  background: 'card-primary',
+  background: '!bg-[var(--card-primary)]',
   shadow: 'shadow-lg',
   rounded: 'rounded-[10px] border border-solid border-[var(--color-200)]',
   ring: '',

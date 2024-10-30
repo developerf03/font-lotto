@@ -4,7 +4,7 @@ export default {
   form: 'form-input',
   rounded: 'rounded-md',
   file: {
-    base: 'file:mr-1.5 file:font-medium file:text-gray-500 dark:file:text-gray-400 file:bg-transparent file:border-0 file:p-0 file:outline-none',
+    base: 'file:mr-1.5 file:font-medium file:text-gray-500 file:text-gray-400 file:bg-transparent file:border-0 file:p-0 file:outline-none',
   },
   size: {
     '2xs': 'text-xs',
@@ -56,8 +56,8 @@ export default {
     none: 'bg-transparent focus:ring-0 focus:shadow-none',
   },
   icon: {
-    base: 'flex-shrink-0 text-gray-400 dark:text-gray-500',
-    color: 'text-{color}-500 dark:text-{color}-400',
+    base: 'flex-shrink-0 text-gray-400 text-gray-500',
+    color: 'text-{color}-500 text-{color}-400',
     loading: 'animate-spin',
     size: {
       '2xs': 'h-4 w-4',

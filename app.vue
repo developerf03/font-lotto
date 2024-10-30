@@ -15,6 +15,7 @@ import 'swiper/css/pagination'
 
 const theme = useCookie('theme', { default: () => 'dark-theme' })
 const { locale } = useI18n()
+
 </script>
 
 <template>

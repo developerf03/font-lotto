@@ -3,9 +3,9 @@ export default {
   base: 'btn-select-wrapper relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0',
   form: 'form-select',
   rounded: 'rounded',
-  placeholder: 'text-gray-400 dark:text-gray-500',
+  placeholder: 'text-gray-400 text-gray-500',
   file: {
-    base: 'file:mr-1.5 file:font-medium file:text-gray-500 dark:file:text-gray-400 file:bg-transparent file:border-0 file:p-0 file:outline-none',
+    base: 'file:mr-1.5 file:font-medium file:text-gray-500 file:text-gray-400 file:bg-transparent file:border-0 file:p-0 file:outline-none',
   },
   size: {
     '2xs': 'text-xs',
@@ -54,21 +54,21 @@ export default {
   color: {
     white: {
       outline:
-        'shadow-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400',
+        'shadow-sm bg-white bg-gray-900 text-gray-900 text-white ring-1 ring-inset ring-gray-300 ring-gray-700 focus:ring-2 focus:ring-primary-500 focus:ring-primary-400',
     },
     gray: {
       outline:
-        'shadow-sm bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400',
+        'shadow-sm bg-gray-50 bg-gray-800 text-gray-900 text-white ring-1 ring-inset ring-gray-300 ring-gray-700 focus:ring-2 focus:ring-primary-500 focus:ring-primary-400',
     },
   },
   variant: {
     outline:
-      'shadow-sm bg-transparent text-gray-900 dark:text-white ring-1 ring-inset ring-{color}-500 dark:ring-{color}-400 focus:ring-2 focus:ring-{color}-500 dark:focus:ring-{color}-400',
+      'shadow-sm bg-transparent text-gray-900 text-white ring-1 ring-inset ring-{color}-500 ring-{color}-400 focus:ring-2 focus:ring-{color}-500 focus:ring-{color}-400',
     none: 'bg-transparent focus:ring-0 focus:shadow-none',
   },
   icon: {
-    base: 'flex-shrink-0 text-gray-400 dark:text-gray-500',
-    color: 'text-{color}-500 dark:text-{color}-400',
+    base: 'flex-shrink-0 text-gray-400 text-gray-500',
+    color: 'text-{color}-500 text-{color}-400',
     loading: 'animate-spin',
     size: {
       '2xs': 'h-4 w-4',

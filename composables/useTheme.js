@@ -151,7 +151,7 @@ export const urlPath = (path) => {
 
 export const useInitThemeColor = () => {
   const themePreview = useCookie('themePreview', '')
-  const colorMode = useColorMode()
+  const theme = useCookie('theme')
   const { setting } = useLobbySetting()
   const { _route: route } = useNuxtApp()
 
@@ -176,7 +176,7 @@ export const useInitThemeColor = () => {
       if (route.query.themePreview) themePreview.value = route.query.themePreview
 
       if (themePreview.value) {
-        colorMode.preference = themePreview.value
+        theme.value = themePreview.value
 
         return
       }
@@ -185,26 +185,24 @@ export const useInitThemeColor = () => {
     // Check main theme
     if (setting.value?.theme === 'main') {
       if (['categories-arcades'].includes(route.name)) {
-        colorMode.preference = 'red'
+        theme.value = 'red'
 
         return
       }
 
       // Check theme by category
       if (category.value?.theme) {
-        colorMode.preference = category.value?.theme
+        theme.value = category.value?.theme
 
         return
       }
-
-      colorMode.preference = 'black'
 
       return
     }
 
     // Check theme color from API
     if (setting.value?.theme) {
-      colorMode.preference = `season-${setting.value?.theme}`
+      theme.value = `season-${setting.value?.theme}`
     }
   })
 }

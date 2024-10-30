@@ -12,15 +12,15 @@ import logo from '~/assets/images/logo.png'
 
 // Composables
 const { user, balance } = useAuth()
-const colorMode = useColorMode()
+const theme = useCookie('theme')
 const { handleLoginModal, handleRegisterModal, handleLanguageModal } = useModals()
 
 // Stores
 // const { providers } = storeToRefs(useProviderStore())
 
 // Functions
-const handleThemeChange = (theme) => {
-  colorMode.preference = theme
+const handleThemeChange = (themeVal) => {
+  theme.value = themeVal
 }
 
 const mockup = [
@@ -118,8 +118,8 @@ const mockup = [
         <span class="cursor-pointer" @click="setLocale('vi')">VI</span>
       </div> -->
       <div class="flex-1 flex items-center justify-center gap-4">
-        <span class="cursor-pointer" @click="handleThemeChange('dark')">Dark</span>
-        <span class="cursor-pointer" @click="handleThemeChange('light')">Light</span>
+        <span class="cursor-pointer" @click="handleThemeChange('dark-theme')">Dark</span>
+        <span class="cursor-pointer" @click="handleThemeChange('light-theme')">Light</span>
       </div>
     </div>
 

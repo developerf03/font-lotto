@@ -35,19 +35,32 @@ onClickOutside(target, () => (isExpan.value = false))
     <!-- WALLET -->
     <div v-if="user">
       <HomeMenuWallet :balance="balance" />
-      <div
-        class="max-h-[0] overflow-hidden transition-all duration-300"
-        :class="[{ 'max-h-[1000px]': isExpan }]"
-      >
-        <div class="pt-3">
-          <UVerticalNavigation :links="menu" class="navigation-secondary" />
-        </div>
-      </div>
     </div>
     <!-- BUTTON => LOGIN / REGISTER -->
     <div v-else class="w-full flex gap-4">
       <UButton :label="t('login')" variant="outline" size="sm" @click="handleLoginModal(true)" />
-      <UButton :label="t('register')" variant="solid" size="sm" @click="handleRegisterModal(true)" />
+      <UButton
+        :label="t('register')"
+        variant="solid"
+        size="sm"
+        @click="handleRegisterModal(true)"
+      />
+    </div>
+    <div
+      class="max-h-[0] overflow-hidden transition-all duration-300"
+      :class="[{ 'max-h-[1000px]': isExpan }]"
+    >
+      <div class="pt-3 flex flex-col gap-4">
+        <UVerticalNavigation v-if="user" :links="menu" class="navigation-secondary" />
+        <div class="w-full divide-x-1 flex items-center">
+          <div class="flex-1 flex items-center justify-center gap-4">
+            <BaseChangeLanguage />
+          </div>
+          <div class="flex-1 flex items-center justify-center gap-4">
+            <BaseChangeTheme />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

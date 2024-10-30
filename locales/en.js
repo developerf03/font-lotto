@@ -78,6 +78,9 @@ export default {
   depositAmountSuccess: 'Deposit {amount} {unit} successfully',
   withdrawAmountSuccess: 'Withdraw {amount} {unit} successfully',
   contactAdmin: 'Contact admin',
+  lightTheme: 'Light Mode',
+  darkTheme: 'Dark Mode',
+
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

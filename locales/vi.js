@@ -78,6 +78,9 @@ export default {
   depositAmountSuccess: 'Nạp thành công {amount} {unit}',
   withdrawAmountSuccess: 'Rút thành công {amount} {unit}',
   contactAdmin: 'Liên hệ quản trị viên',
+  lightTheme: 'Chế độ Sáng',
+  darkTheme: 'Chế độ Tối',
+
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

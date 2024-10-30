@@ -78,6 +78,9 @@ export default {
   depositAmountSuccess: 'ฝากเงินจำนวน {amount} {unit} สำเร็จ',
   withdrawAmountSuccess: 'ถอนเงินจำนวน {amount} {unit} สำเร็จ',
   contactAdmin: 'ติดต่อผู้ดูแลระบบ',
+  lightTheme: 'โหมดสว่าง',
+  darkTheme: 'โหมดมืด',
+
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

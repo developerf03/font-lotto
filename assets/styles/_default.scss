@@ -21,6 +21,7 @@ html {
   background-position: top center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  transition: var(--transition-background);
 }
 
 body {

@@ -9,6 +9,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { Transition } from 'vue'
 
 export default defineConfig({
   // ...UnoCSS options
@@ -55,9 +56,18 @@ export default defineConfig({
     ['text-danger', { color: 'var(--font-error)' }],
     ['text-warning', { color: 'var(--font-warning)' }],
     // CARD
-    ['card-primary', { background: 'var(--card-primary)' }],
-    ['card-secondary', { background: 'var(--card-secondary)' }],
-    ['card-error', { background: 'var(--card-error)' }],
-    ['card-success', { background: 'var(--card-success)' }],
+    [
+      'card-primary',
+      { background: 'var(--card-primary)', transition: 'var(--transition-background)' },
+    ],
+    [
+      'card-secondary',
+      { background: 'var(--card-secondary)', transition: 'var(--transition-background)' },
+    ],
+    ['card-error', { background: 'var(--card-error)', transition: 'var(--transition-background)' }],
+    [
+      'card-success',
+      { background: 'var(--card-success)', transition: 'var(--transition-background)' },
+    ],
   ],
 })

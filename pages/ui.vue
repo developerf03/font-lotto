@@ -147,7 +147,7 @@ const handleOpenConfirmDialog = () => {
 </script>
 
 <template>
-  <div class="ui-wrapper bg-[var(--card-primary)] min-h-screen p-6 flex flex-col gap-10">
+  <div class="ui-wrapper card-primary min-h-screen p-6 flex flex-col gap-10">
     <!-- INPUT -->
     <div
       class="flex flex-col border-[1px] overflow-hidden border-solid rounded-lg border-black text-primary"

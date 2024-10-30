@@ -131,40 +131,45 @@ export const useDefaults = () => {
 }
 
 export const useMenu = () => {
-  const { showPaymentModal } = useModals()
+  const { showPaymentModal, handleLoginModal } = useModals()
   const route = useRoute()
+  const { user } = useAuth()
 
-  const menuClick = {
-    home: () => $navigateTo('/'),
-    deposit: () => showPaymentModal(true, 'deposit', null),
-    withdraw: () => showPaymentModal(true, 'withdraw', null),
-    promotion: () => [],
-  }
+  return computed(() => {
+    const menuClick = {
+      home: () => $navigateTo('/'),
+      deposit: () =>
+        user.value ? showPaymentModal(true, 'deposit', null) : handleLoginModal(true),
+      withdraw: () =>
+        user.value ? showPaymentModal(true, 'withdraw', null) : handleLoginModal(true),
+      promotion: () => $navigateTo('/promotions'),
+    }
 
-  return [
-    {
-      label: 'หน้าหลัก',
-      icon: 'i-tabler:home',
-      click: menuClick['home'],
-      active: route.name.includes('index'),
-    },
-    {
-      label: 'เติมเงิน',
-      icon: 'i-tabler:wallet',
-      click: menuClick['deposit'],
-    },
-    {
-      label: 'ถอนเงิน',
-      icon: 'i-tabler:cash',
-      click: menuClick['withdraw'],
-    },
-    {
-      label: 'โปรโมชั่น',
-      icon: 'i-tabler:confetti',
-      click: menuClick['promotion'],
-      active: route.name.includes('promotion'),
-    },
-  ]
+    return [
+      {
+        label: 'หน้าหลัก',
+        icon: 'i-tabler:home',
+        click: menuClick['home'],
+        active: route.name.includes('index'),
+      },
+      {
+        label: 'เติมเงิน',
+        icon: 'i-tabler:wallet',
+        click: menuClick['deposit'],
+      },
+      {
+        label: 'ถอนเงิน',
+        icon: 'i-tabler:cash',
+        click: menuClick['withdraw'],
+      },
+      {
+        label: 'โปรโมชั่น',
+        icon: 'i-tabler:confetti',
+        click: menuClick['promotion'],
+        active: route.name.includes('promotion'),
+      },
+    ]
+  })
 }
 
 export const useSubMenu = () => {

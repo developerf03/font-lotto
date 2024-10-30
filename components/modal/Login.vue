@@ -1,7 +1,6 @@
 <script setup>
 // Imports
 import { checkValueType, textInterrupt } from '~/utils/utils'
-import { object, string } from 'yup'
 
 // Composables
 const { login } = useAuth()
@@ -10,6 +9,7 @@ const signInSetting = useSignInSetting()
 
 // States
 const form = reactive({ username: '', password: '' })
+const errors = reactive({})
 const loading = ref(false)
 
 // Computeds
@@ -21,15 +21,18 @@ const placeholder = computed(() =>
     t('or'),
   ),
 )
-
-// Validate
-const validate = object({
-  username: string().required(`${t('pleaseEnter')} ${placeholder.value}`),
-  password: string().required(t('validation.pleaseEnterPassword')),
-})
+const validator = computed(() =>
+  useValidator(form, errors).rules({
+    username: Rules().required(`${t('pleaseEnter')} ${placeholder.value}`),
+    password: Rules().required(t('validation.pleaseEnterPassword')),
+  }),
+)
 
 // Functions
 const handleSubmit = async () => {
+  validator.value.validate()
+  if (!validator.value.isFormValid) return
+
   loading.value = true
   try {
     const username = form.username.trim()
@@ -62,20 +65,28 @@ const handleSubmit = async () => {
   <BaseModal v-model="loginModal" disable-click-out logo>
     <p class="text-center mb-5">{{ t('login') }}</p>
     <!-- FORM -->
-    <UForm
-      :schema="validate"
-      :state="form"
-      validate-on="submit"
-      class="w-full"
-      @submit="handleSubmit"
-    >
+    <UForm validate-on="submit" class="w-full" @submit="handleSubmit">
       <!-- USERNAME -->
-      <UFormGroup :label="t(placeholder)" name="username" class="mb-4">
-        <BaseInput v-model="form.username" :placeholder="placeholder" />
+      <UFormGroup
+        :label="t(placeholder)"
+        name="username"
+        class="mb-4"
+        :error="errors?.username?.message"
+      >
+        <BaseInput
+          v-model="form.username"
+          :placeholder="placeholder"
+          @update:model-value="validator.validate('phone')"
+        />
       </UFormGroup>
       <!-- PASSWORD -->
-      <UFormGroup :label="t('password')" name="password">
-        <BaseInput v-model="form.password" type="password" :placeholder="'password'" />
+      <UFormGroup :label="t('password')" name="password" :error="errors?.password?.message">
+        <BaseInput
+          v-model="form.password"
+          type="password"
+          :placeholder="'password'"
+          @update:model-value="validator.validate('phone')"
+        />
       </UFormGroup>
       <!-- LINK FORGOT PASSWORD -->
       <p

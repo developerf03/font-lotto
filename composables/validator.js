@@ -124,6 +124,3 @@ export const useValidator = (form, errors, options = {}) => ({
     return fields.every((v) => !this.errors[v]?.message) && fields.every((v) => this.form[v])
   },
 })
-
-export const clearObj = (obj = {}, initialVal = '') =>
-  Object.keys(obj).reduce((p, n) => ({ ...p, [n]: initialVal }), {})

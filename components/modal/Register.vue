@@ -38,10 +38,10 @@ const form = reactive({
   currency: '',
 })
 const currentStep = ref('input-phone') // input-phone , verify-otp , bank-account , submit
+const remainSec = ref(0)
 
 // Computeds
 const signupSetting = computed(() => useSignUpSetting())
-
 const isStep = computed(() => (targetStep) => targetStep === currentStep.value)
 const steps = computed(() =>
   [
@@ -127,7 +127,6 @@ const handleSubmit = async () => {
 
 const nextStep = (targetStep) => {
   if (targetStep) {
-    console.log('targetStep :>> ', targetStep)
     currentStep.value = targetStep
   } else {
     currentStep.value = steps.value[steps.value.indexOf(currentStep.value) + 1]

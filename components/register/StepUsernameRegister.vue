@@ -11,7 +11,7 @@ const props = defineProps({
   signupSetting: { type: Object, default: () => {} },
   setting: { type: Object, default: () => {} },
   remainSec: {
-    type: [String, Number],
+    type: Number,
     required: true,
   },
 })
@@ -34,7 +34,7 @@ const textErrors = {
   email: 'emailAlreadyExists',
   phone: 'phoneAlreadyExists',
 }
-
+const errors = reactive({})
 const form = reactive({
   playerUsername: '',
   email: '',
@@ -81,6 +81,11 @@ const validator = computed(() =>
     ...(props.signupSetting?.requireBank && {
       password: Rules().required(t('validation.pleaseEnterPassword')).password(t('passwordErr')),
     }),
+    ...(props.signupSetting?.requireBank && {
+      confirmPassword: Rules()
+        .required(t('validation.pleaseEnterPassword'))
+        .isMatch({ errMsg: t('validation.passwordsNotMatch'), field: 'password' }),
+    }),
     ...(useLobbySetting()?.enableReferCode &&
       props.signupSetting?.requireBank && {
         dateOfBirth: Rules()
@@ -102,17 +107,18 @@ const validator = computed(() =>
 )
 
 // Fuctions
-const checkUsername = useDebounceFn(() => onCheckData('playerUsername'), 200)
-const checkEmail = useDebounceFn(() => onCheckData('email'), 200)
-const checkPhone = useDebounceFn(() => onCheckData('phone'), 200)
+const checkUsername = useDebounceFn(() => handleCheckData('playerUsername'), 200)
+const checkEmail = useDebounceFn(() => handleCheckData('email'), 200)
+const checkPhone = useDebounceFn(() => handleCheckData('phone'), 200)
 
-const onCheckData = async (field) => {
-  try {
-    await profileCheckData({ [field]: form?.[field] || '' })
-    return ''
-  } catch (error) {
-    return error?.data
+const handleInput = (field) => {
+  if (field === 'playerUsername') {
+    form.playerUsername = form.playerUsername.toLowerCase()
   }
+  if (field === 'phone') {
+    form.callingPhone = convertPhoneNumber(form.phone, form.callingCode[0]?.callingCode)
+  }
+  validator.value.validate(field)
 }
 
 const setCallingCode = () => {
@@ -123,6 +129,29 @@ const setValueToMainForm = () => {
   Object.keys(form).forEach((o) => {
     props.setForm(o, form[o])
   })
+}
+
+const handleCheckData = async (field) => {
+  try {
+    await profileCheckData({ [field]: form?.[field] || '' })
+    return ''
+  } catch {
+    return t(textErrors[field])
+  }
+}
+
+const onSubmit = () => {
+  if (!validator.value.isFormValid) return
+  // if require verify
+  if (props?.signupSetting?.verifyRegister === true) {
+    onSendOtp()
+    return
+  }
+  // if not require verify
+  if (props?.signupSetting?.verifyRegister === false) {
+    setValueToMainForm()
+    props.nextStep()
+  }
 }
 
 const onSendOtp = async () => {
@@ -186,32 +215,43 @@ onMounted(() => {
       }}
     </div>
     <div class="w-full">
-      <UForm class="space-y-4" @submit="onSendOtp">
+      <pre>{{ errors }}</pre>
+      <UForm :state="form" class="space-y-4" @submit="onSubmit">
         <UFormGroup
           v-if="signupSetting?.registerWith?.username"
           :label="t('username')"
           name="playerUsername"
+          :error="errors?.playerUsername?.message"
         >
           <BaseInput
             v-model="form.playerUsername"
             :placeholder="t('username')"
-            @keyup="validator.validate('playerUsername')"
+            @update:model-value="handleInput('playerUsername')"
           />
         </UFormGroup>
-        <UFormGroup v-if="signupSetting?.registerWith?.email" :label="t('email')" name="email">
+        <UFormGroup
+          v-if="signupSetting?.registerWith?.email"
+          :label="t('email')"
+          name="email"
+          :error="errors?.email?.message"
+        >
           <BaseInput
             v-model="form.email"
             :placeholder="t('email')"
-            @keyup="validator.validate('email')"
+            @update:model-value="handleInput('email')"
           />
         </UFormGroup>
-        <UFormGroup v-if="signupSetting?.registerWith?.phone" :label="t('phone')" name="phone">
+        <UFormGroup
+          v-if="signupSetting?.registerWith?.phone"
+          :label="t('phone')"
+          name="phone"
+          :error="errors?.phone?.message"
+        >
           <BaseInput
             v-model="form.phone"
             :placeholder="t('phone')"
-            type="tel"
             :maxlength="10"
-            @keyup="validator.validate('phone')"
+            @update:model-value="handleInput('phone')"
           />
         </UFormGroup>
         <div v-if="signupSetting.requireBank" class="w-full flex justify-between gap-2">
@@ -227,7 +267,7 @@ onMounted(() => {
             <BaseInput
               v-model="form.dateOfBirth"
               type="date"
-              @keyup="validator.validate('dateOfBirth')"
+              @update:model-value="handleInput('dateOfBirth')"
             />
           </UFormGroup>
           <UFormGroup
@@ -242,7 +282,7 @@ onMounted(() => {
             <BaseInput
               v-model="form.referCode"
               placeholder="กรอกรหัสเชิญเพื่อน"
-              @keyup="validator.validate('referCode')"
+              @update:model-value="handleInput('referCode')"
             />
           </UFormGroup>
         </div>
@@ -251,7 +291,7 @@ onMounted(() => {
             v-model="form.password"
             type="password"
             placeholder="กรอกรหัสผ่าน"
-            @keyup="validator.validate('password')"
+            @update:model-value="handleInput('password')"
           />
         </UFormGroup>
         <UFormGroup v-if="signupSetting.requireBank" label="ยืนยันรหัสผ่าน" name="confirmPassword">
@@ -268,6 +308,7 @@ onMounted(() => {
           :ui="{ rounded: 'rounded-full' }"
           size="xl"
           variant="solid"
+          :disabled="!validator.isFormValid"
         >
           <p>ต่อไป</p>
           <UIcon name="carbon:arrow-right" class="w-5 h-5" />

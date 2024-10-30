@@ -22,6 +22,7 @@ const form = reactive({
   bankCode: '',
   accountNumber: '',
 })
+const errors = reactive({})
 
 // Computeds
 const bankList = computed(() => bankListByCurrency.value(useCurrencyCode()))
@@ -47,14 +48,6 @@ const validator = computed(() =>
 const checkAccountName = useDebounceFn(() => handleCheckData('accountName'), 200)
 const checkBankCode = useDebounceFn(() => handleCheckData('bankCode'), 200)
 const checkAccountNumber = useDebounceFn(() => handleCheckData('accountNumber'), 200)
-
-const handleChangeCurrency = () => {
-  if (form?.bankCode?.currencyCode === useCurrencyCode()) return
-  fetchBankList({ currencyCode: useCurrencyCode() })
-  form.bankCode = ''
-  form.accountNumber = ''
-  validator.value.clearErrorFields(['bankCode', 'accountNumber'])
-}
 
 const handleCheckData = async (field) => {
   if (!(form.accountName && form.accountNumber && form.bankCode)) return
@@ -106,14 +99,14 @@ onMounted(() => {
   <div class="flex justify-center items-center flex-col w-full">
     <div class="w-full">
       <UForm class="space-y-4" @submit="handleSubmit">
-        <UFormGroup label="ชื่อบัญชี" name="accountName">
+        <UFormGroup label="ชื่อบัญชี" name="accountName" :error="errors?.accountName?.message">
           <BaseInput
             v-model="form.accountName"
             placeholder="กรอกชื่อบัญชี"
-            @keyup="validator.validate('accountName')"
+            @update:model-value="validator.validate('accountName')"
           />
         </UFormGroup>
-        <UFormGroup label="ธนาคาร" name="bankCode">
+        <UFormGroup label="ธนาคาร" name="bankCode" :error="errors?.bankCode?.message">
           <USelectMenu
             v-model="form.bankCode"
             :options="bankList"
@@ -121,7 +114,7 @@ onMounted(() => {
             value-attribute="bankCode"
             option-attribute="bankDescription"
             placeholder="เลือกธนาคาร"
-            @change="handleChangeCurrency"
+            @update:model-value="validator.validate('bankCode')"
           >
             <template #option="{ option: value }">
               <UAvatar v-if="value" v-bind="{ src: value?.imageUrl }" size="2xs" />
@@ -129,12 +122,16 @@ onMounted(() => {
             </template>
           </USelectMenu>
         </UFormGroup>
-        <UFormGroup label="เลขบัญชีธนาคาร" name="accountNumber">
+        <UFormGroup
+          label="เลขบัญชีธนาคาร"
+          name="accountNumber"
+          :error="errors?.accountNumber?.message"
+        >
           <BaseInput
             v-model="form.accountNumber"
             type="number"
             placeholder="กรอกเลขบัญชีธนาคาร"
-            @keyup="validator.validate('accountNumber')"
+            @update:model-value="validator.validate('accountNumber')"
           />
         </UFormGroup>
         <div class="w-full flex justify-center items-center gap-2">

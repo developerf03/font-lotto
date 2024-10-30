@@ -108,8 +108,19 @@ const handleWithdrawSubmit = async () => {
     console.log(error)
     if (error?.data?.code === 4078) {
       //
+      useAlert({
+        warning: true,
+        title: t('alert'),
+        text: t('withdrawConditionTurnover', { turnover: error?.data?.turnover }),
+        confirmButtonText: t('close'),
+      })
     } else {
       //
+      useAlert({
+        error: true,
+        title: t(error?.data?.code),
+        autoHide: true,
+      })
     }
     loading.value = false
   }
@@ -280,7 +291,11 @@ onMounted(() => {
         <div class="text-lg font-normal">
           {{ t('withdrawalConditions') }}
         </div>
-        <div v-for="(group, groupIndex) in withdrawCondition" :key="groupIndex" class="w-full flex justify-center items-center flex-col gap-4 mt-3">
+        <div
+          v-for="(group, groupIndex) in withdrawCondition"
+          :key="groupIndex"
+          class="w-full flex justify-center items-center flex-col gap-4 mt-3"
+        >
           <div v-for="(item, index) in group" :key="index" class="pl-4 w-full">
             <div class="span-dashed text-sm font-normal text-secondary pl-4">
               {{ item.text }}

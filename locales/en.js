@@ -78,6 +78,8 @@ export default {
   depositAmountSuccess: 'Deposit {amount} {unit} successfully',
   withdrawAmountSuccess: 'Withdraw {amount} {unit} successfully',
   contactAdmin: 'Contact admin',
+  withdrawConditionTurnover:
+    'Please make a turnover of more than or equal to {turnover} to be able to withdraw',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

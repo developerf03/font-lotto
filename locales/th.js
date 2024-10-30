@@ -78,6 +78,7 @@ export default {
   depositAmountSuccess: 'ฝากเงินจำนวน {amount} {unit} สำเร็จ',
   withdrawAmountSuccess: 'ถอนเงินจำนวน {amount} {unit} สำเร็จ',
   contactAdmin: 'ติดต่อผู้ดูแลระบบ',
+  withdrawConditionTurnover: 'กรุณาทำเทิร์นมากกว่าหรือเท่ากับ {turnover} จึงจะสามารถถอนได้',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

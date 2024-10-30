@@ -85,6 +85,11 @@ const handleDepositSubmit = async () => {
     }
   } catch (error) {
     //
+    useAlert({
+      error: true,
+      title: t(error?.data?.code),
+      autoHide: true,
+    })
     loading.value = false
     console.log('catch', error)
   }
@@ -130,7 +135,7 @@ const inputCheckPro = () => {
     if (paymentModal.value?.code) {
       onPromotionSelected(promotionSelected.value)
     }
-  }, 300);
+  }, 300)
 }
 
 // onMounted
@@ -205,7 +210,6 @@ onMounted(() => {
             </div>
           </div>
         </template>
-        <pre>{{depositForm.deposit}}</pre>
         <BaseInput
           v-model="depositForm.deposit"
           placeholder="0.00"

@@ -78,6 +78,7 @@ export default {
   depositAmountSuccess: 'Nạp thành công {amount} {unit}',
   withdrawAmountSuccess: 'Rút thành công {amount} {unit}',
   contactAdmin: 'Liên hệ quản trị viên',
+  withdrawConditionTurnover: 'Vui lòng thực hiện doanh thu bằng hoặc lớn hơn {turnover} để có thể rút tiền',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

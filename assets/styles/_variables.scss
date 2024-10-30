@@ -1,0 +1,21 @@
+/*=========================================================================================
+  File Name: _variables.scss
+  Description: partial- SCSS varibales
+  ----------------------------------------------------------------------------------------
+  Author: Attitude
+==========================================================================================*/
+$global-setting: (
+  base-font-size: 16px,
+  base-font-weight: 400,
+  base-line-height: 1.625rem,
+  border-radius: 10px,
+  font-family: "Kanit, 'Roboto', sans-serif",
+);
+
+$global-colors: (
+  light: #ffffff,
+  dark: #000000,
+  success: #39b22e,
+  warning: #f39727,
+  danger: #ff4c51,
+);

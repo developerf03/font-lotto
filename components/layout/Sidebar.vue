@@ -1,5 +1,6 @@
-<template>
-  <aside class="bg-blue-gray-800 sm:w-[200px] min-h-[90vh]">
+<script setup>
+</script>
 
-  </aside>
+<template>
+  <aside>hi</aside>
 </template>

@@ -13,6 +13,7 @@
   --font-highlight: #569ff7;
   --font-error: #ff4c51;
   --font-success: #39b22e;
+  --font-warning: #f39727;
   --font-white: #ffffff;
 
   // BUTTON
@@ -30,6 +31,8 @@
   // CARD
   --card-primary: #1e1e1e;
   --card-secondary: #393939;
+  --card-success: #49cd42;
+  --card-error: #ff4c51;
 
   // ICON
   --icon-default: #569ff7;
@@ -80,6 +83,4 @@
   --vertical-navigation-bg-click: #64aaff;
   --vertical-navigation-text: var(--font-primary);
   --vertical-navigation-text-active: var(--font-white);
-
-  --body: #111111;
 }

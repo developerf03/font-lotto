@@ -1,8 +1,20 @@
+/*========================================================
+  Custom Classes
+=========================================================*/
 * {
   margin: 0;
   padding: 0;
 }
 
+html {
+  // background-color: var(--body-primary);
+  color: var(--font-primary) !important;
+  background-image: url('~/assets/images/backgrounds/bg.webp');
+  background-size: cover;
+  background-position: top center;
+  background-color: var(--card-secondary);
+}
+
 body {
-  background-color: var(--body);
+  color: var(--font-primary) !important;
 }

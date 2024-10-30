@@ -1,0 +1,40 @@
+export default {
+  wrapper: 'relative',
+  container: 'z-50 group',
+  trigger: 'inline-flex w-full',
+  width: '',
+  background: 'bg-[var(--card-primary)] dark:bg-gray-900',
+  shadow: 'shadow-lg',
+  rounded: 'rounded-[10px]',
+  ring: 'ring-1 ring-gray-200 dark:ring-gray-800',
+  base: 'overflow-hidden focus:outline-none relative',
+  transition: {
+    enterActiveClass: 'transition ease-out duration-200',
+    enterFromClass: 'opacity-0 translate-y-1',
+    enterToClass: 'opacity-100 translate-y-0',
+    leaveActiveClass: 'transition ease-in duration-150',
+    leaveFromClass: 'opacity-100 translate-y-0',
+    leaveToClass: 'opacity-0 translate-y-1',
+  },
+  overlay: {
+    base: 'fixed inset-0 transition-opacity z-50',
+    background: 'bg-gray-200/75 dark:bg-gray-800/75',
+    transition: {
+      enterActiveClass: 'ease-out duration-200',
+      enterFromClass: 'opacity-0',
+      enterToClass: 'opacity-100',
+      leaveActiveClass: 'ease-in duration-150',
+      leaveFromClass: 'opacity-100',
+      leaveToClass: 'opacity-0',
+    },
+  },
+  arrow: {
+    base: 'invisible before:visible before:block before:rotate-45 before:z-[-1] before:w-2 before:h-2',
+    ring: 'before:ring-1 before:ring-gray-200 dark:before:ring-gray-800',
+    rounded: 'before:rounded-sm',
+    background: 'before:bg-gray-200 dark:before:bg-gray-800',
+    shadow: 'before:shadow',
+    placement:
+      'group-data-[popper-placement*=\'right\']:-left-1 group-data-[popper-placement*=\'left\']:-right-1 group-data-[popper-placement*=\'top\']:-bottom-1 group-data-[popper-placement*=\'bottom\']:-top-1',
+  },
+}

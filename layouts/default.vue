@@ -6,7 +6,6 @@ import MobileFooter from '~/components/layout/MobileFooter.vue'
 // Composables
 const { user } = useAuth()
 const menu = useMenu()
-
 </script>
 
 <template>
@@ -14,7 +13,7 @@ const menu = useMenu()
   <MobileHeader class="mlg:hidden" />
   <!-- MAIN CONTENT -->
   <main
-    class="flex gap-8 max-w-[calc(1784px + 66px)] px-[66px] py-[146px] 2xl:p-0 mlg:(pt-10 pb-10 h-[100dvh]) lg:(pt-[170px] px-10) <lg:(px-[20px]) <sm:(px-[18px])"
+    class="flex gap-8 max-w-[calc(1784px + 66px)] px-[66px] py-[146px] 2xl:p-0 mlg:(pt-10 pb-10) lg:(pt-[170px] px-10) <lg:(px-[20px]) <sm:(px-[18px])"
     :class="[{ 'pt-[161px]': user }]"
   >
     <!-- MENU -->

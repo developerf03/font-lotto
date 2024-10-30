@@ -72,10 +72,8 @@ export const useInitLang = () => {
 }
 
 export const useInitHead = (setting) => {
-  const { $i18n } = useNuxtApp()
-
-  const locale = $i18n.locale.value
-
+  console.log('setting', setting);
+  
   useHead({
     title: setting.title,
     meta: [
@@ -116,8 +114,5 @@ export const useInitHead = (setting) => {
         href: setting?.faviconUrl,
       },
     ],
-    htmlAttrs: {
-      lang: locale || 'th',
-    },
   })
 }

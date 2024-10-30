@@ -65,10 +65,10 @@ const handleSubmit = async () => {
   <BaseModal v-model="loginModal" disable-click-out logo>
     <p class="text-center mb-5">{{ t('login') }}</p>
     <!-- FORM -->
-    <UForm validate-on="submit" class="w-full" @submit="handleSubmit">
+    <UForm :state="form" class="w-full" @submit="handleSubmit">
       <!-- USERNAME -->
       <UFormGroup
-        :label="t(placeholder)"
+        :label="placeholder"
         name="username"
         class="mb-4"
         :error="errors?.username?.message"
@@ -76,7 +76,7 @@ const handleSubmit = async () => {
         <BaseInput
           v-model="form.username"
           :placeholder="placeholder"
-          @update:model-value="validator.validate('phone')"
+          @update:model-value="validator.validate('username')"
         />
       </UFormGroup>
       <!-- PASSWORD -->
@@ -85,7 +85,7 @@ const handleSubmit = async () => {
           v-model="form.password"
           type="password"
           :placeholder="'password'"
-          @update:model-value="validator.validate('phone')"
+          @update:model-value="validator.validate('password')"
         />
       </UFormGroup>
       <!-- LINK FORGOT PASSWORD -->

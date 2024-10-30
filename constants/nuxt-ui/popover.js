@@ -3,10 +3,10 @@ export default {
   container: 'z-50 group',
   trigger: 'inline-flex w-full',
   width: '',
-  background: 'bg-[var(--card-primary)] bg-gray-900',
+  background: 'card-primary',
   shadow: 'shadow-lg',
-  rounded: 'rounded-[10px]',
-  ring: 'ring-1 ring-gray-200 ring-gray-800',
+  rounded: 'rounded-[10px] border border-solid border-[var(--color-200)]',
+  ring: '',
   base: 'overflow-hidden focus:outline-none relative',
   transition: {
     enterActiveClass: 'transition ease-out duration-200',

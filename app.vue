@@ -13,9 +13,8 @@ import Profile from '~/components/modal/Profile.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-const theme = useCookie('theme', { default: () => 'dark-theme' })
+const theme = useCookie('theme', { default: () => 'light-theme' })
 const { locale } = useI18n()
-
 </script>
 
 <template>

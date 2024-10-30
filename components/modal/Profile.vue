@@ -75,7 +75,7 @@ const onSubmit = () => {
 <template>
   <BaseModal v-model="profileModal" title="โปรไฟล์" disable-click-out @opened="onOpenModal">
     <div class="w-full flex flex-col gap-4 lg:gap-5">
-      <UForm class="space-y-4" @submit="onSubmit">
+      <UForm :state="form" class="space-y-4" @submit="onSubmit">
         <!-- PHONE -->
         <UFormGroup label="เบอร์โทร" name="phone" :error="errors?.phone?.message">
           <BaseInput
@@ -84,7 +84,7 @@ const onSubmit = () => {
             input-class="!pr-[140px]"
             trailing
             :readonly="!isEdit"
-            @keyup="validator.validate('phone')"
+            @update:model-value="validator.validate('phone')"
           >
             <template #trailing>
               <BaseVerifyTag :verify="signUpSetting?.isVerify" />
@@ -99,7 +99,7 @@ const onSubmit = () => {
             input-class="!pr-[140px]"
             trailing
             :readonly="!isEdit"
-            @keyup="validator.validate('email')"
+            @update:model-value="validator.validate('email')"
           >
             <template #trailing>
               <BaseVerifyTag :verify="signUpSetting?.isVerify" />

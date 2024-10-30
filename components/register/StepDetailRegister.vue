@@ -37,6 +37,7 @@ const form = reactive({
   referCode: route.query?.ref || referCodeLocal.value || '',
   affCode: route.query?.aff_regis_code?.toUpperCase() || affCodeLocal.value?.toUpperCase() || '',
 })
+const errors = reactive({})
 
 // Computeds
 const validator = computed(() =>
@@ -78,7 +79,7 @@ const handleSubmit = () => {
 <template>
   <div class="flex justify-center items-center flex-col w-full">
     <div class="w-full">
-      <UForm class="space-y-4" @submit="handleSubmit">
+      <UForm :state="form" class="space-y-4" @submit="handleSubmit">
         <UFormGroup v-if="signupSetting?.verifyWith === 'email'" label="Email" name="email">
           <BaseInput :model-value="email" placeholder="email" readonly />
         </UFormGroup>
@@ -100,12 +101,13 @@ const handleSubmit = () => {
             class="w-full"
             label="วันเกิด"
             name="dateOfBirth"
+            :error="errors?.dateOfBirth?.message"
           >
             <BaseInput
               v-model="form.dateOfBirth"
               type="date"
               placeholder="เช่น 01/01/2000"
-              @keyup="validator.validate('dateOfBirth')"
+              @update:model-value="validator.validate('dateOfBirth')"
             />
           </UFormGroup>
           <UFormGroup
@@ -116,20 +118,21 @@ const handleSubmit = () => {
             class="w-full"
             label="Referal Code"
             name="referCode"
+            :error="errors?.referCode?.message"
           >
             <BaseInput
               v-model="form.referCode"
               placeholder="กรอกรหัสเชิญเพื่อน"
-              @keyup="validator.validate('referCode')"
+              @update:model-value="validator.validate('referCode')"
             />
           </UFormGroup>
         </div>
-        <UFormGroup label="รหัสผ่าน" name="password">
+        <UFormGroup label="รหัสผ่าน" name="password" :error="errors?.password?.message">
           <BaseInput
             v-model="form.password"
             type="password"
             placeholder="กรอกรหัสผ่าน"
-            @keyup="validator.validate('password')"
+            @update:model-value="validator.validate('password')"
           />
         </UFormGroup>
         <UFormGroup label="ยืนยันรหัสผ่าน" name="confirmPassword">

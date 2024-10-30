@@ -19,7 +19,7 @@ const { locale } = useI18n()
 </script>
 
 <template>
-  <Html :class="theme" :lang="locale">
+  <Html :class="theme || 'dark-theme'" :lang="locale">
     <Head>
       <Title>{{ $t('welcome') }}</Title>
     </Head>

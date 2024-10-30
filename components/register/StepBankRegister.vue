@@ -1,6 +1,5 @@
 <script setup>
 // Imports
-import { object, string } from 'yup'
 import { useDebounceFn } from '@vueuse/core'
 
 // Props
@@ -18,75 +17,52 @@ const { bankListByCurrency, fetchBankList } = usePayment()
 const { profileCheckData } = usePlayerStore()
 
 // State
-const formRef = ref(null)
 const form = reactive({
-  form: {
-    accountName: '',
-    bankCode: '',
-    accountNumber: '',
-  },
-  schema: object({
-    accountName: string().test({
-      async test(value, ctx) {
-        if (!value) {
-          return ctx.createError({ message: 'Specify holder name' })
-        }
-        const data = await checkAccountName()
-        if (data) {
-          return ctx.createError({ message: data })
-        }
-        return true
-      },
-    }),
-    bankCode: string()
-      .required('Please Select bank')
-      .test({
-        async test(value, ctx) {
-          const data = await checkBankCode()
-          if (data) {
-            return ctx.createError({ message: data })
-          }
-          return true
-        },
-      }),
-    accountNumber: string()
-      .min(10, 'Please enter at least 10 digits')
-      .test({
-        async test(value, ctx) {
-          if (!value) {
-            return ctx.createError({ message: 'Specify account number' })
-          }
-          if (value.length > 20) {
-            return ctx.createError({ message: 'Maximum length 20 digits' })
-          }
-          const data = await checkAccountNumber()
-          if (data) {
-            return ctx.createError({ message: data })
-          }
-          return true
-        },
-      }),
-  }),
-  onSubmit: async () => {
-    handleSubmit()
-  },
+  accountName: '',
+  bankCode: '',
+  accountNumber: '',
 })
 
 // Computeds
 const bankList = computed(() => bankListByCurrency.value(useCurrencyCode()))
+const validator = computed(() =>
+  useValidator(form, errors).rules({
+    accountName: Rules().required(t('specifyHolderName')).custom(checkAccountName),
+    accountNumber: Rules()
+      .required(t('specifyAccountnumber'))
+      .minLength({
+        errMsg: t('validation.pleaseInputAtLeast', { min: 10 }),
+        min: 10,
+      })
+      .maxLength({
+        errMsg: t('validation.maximumLength', { max: 20 }),
+        max: 20,
+      })
+      .custom(checkAccountNumber),
+    bankCode: Rules().required(t('specifyBankcode')).custom(checkBankCode),
+  }),
+)
 
 // Functions
 const checkAccountName = useDebounceFn(() => handleCheckData('accountName'), 200)
 const checkBankCode = useDebounceFn(() => handleCheckData('bankCode'), 200)
 const checkAccountNumber = useDebounceFn(() => handleCheckData('accountNumber'), 200)
 
+const handleChangeCurrency = () => {
+  if (form?.bankCode?.currencyCode === useCurrencyCode()) return
+  fetchBankList({ currencyCode: useCurrencyCode() })
+  form.bankCode = ''
+  form.accountNumber = ''
+  validator.value.clearErrorFields(['bankCode', 'accountNumber'])
+}
+
 const handleCheckData = async (field) => {
-  if (!(form.form.accountName && form.form.accountNumber && form.form.bankCode)) return
+  if (!(form.accountName && form.accountNumber && form.bankCode)) return
   try {
     await profileCheckData({
-      accountName: form.form.accountName,
-      accountNumber: form.form.accountNumber,
-      bankCode: form.form.bankCode,
+      accountName: form.accountName,
+      accountNumber: form.accountNumber,
+      bankCode: form.bankCode,
     })
     return ''
   } catch (error) {
@@ -108,8 +84,8 @@ const handleCancelBank = () => {
 }
 
 const setValueToMainForm = () => {
-  Object.keys(form.form).forEach((o) => {
-    props.setForm(o, form.form[o])
+  Object.keys(form).forEach((o) => {
+    props.setForm(o, form[o])
   })
 }
 
@@ -129,33 +105,24 @@ onMounted(() => {
 <template>
   <div class="flex justify-center items-center flex-col w-full">
     <div class="w-full">
-      <UForm
-        ref="formRef"
-        :schema="form.schema"
-        :state="form.form"
-        class="space-y-4"
-        @submit="form.onSubmit"
-      >
+      <UForm class="space-y-4" @submit="handleSubmit">
         <UFormGroup label="ชื่อบัญชี" name="accountName">
           <BaseInput
-            v-model="form.form.accountName"
+            v-model="form.accountName"
             placeholder="กรอกชื่อบัญชี"
-            @input="formRef.validate('accountName', { silent: true })"
+            @keyup="validator.validate('accountName')"
           />
         </UFormGroup>
         <UFormGroup label="ธนาคาร" name="bankCode">
           <USelectMenu
-            v-model="form.form.bankCode"
+            v-model="form.bankCode"
             :options="bankList"
             searchable
             value-attribute="bankCode"
             option-attribute="bankDescription"
             placeholder="เลือกธนาคาร"
+            @change="handleChangeCurrency"
           >
-            <template #leading="{ value }">
-              <pre>{{ value }}</pre>
-              <UAvatar v-if="value" v-bind="{ src: value?.imageUrl }" size="2xs" />
-            </template>
             <template #option="{ option: value }">
               <UAvatar v-if="value" v-bind="{ src: value?.imageUrl }" size="2xs" />
               <span>{{ value.bankDescription }}</span>
@@ -164,10 +131,10 @@ onMounted(() => {
         </UFormGroup>
         <UFormGroup label="เลขบัญชีธนาคาร" name="accountNumber">
           <BaseInput
-            v-model="form.form.accountNumber"
+            v-model="form.accountNumber"
             type="number"
             placeholder="กรอกเลขบัญชีธนาคาร"
-            @input="formRef.validate('accountNumber', { silent: true })"
+            @keyup="validator.validate('accountNumber')"
           />
         </UFormGroup>
         <div class="w-full flex justify-center items-center gap-2">

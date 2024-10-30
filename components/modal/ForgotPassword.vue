@@ -1,7 +1,7 @@
 <script setup>
 // Import
-import ForgotPassowrdStepUsername from '~/components/forgotpassword/StepUsername.vue'
-import ForgotPassowrdStepOtp from '~/components/forgotpassword/StepOtp.vue'
+import ForgotPassowrdStepUsername from '~/components/forgotpassword/StepUsernameForgotpassword.vue'
+import ForgotPassowrdStepOtp from '~/components/forgotpassword/StepOtpForgotpasasword.vue'
 import ForgotPassowrdStepNewPassword from '~/components/forgotpassword/StepNewPassword.vue'
 
 // Composables

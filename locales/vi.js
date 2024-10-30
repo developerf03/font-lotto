@@ -78,6 +78,9 @@ export default {
   depositAmountSuccess: 'Nạp thành công {amount} {unit}',
   withdrawAmountSuccess: 'Rút thành công {amount} {unit}',
   contactAdmin: 'Liên hệ quản trị viên',
+  lightTheme: 'Chế độ Sáng',
+  darkTheme: 'Chế độ Tối',
+
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {
@@ -144,6 +147,7 @@ export default {
     mustContainLettersNumericUnderscore: 'Phải chứa các chữ cái a-z, A-Z, 0-9 hoặc _',
     passwordsNotMatch: 'Mật khẩu không khớp',
     pleaseEnterDateOfBirth: 'Vui lòng nhập ngày sinh',
+    invalidDateFormat: 'Định dạng ngày không đúng',
   },
   2000: 'Cổng không khả dụng',
   2001: 'Cổng trong đại lý không khả dụng',

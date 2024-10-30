@@ -20,12 +20,12 @@ export const useAuthStore = defineStore(
     const isAuthenticated = computed(() => !!user.value)
 
     // Watch
-    watch(user, (newUser) => {
-      // Handle after logout
-      if (!newUser) {
-        $navigateTo('/login')
-      }
-    })
+    // watch(user, (newUser) => {
+    // Handle after logout
+    //   if (!newUser) {
+    //     $navigateTo('/login')
+    //   }
+    // })
 
     // Functions
     const login = async (payload = {}) => {

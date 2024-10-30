@@ -78,6 +78,9 @@ export default {
   depositAmountSuccess: 'Deposit {amount} {unit} successfully',
   withdrawAmountSuccess: 'Withdraw {amount} {unit} successfully',
   contactAdmin: 'Contact admin',
+  lightTheme: 'Light Mode',
+  darkTheme: 'Dark Mode',
+
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {
@@ -144,6 +147,7 @@ export default {
     mustContainLettersNumericUnderscore: 'Must contain letters a-z, A-Z, 0-9 or _',
     passwordsNotMatch: 'Passwords do not match',
     pleaseEnterDateOfBirth: 'Please enter date of birth',
+    invalidDateFormat: 'Invalid date format',
   },
   2000: 'Gateway Is Not Avaliable',
   2001: 'Gateway In Agent Is Not Avaliable',

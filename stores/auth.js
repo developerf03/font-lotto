@@ -19,12 +19,12 @@ export const useAuthStore = defineStore(
     const isAuthenticated = computed(() => !!user.value)
 
     // Watch
-    watch(user, (newUser) => {
-      // Handle after logout
-      if (!newUser) {
-        $navigateTo('/login')
-      }
-    })
+    // watch(user, (newUser) => {
+    // Handle after logout
+    //   if (!newUser) {
+    //     $navigateTo('/login')
+    //   }
+    // })
 
     // Functions
     const login = async (payload = {}) => {
@@ -33,6 +33,7 @@ export const useAuthStore = defineStore(
       try {
         loading.value = true
         const res = await useAPI().$post(apiUrl, payload)
+
         accessToken.value = res.accessToken
         refreshToken.value = res.refreshToken
 
@@ -78,6 +79,7 @@ export const useAuthStore = defineStore(
         return res.accessToken
       } catch (error) {
         user.value = null
+
         return null
       }
     }

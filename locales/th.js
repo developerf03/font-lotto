@@ -147,6 +147,7 @@ export default {
     mustContainLettersNumericUnderscore: 'ห้ามกรอกภาษาไทยหรืออักขระพิเศษ',
     passwordsNotMatch: 'รหัสผ่านไม่ตรงกัน',
     pleaseEnterDateOfBirth: 'กรุณากรอกวันเกิด',
+    invalidDateFormat: 'รูปแบบวันที่ไม่ถูกต้อง',
   },
   2000: 'เกตเวย์ไม่พร้อมใช้งาน',
   2544: 'เกตเวย์ในตัวแทนไม่พร้อมใช้งาน',

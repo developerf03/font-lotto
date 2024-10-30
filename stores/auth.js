@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { defineStore } from 'pinia'
 import { jwtDecode } from 'jwt-decode'
 import { timeDiff } from '@/utils/date'
@@ -33,6 +34,7 @@ export const useAuthStore = defineStore(
       try {
         loading.value = true
         const res = await useAPI().$post(apiUrl, payload)
+
         accessToken.value = res.accessToken
         refreshToken.value = res.refreshToken
 
@@ -54,12 +56,17 @@ export const useAuthStore = defineStore(
     }
 
     const fetchUser = async () => {
-      loadingFetchUser.value = true
+      try {
+        loadingFetchUser.value = true
+        const res = await useAPI().$get('/api/auth/profiles')
 
-      const res = await useAPI().$get('/api/auth/profile')
-
-      user.value = res
-      loadingFetchUser.value = false
+        user.value = res
+      } catch (error) {
+         
+        user.value = null
+      } finally {
+        loadingFetchUser.value = false
+      }
     }
 
     const jwtRefreshToken = async () => {
@@ -76,8 +83,10 @@ export const useAuthStore = defineStore(
         refreshToken.value = res.refreshToken
 
         return res.accessToken
+         
       } catch (error) {
         user.value = null
+
         return null
       }
     }

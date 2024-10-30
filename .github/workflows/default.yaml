@@ -1,0 +1,26 @@
+name: Lotto CICD workflow
+on:
+  push:
+    branches:
+      - "staging"
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  CI:
+    uses: tEiQnZPp8hvWMq2/workflows/.github/workflows/ci.yml@main
+    with:
+      repository-name: 'tm-frontend-lotto'
+      service-name: "lotto"
+      name-space: 'tm-frontend'
+    secrets: inherit
+
+  CD:
+    needs:
+      - CI
+    uses: tEiQnZPp8hvWMq2/workflows/.github/workflows/cd.yml@main
+    with:
+      repository-name: 'tm-frontend-lotto'
+      service-name: "lotto"
+      name-space: "tm-frontend"
+    secrets: inherit

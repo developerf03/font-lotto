@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 export const useAPI = () => {
-  const { notify } = useNotification();
+  const { notify } = useNotification()
   const config = useRuntimeConfig()
   const lang = useCookie('i18n_redirected')
   const { jwtRefreshToken, logout, accessToken } = useAuth()
@@ -23,7 +23,13 @@ export const useAPI = () => {
   }
 
   // Variables
-  const bearerIgnorePath = ['/signin', '/specialGameList', '/gameSearch', '/refreshtoken', '/providerSearch']
+  const bearerIgnorePath = [
+    '/signin',
+    '/specialGameList',
+    '/gameSearch',
+    '/refreshtoken',
+    '/providerSearch',
+  ]
   const tokenBearer = {
     Authorization: `Bearer ${accessToken.value}`,
   }
@@ -64,8 +70,8 @@ export const useAPI = () => {
       // alert('sorryThereWasLoginFromAnother')
       notify({
         type: 'error',
-        text: "sorryThereWasLoginFromAnother",
-      });
+        text: 'sorryThereWasLoginFromAnother',
+      })
     }
 
     // if ([5008].includes(response._data.code)) {

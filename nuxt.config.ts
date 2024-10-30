@@ -25,10 +25,11 @@ export default defineNuxtConfig({
   css: ['~/assets/styles/main.scss'],
 
   modules: [
-    '@unocss/nuxt',
     '@nuxtjs/i18n',
+    '@nuxt/eslint',
     '@pinia/nuxt',
     'nuxt3-notifications',
+    '@unocss/nuxt',
   ],
 
   // Runtime Config

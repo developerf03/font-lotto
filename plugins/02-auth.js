@@ -7,5 +7,5 @@ export default defineNuxtPlugin(async ({ $pinia }) => {
       await jwtRefreshToken()
     }
     await fetchUser()
-  } 
+  }
 })

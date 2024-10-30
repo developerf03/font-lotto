@@ -52,10 +52,12 @@ export default defineConfig({
     ['text-white', { color: 'var(--font-white)' }],
     ['text-error', { color: 'var(--font-error)' }],
     ['text-success', { color: 'var(--font-success)' }],
-    ['text-danger', { color: 'var(--danger)' }],
-    ['text-warning', { color: 'var(--warning)' }],
+    ['text-danger', { color: 'var(--font-error)' }],
+    ['text-warning', { color: 'var(--font-warning)' }],
     // CARD
     ['card-primary', { background: 'var(--card-primary)' }],
     ['card-secondary', { background: 'var(--card-secondary)' }],
+    ['card-error', { background: 'var(--card-error)' }],
+    ['card-success', { background: 'var(--card-success)' }],
   ],
 })

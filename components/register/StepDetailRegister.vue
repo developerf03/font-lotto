@@ -1,6 +1,5 @@
 <script setup>
 // Imports
-import { object, string } from 'yup'
 import { useStorage } from '@vueuse/core'
 
 // Props
@@ -31,52 +30,40 @@ const referCodeLocal = useStorage('ref', '')
 const checkValidate = ref(null)
 
 // State
-const formRef = ref(null)
 const form = reactive({
-  form: {
-    password: '',
-    confirmPassword: '',
-    dateOfBirth: '',
-    referCode: route.query?.ref || referCodeLocal.value || '',
-    affCode: route.query?.aff_regis_code?.toUpperCase() || affCodeLocal.value?.toUpperCase() || '',
-  },
-  schema: object({
-    password: string().test({
-      test(value, ctx) {
-        if (!checkValidate.value.checkLength) {
-          return ctx.createError({ message: 'Must be at least 8 characters' })
-        }
-        if (!checkValidate.value.checkUppercase) {
-          return ctx.createError({ message: 'At least 1 uppercase English letter' })
-        }
-        if (!checkValidate.value.checkLowercase) {
-          return ctx.createError({ message: 'At least 1 lowercase English letter' })
-        }
-        if (!checkValidate.value.checkNumbercase) {
-          return ctx.createError({ message: 'At least 1 Number letter' })
-        }
-        return true
-      },
+  password: '',
+  confirmPassword: '',
+  dateOfBirth: '',
+  referCode: route.query?.ref || referCodeLocal.value || '',
+  affCode: route.query?.aff_regis_code?.toUpperCase() || affCodeLocal.value?.toUpperCase() || '',
+})
+
+// Computeds
+const validator = computed(() =>
+  useValidator(form, errors).rules({
+    password: Rules().required(t('validation.pleaseEnterPassword')).password(t('passwordErr')),
+    ...(props.signupSetting?.dateOfBirth && {
+      dateOfBirth: Rules()
+        .required(t('validation.pleaseEnterDateOfBirth'))
+        .custom(handleCheckDateOfBirth),
     }),
-    confirmPassword: string().test({
-      test(value, ctx) {
-        if (value !== form.form.password || !value) {
-          return ctx.createError({ message: `Passwords don't match` })
-        }
-        return true
-      },
+    ...(useLobbySetting()?.enableReferCode && {
+      referCode: Rules().engAlphabetOrNumeric(t('invalidFriendReferralCode')),
+    }),
+    ...((form.affCode || props.setting?.affiliateCodeRequired) && {
+      affCode: props.setting?.affiliateCodeRequired
+        ? Rules()
+            .engAlphabetOrNumeric(t('invalidAffiliateCode'))
+            .required(t('specifyTheAffiliateCode'))
+        : Rules().option().engAlphabetOrNumeric(t('invalidAffiliateCode')),
     }),
   }),
-  onSubmit: async () => {
-    handleSubmit()
-  },
-})
-// Computeds
+)
 
 // Functions
 const setValueToMainForm = () => {
-  Object.keys(form.form).forEach((o) => {
-    props.setForm(o, form.form[o])
+  Object.keys(form).forEach((o) => {
+    props.setForm(o, form[o])
   })
 }
 
@@ -91,13 +78,7 @@ const handleSubmit = () => {
 <template>
   <div class="flex justify-center items-center flex-col w-full">
     <div class="w-full">
-      <UForm
-        ref="formRef"
-        :schema="form.schema"
-        :state="form.form"
-        class="space-y-4"
-        @submit="form.onSubmit"
-      >
+      <UForm class="space-y-4" @submit="handleSubmit">
         <UFormGroup v-if="signupSetting?.verifyWith === 'email'" label="Email" name="email">
           <BaseInput :model-value="email" placeholder="email" readonly />
         </UFormGroup>
@@ -121,15 +102,11 @@ const handleSubmit = () => {
             name="dateOfBirth"
           >
             <BaseInput
-              v-model="form.form.dateOfBirth"
-              :class="{ 'validate-date': !form.form.dateOfBirth }"
+              v-model="form.dateOfBirth"
               type="date"
               placeholder="เช่น 01/01/2000"
-              @input="formRef.validate('dateOfBirth', { silent: true })"
+              @keyup="validator.validate('dateOfBirth')"
             />
-            <span v-if="form.form.dateOfBirth === ''" class="text-danger"
-              >Please select date of birth</span
-            >
           </UFormGroup>
           <UFormGroup
             v-if="useLobbySetting()?.enableReferCode"
@@ -141,24 +118,24 @@ const handleSubmit = () => {
             name="referCode"
           >
             <BaseInput
-              v-model="form.form.referCode"
+              v-model="form.referCode"
               placeholder="กรอกรหัสเชิญเพื่อน"
-              @input="formRef.validate('referCode', { silent: true })"
+              @keyup="validator.validate('referCode')"
             />
           </UFormGroup>
         </div>
         <UFormGroup label="รหัสผ่าน" name="password">
-          <BaseInput v-model="form.form.password" type="password" placeholder="กรอกรหัสผ่าน" />
-        </UFormGroup>
-        <UFormGroup label="ยืนยันรหัสผ่าน" name="confirmPassword">
           <BaseInput
-            v-model="form.form.confirmPassword"
+            v-model="form.password"
             type="password"
             placeholder="กรอกรหัสผ่าน"
-            @input="formRef.validate('confirmPassword', { silent: true })"
+            @keyup="validator.validate('password')"
           />
         </UFormGroup>
-        <BaseValidateList ref="checkValidate" :password="form.form.password" />
+        <UFormGroup label="ยืนยันรหัสผ่าน" name="confirmPassword">
+          <BaseInput v-model="form.confirmPassword" type="password" placeholder="กรอกรหัสผ่าน" />
+        </UFormGroup>
+        <BaseValidateList ref="checkValidate" :password="form.password" />
         <UButton
           label="สมัครสมาชิก"
           class="!w-full"
@@ -180,10 +157,3 @@ const handleSubmit = () => {
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.validate-date {
-  border: 1px solid var(--input-error);
-  border-radius: 6px;
-}
-</style>

@@ -140,14 +140,7 @@ const onInput = (value) => {
   }
 }
 
-const setValueToMainForm = () => {
-  Object.keys(form.form).forEach((o) => {
-    props.setForm(o, form.form[o])
-  })
-}
-
 const handleSubmit = () => {
-  setValueToMainForm()
   setTimeout(() => {
     props.submitRegister()
     setTimeout(() => {

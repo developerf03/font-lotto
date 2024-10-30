@@ -13,6 +13,3 @@ export const useDefaultLangauge = () => {
 export const useCurrencyCode = () => {
   return 'THB'
 }
-
-export const clearObj = (obj = {}, initialVal = '') =>
-  Object.keys(obj).reduce((p, n) => ({ ...p, [n]: initialVal }), {})

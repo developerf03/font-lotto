@@ -5,7 +5,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   ssr: true,
   devtools: { enabled: true },
-
+  colorMode: {
+    preference: 'nuxt',
+  },
   app: {
     head: {
       htmlAttrs: {
@@ -54,7 +56,7 @@ export default defineNuxtConfig({
   ui: {
     global: true,
   },
-  
+
   // Runtime Config
   runtimeConfig: {
     // The private keys which are only available server-side

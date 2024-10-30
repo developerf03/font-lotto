@@ -302,7 +302,7 @@ onMounted(() => {
         </div>
       </div>
       <UButton
-        label="ถอนเงิน"
+        :label="t('withdraw')"
         type="submit"
         size="md"
         variant="solid"

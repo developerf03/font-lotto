@@ -102,14 +102,14 @@ const validator = computed(() =>
       }),
     ...(useLobbySetting()?.enableReferCode &&
       props.signupSetting?.requireBank && {
-        referCode: Rules().engAlphabetOrNumeric(t('invalidFriendReferralCode')),
+        referCode: Rules().engAlphabetOrNumeric(t('validation.invalidFriendReferralCode')),
       }),
     ...((form.affCode || props.setting?.affiliateCodeRequired) && {
       affCode: props.setting?.affiliateCodeRequired
         ? Rules()
-            .engAlphabetOrNumeric(t('invalidAffiliateCode'))
-            .required(t('specifyTheAffiliateCode'))
-        : Rules().option().engAlphabetOrNumeric(t('invalidAffiliateCode')),
+            .engAlphabetOrNumeric(t('validation.invalidAffiliateCode'))
+            .required(t('validation.specifyTheAffiliateCode'))
+        : Rules().option().engAlphabetOrNumeric(t('validation.invalidAffiliateCode')),
     }),
   }),
 )
@@ -279,7 +279,7 @@ onMounted(() => {
               v-model="form.dateOfBirth"
               placeholder="DD/MM/YYYY"
               data-maska="##/##/####"
-              @update:model-value="validator.validate('dateOfBirth')"
+              @update:model-value="handleInput('dateOfBirth')"
             />
           </UFormGroup>
           <UFormGroup
@@ -288,40 +288,41 @@ onMounted(() => {
               '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
             }"
             class="w-full"
-            label="Referal Code"
+            :label="t('referralCode')"
             name="referCode"
             :error="errors?.referCode?.message"
           >
             <BaseInput
               v-model="form.referCode"
-              placeholder="กรอกรหัสเชิญเพื่อน"
+              :placeholder="t('referralCode')"
+              :disabled="!!route.query?.ref || !!referCodeLocal"
               @update:model-value="handleInput('referCode')"
             />
           </UFormGroup>
         </div>
         <UFormGroup
           v-if="signupSetting.requireBank"
-          label="รหัสผ่าน"
+          :label="t('password')"
           name="password"
           :error="errors?.password?.message"
         >
           <BaseInput
             v-model="form.password"
             type="password"
-            placeholder="กรอกรหัสผ่าน"
+            :placeholder="t('password')"
             @update:model-value="handleInput('password'), handleInput('confirmPassword')"
           />
         </UFormGroup>
         <UFormGroup
           v-if="signupSetting.requireBank"
-          label="ยืนยันรหัสผ่าน"
+          :label="t('confirmPassword')"
           name="confirmPassword"
           :error="errors?.confirmPassword?.message"
         >
           <BaseInput
             v-model="form.confirmPassword"
             type="password"
-            placeholder="กรอกรหัสผ่าน"
+            :placeholder="t('confirmPassword')"
             @update:model-value="handleInput('confirmPassword'), handleInput('password')"
           />
         </UFormGroup>
@@ -338,17 +339,17 @@ onMounted(() => {
           variant="solid"
           :disabled="!validator.isFormValid"
         >
-          <p>ต่อไป</p>
+          <p>{{ t('next') }}</p>
           <UIcon name="carbon:arrow-right" class="w-5 h-5" />
         </UButton>
       </UForm>
       <div class="p-6 flex justify-center gap-1">
-        <div>มีบัญชีอยู่แล้ว?</div>
+        <div>{{ t('alreadyHaveAccount') }}</div>
         <div
           class="text-blue-400 cursor-pointer"
           @click="handleLoginModal(true), handleRegisterModal(false)"
         >
-          เข้าสู่ระบบ
+          {{ t('login') }}
         </div>
       </div>
     </div>

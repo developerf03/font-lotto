@@ -224,6 +224,15 @@ export const calcMaintenanceDetail = (maintenance, isMaintenanceSite) => {
 }
 
 export const convertPhoneNumber = (localNumber, callingCode) => {
+  // Check type and value
+  if (
+    !localNumber ||
+    !callingCode ||
+    typeof localNumber !== 'string' ||
+    typeof callingCode !== 'string'
+  )
+    return ''
+
   // Remove the leading 0
   if (localNumber.startsWith('0')) {
     localNumber = localNumber.substring(1)

@@ -102,11 +102,11 @@ const handleInput = (e) => {
     @maska="emit('maska', $event)"
     @update:model-value="handleInput"
   >
-    <template v-if="type === 'passwrod' || copy || trailing" #trailing>
+    <template v-if="type === 'password' || copy || trailing" #trailing>
       <slot name="trailing" />
-      <div>
+      <div class="flex items-center justify-center gap-2">
         <UIcon
-          v-if="type === 'passwrod'"
+          v-if="type === 'password'"
           :name="eye ? 'i-mdi:eye-outline' : 'i-mdi:eye-off-outline'"
           class="w-5 h-5 cursor-pointer pointer-events-auto text-secondary"
           @click="eye = !eye"

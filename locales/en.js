@@ -150,6 +150,7 @@ export default {
     passwordsNotMatch: 'Passwords do not match',
     pleaseEnterDateOfBirth: 'Please enter date of birth',
     invalidDateFormat: 'Invalid date format',
+    passwordErr: 'Please enter a valid password format',
   },
   2000: 'Gateway Is Not Avaliable',
   2001: 'Gateway In Agent Is Not Avaliable',

@@ -67,19 +67,27 @@ const validator = computed(() =>
     }),
     ...(props.signupSetting?.registerWith?.email && {
       email: Rules()
-        .required(t('validation.pleaseEnterEmail'))
+        .required(t('validation.pleaseEnterUsername'))
         .email(t('validation.emailInValid'))
         .custom(checkEmail),
     }),
     ...(props.signupSetting?.registerWith?.phone && {
       phone: Rules()
-        .required(t('validation.pleaseEnterPhoneNumber'))
-        .minLength({ errMsg: t('validation.invalidPhoneNumber'), min: 9 })
-        .maxLength({ errMsg: t('validation.invalidPhoneNumber'), max: 11 })
+        .required('validation.pleaseEnterPhoneNumber')
+        .minLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          min: 9,
+        })
+        .maxLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          max: 10,
+        })
         .custom(checkPhone),
     }),
     ...(props.signupSetting?.requireBank && {
-      password: Rules().required(t('validation.pleaseEnterPassword')).password(t('passwordErr')),
+      password: Rules()
+        .required(t('validation.pleaseEnterPassword'))
+        .password(t('validation.passwordErr')),
     }),
     ...(props.signupSetting?.requireBank && {
       confirmPassword: Rules()
@@ -90,7 +98,7 @@ const validator = computed(() =>
       props.signupSetting?.requireBank && {
         dateOfBirth: Rules()
           .required(t('validation.pleaseEnterDateOfBirth'))
-          .custom(handleCheckDateOfBirth),
+          .date(t('validation.invalidDateFormat')),
       }),
     ...(useLobbySetting()?.enableReferCode &&
       props.signupSetting?.requireBank && {
@@ -117,6 +125,9 @@ const handleInput = (field) => {
   }
   if (field === 'phone') {
     form.callingPhone = convertPhoneNumber(form.phone, form.callingCode[0]?.callingCode)
+  }
+  if (field === 'affCode') {
+    form.affCode = form.affCode?.toUpperCase()
   }
   validator.value.validate(field)
 }
@@ -215,7 +226,6 @@ onMounted(() => {
       }}
     </div>
     <div class="w-full">
-      <pre>{{ errors }}</pre>
       <UForm :state="form" class="space-y-4" @submit="onSubmit">
         <UFormGroup
           v-if="signupSetting?.registerWith?.username"
@@ -263,11 +273,13 @@ onMounted(() => {
             class="w-full"
             :label="t('dateOfBirth')"
             name="dateOfBirth"
+            :error="errors?.dateOfBirth?.message"
           >
             <BaseInput
               v-model="form.dateOfBirth"
-              type="date"
-              @update:model-value="handleInput('dateOfBirth')"
+              placeholder="DD/MM/YYYY"
+              data-maska="##/##/####"
+              @update:model-value="validator.validate('dateOfBirth')"
             />
           </UFormGroup>
           <UFormGroup
@@ -278,6 +290,7 @@ onMounted(() => {
             class="w-full"
             label="Referal Code"
             name="referCode"
+            :error="errors?.referCode?.message"
           >
             <BaseInput
               v-model="form.referCode"
@@ -286,16 +299,31 @@ onMounted(() => {
             />
           </UFormGroup>
         </div>
-        <UFormGroup v-if="signupSetting.requireBank" label="รหัสผ่าน" name="password">
+        <UFormGroup
+          v-if="signupSetting.requireBank"
+          label="รหัสผ่าน"
+          name="password"
+          :error="errors?.password?.message"
+        >
           <BaseInput
             v-model="form.password"
             type="password"
             placeholder="กรอกรหัสผ่าน"
-            @update:model-value="handleInput('password')"
+            @update:model-value="handleInput('password'), handleInput('confirmPassword')"
           />
         </UFormGroup>
-        <UFormGroup v-if="signupSetting.requireBank" label="ยืนยันรหัสผ่าน" name="confirmPassword">
-          <BaseInput v-model="form.confirmPassword" type="password" placeholder="กรอกรหัสผ่าน" />
+        <UFormGroup
+          v-if="signupSetting.requireBank"
+          label="ยืนยันรหัสผ่าน"
+          name="confirmPassword"
+          :error="errors?.confirmPassword?.message"
+        >
+          <BaseInput
+            v-model="form.confirmPassword"
+            type="password"
+            placeholder="กรอกรหัสผ่าน"
+            @update:model-value="handleInput('confirmPassword'), handleInput('password')"
+          />
         </UFormGroup>
         <BaseValidateList
           v-if="signupSetting.requireBank"

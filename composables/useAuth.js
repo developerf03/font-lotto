@@ -9,8 +9,9 @@ export const useAuth = () => {
   const activeWallet = computed(() =>
     user.value?.wallets?.find((v) => v.type === user.value?.player?.defaultCurrency),
   )
+
   const currency = computed(() => user.value?.player?.defaultCurrency)
-  const balance = computed(() => activeWallet?.balance || 0)
+  const balance = computed(() => activeWallet.value?.balance || 0)
   const userPlayer = computed(() => user.value?.player)
 
   return {

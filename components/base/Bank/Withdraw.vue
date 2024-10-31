@@ -40,7 +40,7 @@ const currentPromotion = ref(null)
 // })
 
 const dataBankAccount = computed(() => banks.value?.bankAccountList?.find((v) => v?.isDefault))
-
+const balanceWallet = computed(() => useAuth()?.balance.value)
 const selectGateWay = computed(() =>
   gateWayOption.value?.find((v) => v.gatewayCode === withdrawForm.gateway),
 )
@@ -160,7 +160,7 @@ onMounted(() => {
     <div class="crad-Wallet w-full rounded-md flex justify-center items-center flex-col h-[81px]">
       <div class="text-secondary text-sm">ยอดเงินปัจจุบัน</div>
       <div class="text-primary font-medium text-xl <sm:(text-lg)">
-        {{ $format.currency(useAuth()?.balance) }}
+        {{ $format.currency(balanceWallet) }}
       </div>
     </div>
     <UForm :state="withdrawForm" class="space-y-4 w-full" @submit="handleWithdrawSubmit">

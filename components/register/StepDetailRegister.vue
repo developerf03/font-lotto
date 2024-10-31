@@ -74,6 +74,10 @@ const handleInput = (field) => {
   validator.value.validate(field)
 }
 
+const handleCancelRegister = () => {
+  props.nextStep(props.steps[0])
+}
+
 const setValueToMainForm = () => {
   Object.keys(form).forEach((o) => {
     props.setForm(o, form[o])
@@ -104,44 +108,46 @@ const handleSubmit = () => {
             readonly
           />
         </UFormGroup>
-        <div
-          v-if="signupSetting?.dateOfBirth || useLobbySetting()?.enableReferCode"
-          class="w-full flex justify-between gap-2"
+        <UFormGroup
+          v-if="signupSetting?.dateOfBirth"
+          class="w-full"
+          label="วันเกิด"
+          name="dateOfBirth"
+          :error="errors?.dateOfBirth?.message"
         >
-          <UFormGroup
-            v-if="signupSetting?.dateOfBirth"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            label="วันเกิด"
-            name="dateOfBirth"
-            :error="errors?.dateOfBirth?.message"
-          >
-            <BaseInput
-              v-model="form.dateOfBirth"
-              placeholder="DD/MM/YYYY"
-              data-maska="##/##/####"
-              @update:model-value="handleInput('dateOfBirth')"
-            />
-          </UFormGroup>
-          <UFormGroup
-            v-if="useLobbySetting()?.enableReferCode"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            label="Referal Code"
-            name="referCode"
-            :error="errors?.referCode?.message"
-          >
-            <BaseInput
-              v-model="form.referCode"
-              placeholder="กรอกรหัสเชิญเพื่อน"
-              @update:model-value="handleInput('referCode')"
-            />
-          </UFormGroup>
-        </div>
+          <BaseInput
+            v-model="form.dateOfBirth"
+            placeholder="DD/MM/YYYY"
+            data-maska="##/##/####"
+            @update:model-value="handleInput('dateOfBirth')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          class="w-full"
+          :label="t('affiliateCode')"
+          name="affCode"
+          :error="errors?.affCode?.message"
+        >
+          <BaseInput
+            v-model="form.affCode"
+            :placeholder="t('affiliateCode')"
+            :disabled="!!route.query?.aff_regis_code || !!affCodeLocal"
+            @update:model-value="handleInput('affCode')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="useLobbySetting()?.enableReferCode"
+          class="w-full"
+          :label="t('affiliateCode')"
+          name="referCode"
+          :error="errors?.referCode?.message"
+        >
+          <BaseInput
+            v-model="form.referCode"
+            :placeholder="t('affiliateCode')"
+            @update:model-value="handleInput('referCode')"
+          />
+        </UFormGroup>
         <UFormGroup label="รหัสผ่าน" name="password" :error="errors?.password?.message">
           <BaseInput
             v-model="form.password"
@@ -163,15 +169,24 @@ const handleSubmit = () => {
           />
         </UFormGroup>
         <BaseValidateList ref="checkValidate" :password="form.password" />
-        <UButton
-          label="สมัครสมาชิก"
-          class="!w-full"
-          type="submit"
-          :ui="{ rounded: 'rounded-full' }"
-          size="xl"
-          variant="solid"
-          :disabled="!validator.isFormValid"
-        />
+        <div class="flex justify-center gap-2">
+          <div class="w-50">
+            <UButton size="sm" variant="outline" @click="handleCancelRegister">
+              <p class="text-secondary flex justify-center">ย้อนกลับ</p>
+            </UButton>
+          </div>
+          <div class="w-50">
+            <UButton
+              label="สมัครสมาชิก"
+              class="!w-full"
+              type="submit"
+              :ui="{ rounded: 'rounded-full' }"
+              size="xl"
+              variant="solid"
+              :disabled="!validator.isFormValid"
+            />
+          </div>
+        </div>
       </UForm>
       <div class="p-6 flex justify-center gap-1">
         <div>มีบัญชีอยู่แล้ว?</div>

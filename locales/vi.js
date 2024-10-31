@@ -88,6 +88,7 @@ export default {
   phoneAlreadyExists: 'Số điện thoại đã tồn tại',
   emailAlreadyExists: 'Email đã tồn tại',
   referralCode: 'Mã giới thiệu',
+  affiliateCode: 'Mã liên kết',
 
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',

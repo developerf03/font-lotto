@@ -87,6 +87,7 @@ export default {
   phoneAlreadyExists: 'เบอร์โทรศัพท์นี้ถูกใช้แล้ว',
   emailAlreadyExists: 'อีเมลนี้ถูกใช้แล้ว',
   referralCode: 'รหัสชวนเพื่อน',
+  affiliateCode: 'รหัสพันธมิตร',
 
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',

@@ -88,6 +88,7 @@ export default {
   phoneAlreadyExists: 'Phone already exists',
   emailAlreadyExists: 'Email already exists',
   referralCode: 'Referral Code',
+  affiliateCode: 'Affiliate Code',
 
   promotionConditions: {
     redeem: 'Distribute {amount} codes',

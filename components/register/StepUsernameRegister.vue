@@ -104,13 +104,14 @@ const validator = computed(() =>
       props.signupSetting?.requireBank && {
         referCode: Rules().engAlphabetOrNumeric(t('validation.invalidFriendReferralCode')),
       }),
-    ...((form.affCode || props.setting?.affiliateCodeRequired) && {
-      affCode: props.setting?.affiliateCodeRequired
-        ? Rules()
-            .engAlphabetOrNumeric(t('validation.invalidAffiliateCode'))
-            .required(t('validation.specifyTheAffiliateCode'))
-        : Rules().option().engAlphabetOrNumeric(t('validation.invalidAffiliateCode')),
-    }),
+    ...((form.affCode || props.setting?.affiliateCodeRequired) &&
+      props.signupSetting?.requireBank && {
+        affCode: props.setting?.affiliateCodeRequired
+          ? Rules()
+              .engAlphabetOrNumeric(t('validation.invalidAffiliateCode'))
+              .required(t('validation.specifyTheAffiliateCode'))
+          : Rules().option().engAlphabetOrNumeric(t('validation.invalidAffiliateCode')),
+      }),
   }),
 )
 
@@ -264,42 +265,48 @@ onMounted(() => {
             @update:model-value="handleInput('phone')"
           />
         </UFormGroup>
-        <div v-if="signupSetting.requireBank" class="w-full flex justify-between gap-2">
-          <UFormGroup
-            v-if="signupSetting?.dateOfBirth"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            :label="t('dateOfBirth')"
-            name="dateOfBirth"
-            :error="errors?.dateOfBirth?.message"
-          >
-            <BaseInput
-              v-model="form.dateOfBirth"
-              placeholder="DD/MM/YYYY"
-              data-maska="##/##/####"
-              @update:model-value="handleInput('dateOfBirth')"
-            />
-          </UFormGroup>
-          <UFormGroup
-            v-if="useLobbySetting()?.enableReferCode"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            :label="t('referralCode')"
-            name="referCode"
-            :error="errors?.referCode?.message"
-          >
-            <BaseInput
-              v-model="form.referCode"
-              :placeholder="t('referralCode')"
-              :disabled="!!route.query?.ref || !!referCodeLocal"
-              @update:model-value="handleInput('referCode')"
-            />
-          </UFormGroup>
-        </div>
+        <UFormGroup
+          v-if="signupSetting?.dateOfBirth && signupSetting.requireBank"
+          class="w-full"
+          :label="t('dateOfBirth')"
+          name="dateOfBirth"
+          :error="errors?.dateOfBirth?.message"
+        >
+          <BaseInput
+            v-model="form.dateOfBirth"
+            placeholder="DD/MM/YYYY"
+            data-maska="##/##/####"
+            @update:model-value="handleInput('dateOfBirth')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="signupSetting.requireBank"
+          class="w-full"
+          :label="t('affiliateCode')"
+          name="affCode"
+          :error="errors?.affCode?.message"
+        >
+          <BaseInput
+            v-model="form.affCode"
+            :placeholder="t('affiliateCode')"
+            :disabled="!!route.query?.aff_regis_code || !!affCodeLocal"
+            @update:model-value="handleInput('affCode')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="useLobbySetting()?.enableReferCode && signupSetting.requireBank"
+          class="w-full"
+          :label="t('referralCode')"
+          name="referCode"
+          :error="errors?.referCode?.message"
+        >
+          <BaseInput
+            v-model="form.referCode"
+            :placeholder="t('referralCode')"
+            :disabled="!!route.query?.ref || !!referCodeLocal"
+            @update:model-value="handleInput('referCode')"
+          />
+        </UFormGroup>
         <UFormGroup
           v-if="signupSetting.requireBank"
           :label="t('password')"

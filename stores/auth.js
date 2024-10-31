@@ -58,7 +58,7 @@ export const useAuthStore = defineStore(
     const fetchUser = async () => {
       try {
         loadingFetchUser.value = true
-        const res = await useAPI().$get('/api/auth/profiles')
+        const res = await useAPI().$get('/api/auth/profile')
 
         user.value = res
       } catch (error) {

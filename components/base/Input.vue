@@ -1,4 +1,7 @@
 <script setup>
+// Imports
+import { vMaska } from 'maska/vue'
+
 // Props
 const props = defineProps({
   type: {
@@ -9,14 +12,18 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  dataMaska: {
+    type: String,
+    default: '',
+  },
+  copy: { type: [String, Number], default: '' },
   readonly: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   trailing: { type: Boolean, default: false },
-  copy: { type: [String, Number], default: '' },
 })
 
 // Emits
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'maska'])
 
 // States
 const inputRef = ref(null)
@@ -86,10 +93,13 @@ const handleInput = (e) => {
 <template>
   <UInput
     ref="inputRef"
+    v-maska
+    :data-maska="dataMaska"
     :type="inputType"
     :placeholder="type === 'currency' ? '0.00' : placeholder"
     :class="[{ 'text-right': type === 'currency' }, { 'input-readonly': readonly }]"
     :disabled="disabled || readonly"
+    @maska="emit('maska', $event)"
     @update:model-value="handleInput"
   >
     <template v-if="type === 'passwrod' || copy || trailing" #trailing>

@@ -12,16 +12,10 @@ import logo from '~/assets/images/logo.png'
 
 // Composables
 const { user, balance } = useAuth()
-const theme = useCookie('theme')
-const { handleLoginModal, handleRegisterModal, handleLanguageModal } = useModals()
+const { handleLoginModal, handleRegisterModal } = useModals()
 
 // Stores
 // const { providers } = storeToRefs(useProviderStore())
-
-// Functions
-const handleThemeChange = (themeVal) => {
-  theme.value = themeVal
-}
 
 const mockup = [
   {
@@ -65,7 +59,7 @@ const mockup = [
 
 <template>
   <div
-    class="home-menu-wrapper w-full bg-[var(--card-primary)] text-[var(--font-primary)] rounded-[20px] px-4 py-[14px] flex flex-col items-center sm:(p-5) 2xl:px-8 mlg:rounded-[60px]"
+    class="home-menu-wrapper w-full card-primary text-[var(--font-primary)] rounded-[20px] px-4 py-[14px] flex flex-col items-center sm:(p-5) 2xl:px-8 mlg:rounded-[60px]"
   >
     <!-- LOGO -->
     <img :src="logo" alt="logo" srcset="" class="h-[69px] mb-4 mx-auto hidden mlg:block" >
@@ -83,11 +77,11 @@ const mockup = [
       v-else
       class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--color-100)] hidden mlg:flex"
     >
-      <UButton :label="t('login')" variant="outline" size="lg" @click="handleLoginModal(true)" />
+      <UButton :label="t('login')" variant="outline" size="md" @click="handleLoginModal(true)" />
       <UButton
         :label="t('register')"
         variant="solid"
-        size="lg"
+        size="md"
         @click="handleRegisterModal(true)"
       />
     </div>
@@ -112,17 +106,12 @@ const mockup = [
 
     <!-- LANGUAGE AND THEME -->
     <div class="w-full h-6 my-auto divide-x-1 hidden mlg:flex">
-      <!-- <div class="flex-1 flex items-center justify-center gap-4">
-        <span class="cursor-pointer" @click="setLocale('th')">TH</span>
-        <span class="cursor-pointer" @click="setLocale('en')">EN</span>
-        <span class="cursor-pointer" @click="setLocale('vi')">VI</span>
-      </div> -->
       <div class="flex-1 flex items-center justify-center gap-4">
-        <span class="cursor-pointer" @click="handleThemeChange('dark-theme')">Dark</span>
-        <span class="cursor-pointer" @click="handleThemeChange('light-theme')">Light</span>
+        <BaseChangeLanguage />
+      </div>
+      <div class="flex-1 flex items-center justify-center gap-4">
+        <BaseChangeTheme />
       </div>
     </div>
-
-    <div class="cursor-pointer text-lg" @click="handleLanguageModal(true)">Language Modal</div>
   </div>
 </template>

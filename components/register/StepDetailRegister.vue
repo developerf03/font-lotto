@@ -42,11 +42,16 @@ const errors = reactive({})
 // Computeds
 const validator = computed(() =>
   useValidator(form, errors).rules({
-    password: Rules().required(t('validation.pleaseEnterPassword')).password(t('passwordErr')),
+    password: Rules()
+      .required(t('validation.pleaseEnterPassword'))
+      .password(t('validation.passwordErr')),
+    confirmPassword: Rules()
+      .required(t('validation.pleaseEnterPassword'))
+      .isMatch({ errMsg: t('validation.passwordsNotMatch'), field: 'password' }),
     ...(props.signupSetting?.dateOfBirth && {
       dateOfBirth: Rules()
         .required(t('validation.pleaseEnterDateOfBirth'))
-        .custom(handleCheckDateOfBirth),
+        .date(t('validation.invalidDateFormat')),
     }),
     ...(useLobbySetting()?.enableReferCode && {
       referCode: Rules().engAlphabetOrNumeric(t('invalidFriendReferralCode')),
@@ -62,6 +67,13 @@ const validator = computed(() =>
 )
 
 // Functions
+const handleInput = (field) => {
+  if (field === 'affCode') {
+    form.affCode = form.affCode?.toUpperCase()
+  }
+  validator.value.validate(field)
+}
+
 const setValueToMainForm = () => {
   Object.keys(form).forEach((o) => {
     props.setForm(o, form[o])
@@ -92,7 +104,10 @@ const handleSubmit = () => {
             readonly
           />
         </UFormGroup>
-        <div class="w-full flex justify-between gap-2">
+        <div
+          v-if="signupSetting?.dateOfBirth || useLobbySetting()?.enableReferCode"
+          class="w-full flex justify-between gap-2"
+        >
           <UFormGroup
             v-if="signupSetting?.dateOfBirth"
             :class="{
@@ -105,9 +120,9 @@ const handleSubmit = () => {
           >
             <BaseInput
               v-model="form.dateOfBirth"
-              type="date"
-              placeholder="เช่น 01/01/2000"
-              @update:model-value="validator.validate('dateOfBirth')"
+              placeholder="DD/MM/YYYY"
+              data-maska="##/##/####"
+              @update:model-value="handleInput('dateOfBirth')"
             />
           </UFormGroup>
           <UFormGroup
@@ -123,7 +138,7 @@ const handleSubmit = () => {
             <BaseInput
               v-model="form.referCode"
               placeholder="กรอกรหัสเชิญเพื่อน"
-              @update:model-value="validator.validate('referCode')"
+              @update:model-value="handleInput('referCode')"
             />
           </UFormGroup>
         </div>
@@ -132,11 +147,20 @@ const handleSubmit = () => {
             v-model="form.password"
             type="password"
             placeholder="กรอกรหัสผ่าน"
-            @update:model-value="validator.validate('password')"
+            @update:model-value="handleInput('password'), handleInput('confirmPassword')"
           />
         </UFormGroup>
-        <UFormGroup label="ยืนยันรหัสผ่าน" name="confirmPassword">
-          <BaseInput v-model="form.confirmPassword" type="password" placeholder="กรอกรหัสผ่าน" />
+        <UFormGroup
+          label="ยืนยันรหัสผ่าน"
+          name="confirmPassword"
+          :error="errors?.confirmPassword?.message"
+        >
+          <BaseInput
+            v-model="form.confirmPassword"
+            type="password"
+            placeholder="กรอกรหัสผ่าน"
+            @update:model-value="handleInput('confirmPassword'), handleInput('password')"
+          />
         </UFormGroup>
         <BaseValidateList ref="checkValidate" :password="form.password" />
         <UButton
@@ -146,6 +170,7 @@ const handleSubmit = () => {
           :ui="{ rounded: 'rounded-full' }"
           size="xl"
           variant="solid"
+          :disabled="!validator.isFormValid"
         />
       </UForm>
       <div class="p-6 flex justify-center gap-1">

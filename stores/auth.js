@@ -62,7 +62,6 @@ export const useAuthStore = defineStore(
 
         user.value = res
       } catch (error) {
-         
         user.value = null
       } finally {
         loadingFetchUser.value = false
@@ -83,7 +82,6 @@ export const useAuthStore = defineStore(
         refreshToken.value = res.refreshToken
 
         return res.accessToken
-         
       } catch (error) {
         user.value = null
 
@@ -104,6 +102,14 @@ export const useAuthStore = defineStore(
       return false
     }
 
+    const setToken = (data) => {
+      accessToken.value = data
+    }
+
+    const setRefreshToken = (data) => {
+      refreshToken.value = data
+    }
+
     return {
       user,
       loading,
@@ -117,6 +123,8 @@ export const useAuthStore = defineStore(
       fetchUser,
       jwtRefreshToken,
       shouldRefresh,
+      setToken,
+      setRefreshToken,
     }
   },
   // {

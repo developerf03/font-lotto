@@ -17,7 +17,7 @@ onClickOutside(target, () => (isExpan.value = false))
 <template>
   <div
     ref="target"
-    class="mobile-header-wrapper w-full p-4 pt-2 flex flex-col gap-3 fixed top-0 left-0 card-primary z-10 rounded-b-[20px]"
+    class="mobile-header-wrapper w-full p-4 pt-2 flex flex-col fixed top-0 left-0 card-primary z-10 rounded-b-[20px]"
   >
     <!-- HEAD -->
     <div class="flex items-center">
@@ -34,10 +34,10 @@ onClickOutside(target, () => (isExpan.value = false))
     <!-- CONTENT -->
     <!-- WALLET -->
     <div v-if="user">
-      <HomeMenuWallet :balance="balance" />
+      <HomeMenuWallet :balance="balance" class="mt-3" />
     </div>
     <!-- BUTTON => LOGIN / REGISTER -->
-    <div v-else class="w-full flex gap-4">
+    <div v-else class="w-full flex gap-4 mt-3">
       <UButton :label="t('login')" variant="outline" size="sm" @click="handleLoginModal(true)" />
       <UButton
         :label="t('register')"

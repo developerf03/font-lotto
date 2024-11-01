@@ -95,24 +95,16 @@ const handleVerifyOTP = async () => {
       type: 'register',
     })
     otp.isVerifyValid = true
-    if (props?.signupSetting?.requireBank) {
-      setTimeout(() => {
-        props.nextStep()
-      }, 300)
-    } else {
-      handleSubmit()
-    }
+    setTimeout(() => {
+      props.nextStep()
+    }, 300)
   } catch (error) {
     if (error.data?.code === 6040) {
       // Already Verify(OTP)
       otp.isVerifyValid = true
-      if (props?.signupSetting?.requireBank) {
-        setTimeout(() => {
-          props.nextStep()
-        }, 300)
-      } else {
-        handleSubmit()
-      }
+      setTimeout(() => {
+        props.nextStep()
+      }, 300)
     } else {
       otp.isVerifyValid = false
     }
@@ -138,15 +130,6 @@ const onInput = (value) => {
     otp.pincode = value
     handleVerifyOTP()
   }
-}
-
-const handleSubmit = () => {
-  setTimeout(() => {
-    props.submitRegister()
-    setTimeout(() => {
-      submitLoading.value = false
-    }, 500)
-  }, 100)
 }
 </script>
 
@@ -187,7 +170,7 @@ const handleSubmit = () => {
             :disabled="true"
             @click="fullSeconds <= 0 && handleResendCode()"
           >
-            <span v-if="!fullSeconds && fullSeconds !== null">{{ $t('Resend code') }}</span>
+            <span v-if="!fullSeconds && fullSeconds !== null">{{ $t('resendCode') }}</span>
             <span v-else class="leading-none">{{
               `Resend within ${fullSeconds || otp.remainSec} seconds`
             }}</span>

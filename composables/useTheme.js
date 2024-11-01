@@ -41,7 +41,7 @@ export const useLoadingUrl = () => {
 export const useHero = () => {
   const { setting, langDefault } = useLobbySetting()
   const { $i18n } = useNuxtApp()
-  let hero = setting.value?.hero && setting.value?.hero[$i18n.locale.value]
+  let hero = setting.value?.hero && setting.value?.hero[$i18n.localeProperties.value?.IETF]
 
   // Check empty for set dfault
   const videoType =
@@ -65,7 +65,7 @@ export const useHero = () => {
 export const useHeroAutoplay = () => {
   const { setting } = useLobbySetting()
   const { $i18n } = useNuxtApp()
-  let hero = setting.value?.hero && setting.value?.hero[$i18n.locale.value]
+  let hero = setting.value?.hero && setting.value?.hero[$i18n.localeProperties.value?.IETF]
 
   return hero?.auto || 0
 }

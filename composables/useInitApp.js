@@ -4,14 +4,14 @@ import { useInformationStore } from '~/stores/information'
 import { useProviderStore } from '~/stores/provider'
 import { useAuthStore } from '~/stores/auth'
 import { useCurrencyStore } from '~/stores/currency'
-import { usePromotionStore } from '~/stores/promotion'
+// import { usePromotionStore } from '~/stores/promotion'
 
 export const useInitApp = async () => {
   const { getInformations, getPromotes } = useInformationStore()
   const { getAssets } = useSettingStore()
   const { getProviders } = useProviderStore()
   const { fetchCurrencyList } = useCurrencyStore()
-  const { fetchPromotions } = usePromotionStore()
+  // const { fetchPromotions } = usePromotionStore()
 
   const { setting } = storeToRefs(useSettingStore())
   const { isAuthenticated } = storeToRefs(useAuthStore())
@@ -36,11 +36,11 @@ export const useInitApp = async () => {
 
     // Depends on settings
     Promise.all([
-      fetchPromotions({
-        currency: useDefaults()?.currencyCode,
-        page: 1,
-        pageSize: 100,
-      }),
+      // fetchPromotions({
+      //   currency: useDefaults()?.currencyCode,
+      //   page: 1,
+      //   pageSize: 100,
+      // }),
       getProviders(),
       fetchCurrencyList({ agent: true }),
     ])
@@ -65,15 +65,15 @@ export const useInitLang = () => {
   const lang = useCookie('i18n_redirected')
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
 
-  if (!lang.value || lang.value === 'undefined' || lang.value === 'null' && !!agentLang.length) {
+  if (!lang.value || lang.value === 'undefined' || (lang.value === 'null' && !!agentLang.length)) {
     $i18n.setLocale(agentLang[0])
     lang.value = agentLang[0]
   }
 }
 
 export const useInitHead = (setting) => {
-  console.log('setting', setting);
-  
+  console.log('setting', setting)
+
   useHead({
     title: setting.title,
     meta: [

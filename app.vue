@@ -16,6 +16,7 @@ import 'swiper/css/bundle'
 
 const theme = useCookie('theme', { default: () => 'light-theme' })
 const { locale } = useI18n()
+useInitApp()
 </script>
 
 <template>

@@ -6,7 +6,7 @@ import { object, string } from 'yup'
 
 // Composables
 const { sendOTP, verifyOTP, updateProfileV2 } = usePlayerStore()
-const { fetchUser } = useAuth()
+const { fetchUser, userPlayer } = useAuth()
 const { verifyOTPModal } = useModals()
 const signUpSetting = computed(() => useSignUpSetting())
 const CountryCallingCodes = computed(() => useCountryCallingCodes())
@@ -25,12 +25,9 @@ const loading = ref(false)
 const remainSec = ref(300)
 const loadingOtp = ref(false)
 const form = reactive({
-  email: verifyOTPModal.value?.email || useAuth()?.userPlayer?.email || '',
-  phoneNumber: verifyOTPModal.value?.phoneNumber || useAuth()?.userPlayer?.phone || '',
-  callingCode:
-    CountryCallingCodes.value?.length === 1
-      ? CountryCallingCodes.value?.[0]
-      : CountryCallingCodes.value?.find((o) => o?.currencyCode === useCurrencyCode()),
+  email: '',
+  phoneNumber: '',
+  callingCode: '',
 })
 const stepType = {
   phone: {
@@ -48,18 +45,16 @@ watch(
   () => verifyOTPModal.value.active,
   (active) => {
     if (active) {
+      resetForm()
       // if (
       //   verifyOTPModal.value?.typeSend === 'changeprofile' &&
-      //   useAuth()?.userPlayer?.[signUpSetting.value?.verifyWith]
+      //   userPlayer.value?.[signUpSetting.value?.verifyWith]
       // ) {
       //   verifyOTPValidator.value.validate('email')
       //   verifyOTPValidator.value.validate('phoneNumber')
       // }
 
-      if (
-        signUpSetting.value?.isVerify ||
-        useAuth()?.userPlayer?.[signUpSetting.value?.verifyWith]
-      ) {
+      if (signUpSetting.value?.isVerify || userPlayer.value?.[signUpSetting.value?.verifyWith]) {
         if (!verifyOTPModal.value.type) {
           verifyOTPModal.value.type = stepType?.[signUpSetting.value?.verifyWith]?.verify
           fetchSendOtp()
@@ -89,7 +84,7 @@ const schemaVerify = computed(() => {
 const callingCode = computed(
   () =>
     verifyOTPModal.value?.callingCode ||
-    useAuth()?.userPlayer?.callingCode ||
+    userPlayer.value?.callingCode ||
     form.callingCode?.callingCode,
 )
 
@@ -271,6 +266,12 @@ const resetForm = () => {
   remainSec.value = 300
   pincode.value = ''
   isVerifyValid.value = null
+  form.email = verifyOTPModal.value?.email || userPlayer.value?.email || ''
+  form.phoneNumber = verifyOTPModal.value?.phoneNumber || userPlayer.value?.phone || ''
+  form.callingCode =
+    CountryCallingCodes.value?.length === 1
+      ? CountryCallingCodes.value?.[0]
+      : CountryCallingCodes.value?.find((o) => o?.currencyCode === useCurrencyCode())
 }
 
 // onMounted
@@ -283,6 +284,7 @@ const resetForm = () => {
         v-if="['editEmail', 'editPhone'].includes(verifyOTPModal?.type) && step === 0"
         class="w-full"
       >
+        <pre>{{ form }}</pre>
         <div class="<sm:text-xl sm:text-xl md:text-2xl mb-2">
           {{ verifyOTPModal?.type === 'editPhone' ? t('phone') : t('email') }}
         </div>

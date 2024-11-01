@@ -48,7 +48,7 @@ const steps = computed(() =>
     'input-phone',
     signupSetting.value?.verifyRegister && 'verify-otp',
     signupSetting.value?.requireBank && 'bank-account',
-    !signupSetting.value?.requireBank && 'submit',
+    'submit',
   ].filter((v) => v),
 )
 
@@ -160,7 +160,7 @@ onMounted(() => {
   <baseModal
     id="register-modal-wrapper"
     v-model="registerModal"
-    :disable-click-out="false"
+    :disable-click-out="true"
     :btn-submit="false"
     :hide-icon-close="true"
   >
@@ -192,11 +192,10 @@ onMounted(() => {
         :email="form.email"
         :phone="form.phone"
         :calling-phone="form.callingPhone"
-        :calling-code="form.callingCode[0]?.callingCode"
+        :calling-code="form.callingCode?.callingCode"
         :steps="steps"
         :next-step="nextStep"
         :signup-setting="signupSetting"
-        :submit-register="handleSubmit"
         :remain-sec="remainSec"
         :reset-form="resetForm"
       />
@@ -206,7 +205,6 @@ onMounted(() => {
         v-if="isStep('bank-account')"
         :set-form="setForm"
         :reset-form="resetForm"
-        :submit-register="handleSubmit"
         :steps="steps"
         :next-step="nextStep"
       />
@@ -216,13 +214,14 @@ onMounted(() => {
         v-if="isStep('submit')"
         :email="form.email"
         :phone="form.phone"
-        :signup-setting="signupSetting"
         :setting="setting"
+        :signup-setting="signupSetting"
         :set-form="setForm"
-        :reset-form="resetForm"
-        :submit-register="handleSubmit"
         :steps="steps"
+        :reset-form="resetForm"
         :next-step="nextStep"
+        :submit-register="handleSubmit"
+        :register-loading="loading"
       />
     </div>
   </baseModal>

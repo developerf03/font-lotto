@@ -1,6 +1,6 @@
 <script setup>
 // Import
-import { useStorage, useDebounceFn } from '@vueuse/core'
+import { useDebounceFn } from '@vueuse/core'
 import { convertPhoneNumber } from '~/utils/utils'
 
 // Props
@@ -20,13 +20,9 @@ const emit = defineEmits(['update:remainSec'])
 
 // Composables
 const { handleLoginModal, handleRegisterModal } = useModals()
-const route = useRoute()
 
 // Stores
 const { profileCheckData, sendOTP } = usePlayerStore()
-const affCodeLocal = useStorage('aff_regis_code', '')
-const referCodeLocal = useStorage('ref', '')
-const checkValidate = ref(null)
 
 // State
 const textErrors = {
@@ -41,11 +37,6 @@ const form = reactive({
   phone: '',
   callingCode: '',
   callingPhone: '',
-  password: '',
-  confirmPassword: '',
-  dateOfBirth: '',
-  referCode: route.query?.ref || referCodeLocal.value || '',
-  affCode: route.query?.aff_regis_code?.toUpperCase() || affCodeLocal.value?.toUpperCase() || '',
 })
 
 // Computeds
@@ -84,34 +75,6 @@ const validator = computed(() =>
         })
         .custom(checkPhone),
     }),
-    ...(props.signupSetting?.requireBank && {
-      password: Rules()
-        .required(t('validation.pleaseEnterPassword'))
-        .password(t('validation.passwordErr')),
-    }),
-    ...(props.signupSetting?.requireBank && {
-      confirmPassword: Rules()
-        .required(t('validation.pleaseEnterPassword'))
-        .isMatch({ errMsg: t('validation.passwordsNotMatch'), field: 'password' }),
-    }),
-    ...(useLobbySetting()?.enableReferCode &&
-      props.signupSetting?.requireBank && {
-        dateOfBirth: Rules()
-          .required(t('validation.pleaseEnterDateOfBirth'))
-          .date(t('validation.invalidDateFormat')),
-      }),
-    ...(useLobbySetting()?.enableReferCode &&
-      props.signupSetting?.requireBank && {
-        referCode: Rules().engAlphabetOrNumeric(t('validation.invalidFriendReferralCode')),
-      }),
-    ...((form.affCode || props.setting?.affiliateCodeRequired) &&
-      props.signupSetting?.requireBank && {
-        affCode: props.setting?.affiliateCodeRequired
-          ? Rules()
-              .engAlphabetOrNumeric(t('validation.invalidAffiliateCode'))
-              .required(t('validation.specifyTheAffiliateCode'))
-          : Rules().option().engAlphabetOrNumeric(t('validation.invalidAffiliateCode')),
-      }),
   }),
 )
 
@@ -126,9 +89,6 @@ const handleInput = (field) => {
   }
   if (field === 'phone') {
     form.callingPhone = convertPhoneNumber(form.phone, form.callingCode[0]?.callingCode)
-  }
-  if (field === 'affCode') {
-    form.affCode = form.affCode?.toUpperCase()
   }
   validator.value.validate(field)
 }
@@ -265,79 +225,6 @@ onMounted(() => {
             @update:model-value="handleInput('phone')"
           />
         </UFormGroup>
-        <UFormGroup
-          v-if="signupSetting?.dateOfBirth && signupSetting.requireBank"
-          class="w-full"
-          :label="t('dateOfBirth')"
-          name="dateOfBirth"
-          :error="errors?.dateOfBirth?.message"
-        >
-          <BaseInput
-            v-model="form.dateOfBirth"
-            placeholder="DD/MM/YYYY"
-            data-maska="##/##/####"
-            @update:model-value="handleInput('dateOfBirth')"
-          />
-        </UFormGroup>
-        <UFormGroup
-          v-if="signupSetting.requireBank"
-          class="w-full"
-          :label="t('affiliateCode')"
-          name="affCode"
-          :error="errors?.affCode?.message"
-        >
-          <BaseInput
-            v-model="form.affCode"
-            :placeholder="t('affiliateCode')"
-            :disabled="!!route.query?.aff_regis_code || !!affCodeLocal"
-            @update:model-value="handleInput('affCode')"
-          />
-        </UFormGroup>
-        <UFormGroup
-          v-if="useLobbySetting()?.enableReferCode && signupSetting.requireBank"
-          class="w-full"
-          :label="t('referralCode')"
-          name="referCode"
-          :error="errors?.referCode?.message"
-        >
-          <BaseInput
-            v-model="form.referCode"
-            :placeholder="t('referralCode')"
-            :disabled="!!route.query?.ref || !!referCodeLocal"
-            @update:model-value="handleInput('referCode')"
-          />
-        </UFormGroup>
-        <UFormGroup
-          v-if="signupSetting.requireBank"
-          :label="t('password')"
-          name="password"
-          :error="errors?.password?.message"
-        >
-          <BaseInput
-            v-model="form.password"
-            type="password"
-            :placeholder="t('password')"
-            @update:model-value="handleInput('password'), handleInput('confirmPassword')"
-          />
-        </UFormGroup>
-        <UFormGroup
-          v-if="signupSetting.requireBank"
-          :label="t('confirmPassword')"
-          name="confirmPassword"
-          :error="errors?.confirmPassword?.message"
-        >
-          <BaseInput
-            v-model="form.confirmPassword"
-            type="password"
-            :placeholder="t('confirmPassword')"
-            @update:model-value="handleInput('confirmPassword'), handleInput('password')"
-          />
-        </UFormGroup>
-        <BaseValidateList
-          v-if="signupSetting.requireBank"
-          ref="checkValidate"
-          :password="form.password"
-        />
         <UButton
           class="!w-full"
           type="submit"

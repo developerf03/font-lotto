@@ -94,6 +94,14 @@ export default {
   emailAlreadyExists: 'Email already exists',
   referralCode: 'Referral Code',
   affiliateCode: 'Affiliate Code',
+  specifyAccountnumber: 'Specify account number',
+  specifyHolderName: 'Specify holder name',
+  specifyBankcode: 'Specify bankcode',
+  accountHoldername: 'Account holder name',
+  bank: 'Bank',
+  selectBank: 'Select bank',
+  accountNumber: 'Account number',
+  addAccount: 'add account',
 
   promotionConditions: {
     redeem: 'Distribute {amount} codes',

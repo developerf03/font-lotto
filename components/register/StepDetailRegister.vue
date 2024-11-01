@@ -15,6 +15,8 @@ const props = defineProps({
   signupSetting: { type: Object, default: () => {} },
   setting: { type: Object, default: () => {} },
   setForm: { type: Function, required: true },
+  steps: { type: Array, required: true },
+  nextStep: { type: Function, required: true },
   resetForm: { type: Function, required: true },
   submitRegister: { type: Function, required: true },
   loading: { type: Boolean, required: true },
@@ -96,13 +98,13 @@ const handleSubmit = () => {
   <div class="flex justify-center items-center flex-col w-full">
     <div class="w-full">
       <UForm :state="form" class="space-y-4" @submit="handleSubmit">
-        <UFormGroup v-if="signupSetting?.verifyWith === 'email'" label="Email" name="email">
-          <BaseInput :model-value="email" placeholder="email" readonly />
+        <UFormGroup v-if="signupSetting?.verifyWith === 'email'" :label="t('emal')" name="email">
+          <BaseInput :model-value="email" :placeholder="t('email')" readonly />
         </UFormGroup>
-        <UFormGroup v-if="signupSetting?.verifyWith === 'phone'" label="เบอร์โทรศัพท์" name="phone">
+        <UFormGroup v-if="signupSetting?.verifyWith === 'phone'" :label="t('phone')" name="phone">
           <BaseInput
             :model-value="phone"
-            placeholder="เบอร์โทรศัพท์"
+            :placeholder="t('phone')"
             type="tel"
             :maxlength="10"
             readonly
@@ -111,7 +113,7 @@ const handleSubmit = () => {
         <UFormGroup
           v-if="signupSetting?.dateOfBirth"
           class="w-full"
-          label="วันเกิด"
+          :label="t('dateOfBirth')"
           name="dateOfBirth"
           :error="errors?.dateOfBirth?.message"
         >
@@ -148,23 +150,23 @@ const handleSubmit = () => {
             @update:model-value="handleInput('referCode')"
           />
         </UFormGroup>
-        <UFormGroup label="รหัสผ่าน" name="password" :error="errors?.password?.message">
+        <UFormGroup :label="t('password')" name="password" :error="errors?.password?.message">
           <BaseInput
             v-model="form.password"
             type="password"
-            placeholder="กรอกรหัสผ่าน"
+            :placeholder="t('password')"
             @update:model-value="handleInput('password'), handleInput('confirmPassword')"
           />
         </UFormGroup>
         <UFormGroup
-          label="ยืนยันรหัสผ่าน"
+          :label="t('confirmPassword')"
           name="confirmPassword"
           :error="errors?.confirmPassword?.message"
         >
           <BaseInput
             v-model="form.confirmPassword"
             type="password"
-            placeholder="กรอกรหัสผ่าน"
+            :placeholder="t('confirmPassword')"
             @update:model-value="handleInput('confirmPassword'), handleInput('password')"
           />
         </UFormGroup>
@@ -172,12 +174,12 @@ const handleSubmit = () => {
         <div class="flex justify-center gap-2">
           <div class="w-50">
             <UButton size="sm" variant="outline" @click="handleCancelRegister">
-              <p class="text-secondary flex justify-center">ย้อนกลับ</p>
+              <p class="text-secondary flex justify-center">{{ t('back') }}</p>
             </UButton>
           </div>
           <div class="w-50">
             <UButton
-              label="สมัครสมาชิก"
+              :label="t('register')"
               class="!w-full"
               type="submit"
               :ui="{ rounded: 'rounded-full' }"
@@ -189,12 +191,12 @@ const handleSubmit = () => {
         </div>
       </UForm>
       <div class="p-6 flex justify-center gap-1">
-        <div>มีบัญชีอยู่แล้ว?</div>
+        <div>{{ t('alreadyHaveAccount') }}</div>
         <div
           class="text-blue-400 cursor-pointer"
           @click="handleLoginModal(true), handleRegisterModal(false)"
         >
-          เข้าสู่ระบบ
+          {{ t('login') }}
         </div>
       </div>
     </div>

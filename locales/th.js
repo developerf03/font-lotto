@@ -93,6 +93,14 @@ export default {
   emailAlreadyExists: 'อีเมลนี้ถูกใช้แล้ว',
   referralCode: 'รหัสชวนเพื่อน',
   affiliateCode: 'รหัสพันธมิตร',
+  specifyAccountnumber: 'โปรดระบุเลขบัญชีธนาคาร',
+  specifyHolderName: 'โปรดระบุชื่อบัญชี',
+  specifyBankcode: 'โปรดระบุสกุลเงิน',
+  accountHoldername: 'ชื่อบัญชี',
+  bank: 'ธนาคาร',
+  selectBank: 'เลือกธนาคาร',
+  accountNumber: 'เลขบัญชี',
+  addAccount: 'เพิ่มบัญชี',
 
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',

@@ -94,6 +94,14 @@ export default {
   emailAlreadyExists: 'Email đã tồn tại',
   referralCode: 'Mã giới thiệu',
   affiliateCode: 'Mã liên kết',
+  specifyAccountnumber: 'Chỉ định số tài khoản',
+  specifyHolderName: 'Chỉ định tên người giữ',
+  specifyBankcode: 'Chỉ định mã ngân hàng',
+  accountHoldername: 'Tên chủ tài khoản',
+  bank: 'Ngân hàng',
+  selectBank: 'Lựa chọn ngân hàng',
+  accountNumber: 'Số tài khoản',
+  addAccount: 'Thêm tài khoản',
 
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',

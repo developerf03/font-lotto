@@ -83,11 +83,9 @@ const setValueToMainForm = () => {
 }
 
 const handleSubmit = () => {
+  if (!validator.value.isFormValid) return
   setValueToMainForm()
-  setTimeout(() => {
-    props.submitRegister()
-    setTimeout(() => {}, 500)
-  }, 100)
+  props.nextStep()
 }
 
 onMounted(() => {
@@ -99,21 +97,26 @@ onMounted(() => {
   <div class="flex justify-center items-center flex-col w-full">
     <div class="w-full">
       <UForm class="space-y-4" @submit="handleSubmit">
-        <UFormGroup label="ชื่อบัญชี" name="accountName" :error="errors?.accountName?.message">
+        <UFormGroup
+          :label="t('accountHoldername')"
+          name="accountName"
+          :error="errors?.accountName?.message"
+        >
           <BaseInput
             v-model="form.accountName"
-            placeholder="กรอกชื่อบัญชี"
+            :placeholder="t('accountHoldername')"
             @update:model-value="validator.validate('accountName')"
           />
         </UFormGroup>
-        <UFormGroup label="ธนาคาร" name="bankCode" :error="errors?.bankCode?.message">
+        <UFormGroup :label="t('bank')" name="bankCode" :error="errors?.bankCode?.message">
           <USelectMenu
             v-model="form.bankCode"
             :options="bankList"
             searchable
+            variant="none"
             value-attribute="bankCode"
             option-attribute="bankDescription"
-            placeholder="เลือกธนาคาร"
+            :placeholder="t('selectBank')"
             @update:model-value="validator.validate('bankCode')"
           >
             <template #option="{ option: value }">
@@ -123,26 +126,26 @@ onMounted(() => {
           </USelectMenu>
         </UFormGroup>
         <UFormGroup
-          label="เลขบัญชีธนาคาร"
+          :label="t('accountNumber')"
           name="accountNumber"
           :error="errors?.accountNumber?.message"
         >
           <BaseInput
             v-model="form.accountNumber"
             type="number"
-            placeholder="กรอกเลขบัญชีธนาคาร"
+            :placeholder="t('specifyAccountnumber')"
             @update:model-value="validator.validate('accountNumber')"
           />
         </UFormGroup>
         <div class="w-full flex justify-center items-center gap-2">
           <div class="w-50">
             <UButton size="sm" variant="outline" @click="handleCancelBank">
-              <p class="text-secondary flex justify-center">ย้อนกลับ</p>
+              <p class="text-secondary flex justify-center">{{ t('back') }}</p>
             </UButton>
           </div>
           <div class="w-50">
             <UButton
-              label="เพิ่มบัญชี"
+              :label="t('addAccount')"
               class="!w-full"
               type="submit"
               :ui="{ rounded: 'rounded-full' }"

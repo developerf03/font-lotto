@@ -26,7 +26,6 @@ const props = defineProps({
   steps: { type: Array, required: true },
   nextStep: { type: Function, required: true },
   signupSetting: { type: Object, required: true },
-  submitRegister: { type: Function, required: true },
 })
 
 // Store
@@ -154,7 +153,7 @@ const onInput = (value) => {
     <div class="w-full flex justify-center items-center gap-2">
       <div class="w-50">
         <UButton size="sm" variant="outline" @click="handleCancelOtp">
-          <p class="text-secondary flex justify-center">ย้อนกลับ</p>
+          <p class="text-secondary flex justify-center">{{ t('back') }}</p>
         </UButton>
       </div>
       <div class="w-50">

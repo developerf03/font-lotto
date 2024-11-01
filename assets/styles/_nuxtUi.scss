@@ -219,6 +219,7 @@
     color: var(--btn-disable-secondary-font);
   }
 }
+
 .bg-modal-nuxt-ui-overlay {
   background: rgba(0, 0, 0, 0.7) !important;
   backdrop-filter: blur(16px) !important;
@@ -235,5 +236,31 @@
   @media only screen and (max-width: 516px) {
     max-width: calc(100vw - 16px) !important;
     min-width: 100%;
+  }
+}
+
+.tabs-wrapper {
+  .tab-marker {
+    position: relative;
+    border-radius: 8px;
+    background: linear-gradient(to right, var(--btn-secondary-left), var(--btn-secondary-right));
+    color: transparent;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background-color: var(--btn-secondary);
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
+      transform: translate(-50%, -50%);
+      border-radius: 8px;
+    }
+  }
+  .tab-btn-active {
+    color: var(--btn-secondary-font);
+  }
+  .tab-btn-inactive {
+    color: var(--btn-tertiary-font);
   }
 }

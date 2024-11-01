@@ -58,7 +58,7 @@ const validator = computed(() =>
     }),
     ...(props.signupSetting?.registerWith?.email && {
       email: Rules()
-        .required(t('validation.pleaseEnterUsername'))
+        .required(t('validation.pleaseEnterEmail'))
         .email(t('validation.emailInValid'))
         .custom(checkEmail),
     }),

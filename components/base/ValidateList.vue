@@ -39,7 +39,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkLength }"
       />
-      <p>มีความยาวอย่างน้อย 8 ตัวอักษร</p>
+      <p>{{ t('beAtLeastCharacters', { min: 8 }) }}</p>
     </div>
     <div class="flex justify-start items-center gap-4">
       <UIcon
@@ -47,7 +47,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkUppercase }"
       />
-      <p>อักษรภาษาอังกฤษพิมพ์ใหญ่อย่างน้อย 1 ตัว</p>
+      <p>{{ t('uppercaseLetter') }}</p>
     </div>
     <div class="flex justify-start items-center gap-4">
       <UIcon
@@ -55,7 +55,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkLowercase }"
       />
-      <p>อักษรภาษาอังกฤษพิมพ์เล็กอย่างน้อย 1 ตัว</p>
+      <p>{{ t('lowercaseLetter') }}</p>
     </div>
     <div class="flex justify-start items-center gap-4">
       <UIcon
@@ -63,7 +63,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkNumbercase }"
       />
-      <p>ประกอบด้วยตัวเลขอย่างน้อย 1 ตัว</p>
+      <p>{{ t('atLeastOneNumber') }}</p>
     </div>
   </div>
 </template>

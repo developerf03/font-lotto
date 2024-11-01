@@ -35,7 +35,6 @@ const loadingCancelTransaction = ref(false)
 // computed
 
 const tabPayment = computed(() => {
-  fetchApiTransactions()
   return items.value?.findIndex((item) => item.id === transactionsModal.value?.tab)
 })
 
@@ -47,6 +46,13 @@ const status = computed(() => {
   }
 })
 
+const statusTransactions = computed(
+  () =>
+    transactionsList.value?.transactionList.find(
+      (o) => o?.status === transactionsViewModal?.item.status,
+    )?.status,
+)
+
 // Watch
 watch(transactionsViewModal, (val) => {
   if (!val?.active) {
@@ -54,11 +60,19 @@ watch(transactionsViewModal, (val) => {
     transactionsViewModal.item = null
   }
 })
+
+watch(transactionsModal.value, (val) => {
+  if (val) {
+    fetchApiTransactions()
+  }
+})
+
 // Functions
 const onChange = (val) => {
   transactionsModal.value.tab = items.value?.[val]?.id
   pagination.page = 1
   pagination.pageSize = 5
+  fetchApiTransactions()
 }
 
 const fetchApiTransactions = async () => {
@@ -72,11 +86,16 @@ const fetchApiTransactions = async () => {
 }
 
 const updateCurrPagePrev = () => {
+  if (pagination.page === 1) return
+
   pagination.page--
+  fetchApiTransactions()
 }
 
 const updateCurrPageNext = () => {
+  if (transactionsList.value?.pageTotal === pagination.page) return
   pagination.page++
+  fetchApiTransactions()
 }
 
 const onViewTransactions = (item) => {
@@ -115,6 +134,10 @@ const onCancelTransaction = () => {
   })
 }
 
+const closedModal = () => {  
+  pagination.page = 1
+  pagination.pageSize = 5
+}
 // onMounted
 onMounted(() => {
   nextTick(() => {})
@@ -128,11 +151,12 @@ onMounted(() => {
     v-model="transactionsModal.active"
     :disable-click-out="true"
     :hide-icon-close="true"
+    @closed="closedModal"
   >
     <!-- <div class="w-full"><div class="text-base cursor-pointer">ย้อนกลับ</div></div> -->
     <UTabs v-model="tabPayment" :items="items" @change="onChange" />
     <div v-if="transactionsList?.transactionList.length" class="text-xs text-tertiary">
-      (ทั้งหมก {{ transactionsList?.total }} รายการ)
+      (ทั้งหมด {{ transactionsList?.total }} รายการ)
     </div>
     <div class="w-full min-h-[350px]">
       <div
@@ -171,7 +195,7 @@ onMounted(() => {
                   {{ $format.formatTime(item?.createdAt) }}
                 </div>
               </div>
-              <div class="flex flex-col justify-center items-center">
+              <div class="flex flex-col justify-center items-end">
                 <nuxt-icon
                   class="icon-eye cursor-pointer"
                   name="svg/eye"
@@ -239,9 +263,7 @@ onMounted(() => {
       </div>
     </div>
     <UButton
-      v-if="
-        transactionsViewModal?.item?.status === 'pending' && transactionsModal?.tab === 'deposit'
-      "
+      v-if="statusTransactions === 'pending' && transactionsModal?.tab === 'deposit'"
       :label="t('cancelTransaction')"
       type="submit"
       class="!w-full mt-6"

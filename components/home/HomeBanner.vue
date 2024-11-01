@@ -2,9 +2,11 @@
 // Imports
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination, Autoplay } from 'swiper/modules'
+import { useWindowSize } from '@vueuse/core'
 
 // Composables
 const menu = useMenu()
+const { width } = useWindowSize()
 </script>
 
 <template>
@@ -22,13 +24,13 @@ const menu = useMenu()
           :autoplay="{
             delay: 5000,
             disableOnInteraction: false,
-            reverseDirection: true,
+            reverseDirection: false,
           }"
         >
-          <swiper-slide v-for="index in 3" :key="index" class="w-full h-full">
+          <swiper-slide v-for="(item, index) in useHero()" :key="index" class="w-full h-full">
             <img
-              src="~/assets/images/banners/banner.gif"
-              alt="banner"
+              :src="width <= 640 ? item?.imageUrlMobile : item?.imageUrlPC"
+              :alt="item?.description"
               class="w-full h-full object-cover"
             >
           </swiper-slide>

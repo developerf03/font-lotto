@@ -21,6 +21,27 @@ export const useInformationStore = defineStore(
       social: {},
     })
 
+    // Functions
+    const getPromotes = async () => {
+      loading.value = true
+      const { data, error } = await useAPI().get('/api/promote')
+
+      loading.value = false
+      if (error.value) return Promise.reject(error.value)
+      promotes.value = data.value.data || []
+      showAllCloseBtn.value = data.value?.showAllCloseBtn
+      promotesDontShowAgainDuration.value = data.value?.dontShowAgainDuration || 24
+    }
+
+    const getInformations = async () => {
+      loading.value = true
+      const { data, error } = await useAPI().get('/api/information')
+
+      loading.value = false
+      if (error.value) return Promise.reject(error.value)
+      information.value = isObjEmpty(data.value.data) ? information.value : data.value.data
+    }
+
     // Computed
     const activePromotes = computed(() =>
       promotes.value.filter((v) => v?.isActive && v?.type === 'promote'),
@@ -60,28 +81,6 @@ export const useInformationStore = defineStore(
         return o?.type === type && o?.isActive && today >= startDate && today <= endDate
       })
     })
-
-    // Functions
-    const getPromotes = async () => {
-      loading.value = true
-      const { data, error } = await useAPI().get('/api/promote')
-
-      loading.value = false
-      if (error.value) return Promise.reject(error.value)
-      promotes.value = data.value.data || []
-      showAllCloseBtn.value = data.value?.showAllCloseBtn
-      promotesDontShowAgainDuration.value = data.value?.dontShowAgainDuration || 24
-    }
-
-    const getInformations = async () => {
-      loading.value = true
-      const { data, error } = await useAPI().get('/api/information')
-
-      loading.value = false
-      if (error.value) return Promise.reject(error.value)
-      information.value = isObjEmpty(data.value.data) ? information.value : data.value.data
-    }
-
 
     return {
       activePromotes,

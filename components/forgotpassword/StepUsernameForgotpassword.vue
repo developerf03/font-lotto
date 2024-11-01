@@ -1,6 +1,5 @@
 <script setup>
 // Import
-import { object, string } from 'yup'
 
 // Props
 const props = defineProps({
@@ -10,12 +9,15 @@ const props = defineProps({
   signinSetting: { type: Object, default: () => {} },
   setting: { type: Object, default: () => {} },
   remainSec: {
-    type: [String, Number],
+    type: Number,
     required: true,
   },
 })
 
 const emit = defineEmits(['update:remainSec'])
+
+// Composables
+const { handVerifyOTPModal } = useModalStore()
 
 // Stores
 const { profileCheckData, sendOTP } = usePlayerStore()
@@ -23,54 +25,8 @@ const { profileCheckData, sendOTP } = usePlayerStore()
 // State
 const validateType = props?.signinSetting.verifyWith
 const form = reactive({
-  form: {
-    playerUsername: '',
-    email: '',
-    phone: '',
-  },
-  schema: object({
-    ...(props.signinSetting?.registerWith?.username && {
-      playerUsername: string().test({
-        test(value, ctx) {
-          if (value) {
-            return ctx.createError({ message: 'Must be at least 10 characters' })
-          }
-          checkUsername()
-          return true
-        },
-      }),
-    }),
-    ...(props.signinSetting?.registerWith?.phone && {
-      phone: string().test({
-        test(value, ctx) {
-          if (value.length < 10) {
-            return ctx.createError({ message: 'Must be at least 10 characters' })
-          }
-          checkPhone()
-          // if(checkData.value.phone) {
-          //   return ctx.createError({ message: 'Duplicated Player Phone Number' })
-          // } else {
-          //   checkData.value.phone = true
-          //   return true
-          // }
-        },
-      }),
-    }),
-  }),
-  submitFirstStep: async () => {
-    // useDebounceFn(() => onCheckData('phone'), 200)
-    // if require verify
-    console.log('checkData.value :>> ', checkData.value)
-    // if (props?.signupSetting?.verifyRegister === true) {
-    //   onSendOtp()
-    //   return
-    // }
-    // // if not require verify
-    // if (props?.signupSetting?.verifyRegister === false) {
-    //   setValueToMainForm()
-    //   props.nextStep()
-    // }
-  },
+  email: '',
+  phone: '',
 })
 
 // Functions
@@ -78,14 +34,14 @@ const onSendOtp = async () => {
   try {
     const { code, remain } = sendOTP({
       // if verify with phone
-      ...(props?.signupSetting?.verifyWith === 'phone' && {
-        phone: form.form.phone,
+      ...(props?.signinSetting?.verifyWith === 'phone' && {
+        phone: form.phone,
         callingCode: '+66',
-        callingPhone: convertPhoneNumber(form.form.phone, '+66'),
+        callingPhone: convertPhoneNumber(form.phone, '+66'),
       }),
       // if verify with email
-      ...(props?.signupSetting?.verifyWith === 'email' && {
-        email: form.form.email,
+      ...(props?.signinSetting?.verifyWith === 'email' && {
+        email: form.email,
       }),
       currency: 'THB',
       type: 'register',
@@ -122,18 +78,13 @@ const onSendOtp = async () => {
       กรุณากรอกเบอร์โทรศัพท์ที่เคยใช้สมัครใช้งาน
     </div>
     <div class="w-full">
-      <UForm
-        :schema="form.schema"
-        :state="form.form"
-        class="space-y-4"
-        @submit="form.submitFirstStep"
-      >
+      <UForm :state="form" class="space-y-4" @submit="submitFirstStep">
         <UFormGroup v-if="validateType === 'email'" label="Email" name="email" required>
-          <BaseInput v-model="form.form.email" placeholder="email" />
+          <BaseInput v-model="form.email" placeholder="email" />
         </UFormGroup>
         <UFormGroup v-if="validateType === 'phone'" label="เบอร์โทรศัพท์" name="phone" required>
           <BaseInput
-            v-model="form.form.phone"
+            v-model="form.phone"
             placeholder="เช่น 081-234-5678"
             type="tel"
             :maxlength="10"

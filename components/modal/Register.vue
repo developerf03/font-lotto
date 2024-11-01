@@ -53,9 +53,18 @@ const steps = computed(() =>
 )
 
 // Functions
+const formatDateOfBirth = () => {
+  if (form.dateOfBirth) {
+    // Convert date to ISO string
+    const parts = form.dateOfBirth.split('/')
+    const date = new Date(parts[2], parts[1] - 1, parts[0])
+    return date.toISOString()
+  } else {
+    return ''
+  }
+}
 const handleSubmit = async () => {
-  const date = new Date(form.dateOfBirth)
-  const isoString = date.toISOString()
+  const isoString = formatDateOfBirth()
   try {
     const { accessToken, refreshToken } = await register({
       // if enable username
@@ -76,7 +85,7 @@ const handleSubmit = async () => {
       ...(signupSetting.value?.requireBank && {
         accountNumber: form.accountNumber,
         accountName: form.accountName,
-        bankCode: form.bankCode?.bankCode,
+        bankCode: form.bankCode,
       }),
       // if have utm source
       ...((route.query?.utm_source || utm.value) && {

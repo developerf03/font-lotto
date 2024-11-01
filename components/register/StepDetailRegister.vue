@@ -42,11 +42,16 @@ const errors = reactive({})
 // Computeds
 const validator = computed(() =>
   useValidator(form, errors).rules({
-    password: Rules().required(t('validation.pleaseEnterPassword')).password(t('passwordErr')),
+    password: Rules()
+      .required(t('validation.pleaseEnterPassword'))
+      .password(t('validation.passwordErr')),
+    confirmPassword: Rules()
+      .required(t('validation.pleaseEnterPassword'))
+      .isMatch({ errMsg: t('validation.passwordsNotMatch'), field: 'password' }),
     ...(props.signupSetting?.dateOfBirth && {
       dateOfBirth: Rules()
         .required(t('validation.pleaseEnterDateOfBirth'))
-        .custom(handleCheckDateOfBirth),
+        .date(t('validation.invalidDateFormat')),
     }),
     ...(useLobbySetting()?.enableReferCode && {
       referCode: Rules().engAlphabetOrNumeric(t('invalidFriendReferralCode')),
@@ -62,6 +67,17 @@ const validator = computed(() =>
 )
 
 // Functions
+const handleInput = (field) => {
+  if (field === 'affCode') {
+    form.affCode = form.affCode?.toUpperCase()
+  }
+  validator.value.validate(field)
+}
+
+const handleCancelRegister = () => {
+  props.nextStep(props.steps[0])
+}
+
 const setValueToMainForm = () => {
   Object.keys(form).forEach((o) => {
     props.setForm(o, form[o])
@@ -92,61 +108,85 @@ const handleSubmit = () => {
             readonly
           />
         </UFormGroup>
-        <div class="w-full flex justify-between gap-2">
-          <UFormGroup
-            v-if="signupSetting?.dateOfBirth"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            label="วันเกิด"
-            name="dateOfBirth"
-            :error="errors?.dateOfBirth?.message"
-          >
-            <BaseInput
-              v-model="form.dateOfBirth"
-              type="date"
-              placeholder="เช่น 01/01/2000"
-              @update:model-value="validator.validate('dateOfBirth')"
-            />
-          </UFormGroup>
-          <UFormGroup
-            v-if="useLobbySetting()?.enableReferCode"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            label="Referal Code"
-            name="referCode"
-            :error="errors?.referCode?.message"
-          >
-            <BaseInput
-              v-model="form.referCode"
-              placeholder="กรอกรหัสเชิญเพื่อน"
-              @update:model-value="validator.validate('referCode')"
-            />
-          </UFormGroup>
-        </div>
+        <UFormGroup
+          v-if="signupSetting?.dateOfBirth"
+          class="w-full"
+          label="วันเกิด"
+          name="dateOfBirth"
+          :error="errors?.dateOfBirth?.message"
+        >
+          <BaseInput
+            v-model="form.dateOfBirth"
+            placeholder="DD/MM/YYYY"
+            data-maska="##/##/####"
+            @update:model-value="handleInput('dateOfBirth')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          class="w-full"
+          :label="t('affiliateCode')"
+          name="affCode"
+          :error="errors?.affCode?.message"
+        >
+          <BaseInput
+            v-model="form.affCode"
+            :placeholder="t('affiliateCode')"
+            :disabled="!!route.query?.aff_regis_code || !!affCodeLocal"
+            @update:model-value="handleInput('affCode')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="useLobbySetting()?.enableReferCode"
+          class="w-full"
+          :label="t('affiliateCode')"
+          name="referCode"
+          :error="errors?.referCode?.message"
+        >
+          <BaseInput
+            v-model="form.referCode"
+            :placeholder="t('affiliateCode')"
+            @update:model-value="handleInput('referCode')"
+          />
+        </UFormGroup>
         <UFormGroup label="รหัสผ่าน" name="password" :error="errors?.password?.message">
           <BaseInput
             v-model="form.password"
             type="password"
             placeholder="กรอกรหัสผ่าน"
-            @update:model-value="validator.validate('password')"
+            @update:model-value="handleInput('password'), handleInput('confirmPassword')"
           />
         </UFormGroup>
-        <UFormGroup label="ยืนยันรหัสผ่าน" name="confirmPassword">
-          <BaseInput v-model="form.confirmPassword" type="password" placeholder="กรอกรหัสผ่าน" />
+        <UFormGroup
+          label="ยืนยันรหัสผ่าน"
+          name="confirmPassword"
+          :error="errors?.confirmPassword?.message"
+        >
+          <BaseInput
+            v-model="form.confirmPassword"
+            type="password"
+            placeholder="กรอกรหัสผ่าน"
+            @update:model-value="handleInput('confirmPassword'), handleInput('password')"
+          />
         </UFormGroup>
         <BaseValidateList ref="checkValidate" :password="form.password" />
-        <UButton
-          label="สมัครสมาชิก"
-          class="!w-full"
-          type="submit"
-          :ui="{ rounded: 'rounded-full' }"
-          size="xl"
-          variant="solid"
-        />
+        <div class="flex justify-center gap-2">
+          <div class="w-50">
+            <UButton size="sm" variant="outline" @click="handleCancelRegister">
+              <p class="text-secondary flex justify-center">ย้อนกลับ</p>
+            </UButton>
+          </div>
+          <div class="w-50">
+            <UButton
+              label="สมัครสมาชิก"
+              class="!w-full"
+              type="submit"
+              :ui="{ rounded: 'rounded-full' }"
+              size="xl"
+              variant="solid"
+              :disabled="!validator.isFormValid"
+            />
+          </div>
+        </div>
       </UForm>
       <div class="p-6 flex justify-center gap-1">
         <div>มีบัญชีอยู่แล้ว?</div>

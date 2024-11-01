@@ -67,19 +67,27 @@ const validator = computed(() =>
     }),
     ...(props.signupSetting?.registerWith?.email && {
       email: Rules()
-        .required(t('validation.pleaseEnterEmail'))
+        .required(t('validation.pleaseEnterUsername'))
         .email(t('validation.emailInValid'))
         .custom(checkEmail),
     }),
     ...(props.signupSetting?.registerWith?.phone && {
       phone: Rules()
-        .required(t('validation.pleaseEnterPhoneNumber'))
-        .minLength({ errMsg: t('validation.invalidPhoneNumber'), min: 9 })
-        .maxLength({ errMsg: t('validation.invalidPhoneNumber'), max: 11 })
+        .required('validation.pleaseEnterPhoneNumber')
+        .minLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          min: 9,
+        })
+        .maxLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          max: 10,
+        })
         .custom(checkPhone),
     }),
     ...(props.signupSetting?.requireBank && {
-      password: Rules().required(t('validation.pleaseEnterPassword')).password(t('passwordErr')),
+      password: Rules()
+        .required(t('validation.pleaseEnterPassword'))
+        .password(t('validation.passwordErr')),
     }),
     ...(props.signupSetting?.requireBank && {
       confirmPassword: Rules()
@@ -90,19 +98,20 @@ const validator = computed(() =>
       props.signupSetting?.requireBank && {
         dateOfBirth: Rules()
           .required(t('validation.pleaseEnterDateOfBirth'))
-          .custom(handleCheckDateOfBirth),
+          .date(t('validation.invalidDateFormat')),
       }),
     ...(useLobbySetting()?.enableReferCode &&
       props.signupSetting?.requireBank && {
-        referCode: Rules().engAlphabetOrNumeric(t('invalidFriendReferralCode')),
+        referCode: Rules().engAlphabetOrNumeric(t('validation.invalidFriendReferralCode')),
       }),
-    ...((form.affCode || props.setting?.affiliateCodeRequired) && {
-      affCode: props.setting?.affiliateCodeRequired
-        ? Rules()
-            .engAlphabetOrNumeric(t('invalidAffiliateCode'))
-            .required(t('specifyTheAffiliateCode'))
-        : Rules().option().engAlphabetOrNumeric(t('invalidAffiliateCode')),
-    }),
+    ...((form.affCode || props.setting?.affiliateCodeRequired) &&
+      props.signupSetting?.requireBank && {
+        affCode: props.setting?.affiliateCodeRequired
+          ? Rules()
+              .engAlphabetOrNumeric(t('validation.invalidAffiliateCode'))
+              .required(t('validation.specifyTheAffiliateCode'))
+          : Rules().option().engAlphabetOrNumeric(t('validation.invalidAffiliateCode')),
+      }),
   }),
 )
 
@@ -117,6 +126,9 @@ const handleInput = (field) => {
   }
   if (field === 'phone') {
     form.callingPhone = convertPhoneNumber(form.phone, form.callingCode[0]?.callingCode)
+  }
+  if (field === 'affCode') {
+    form.affCode = form.affCode?.toUpperCase()
   }
   validator.value.validate(field)
 }
@@ -215,7 +227,6 @@ onMounted(() => {
       }}
     </div>
     <div class="w-full">
-      <pre>{{ errors }}</pre>
       <UForm :state="form" class="space-y-4" @submit="onSubmit">
         <UFormGroup
           v-if="signupSetting?.registerWith?.username"
@@ -254,48 +265,73 @@ onMounted(() => {
             @update:model-value="handleInput('phone')"
           />
         </UFormGroup>
-        <div v-if="signupSetting.requireBank" class="w-full flex justify-between gap-2">
-          <UFormGroup
-            v-if="signupSetting?.dateOfBirth"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            :label="t('dateOfBirth')"
-            name="dateOfBirth"
-          >
-            <BaseInput
-              v-model="form.dateOfBirth"
-              type="date"
-              @update:model-value="handleInput('dateOfBirth')"
-            />
-          </UFormGroup>
-          <UFormGroup
-            v-if="useLobbySetting()?.enableReferCode"
-            :class="{
-              '!w-[50%]': signupSetting?.dateOfBirth && useLobbySetting()?.enableReferCode,
-            }"
-            class="w-full"
-            label="Referal Code"
-            name="referCode"
-          >
-            <BaseInput
-              v-model="form.referCode"
-              placeholder="กรอกรหัสเชิญเพื่อน"
-              @update:model-value="handleInput('referCode')"
-            />
-          </UFormGroup>
-        </div>
-        <UFormGroup v-if="signupSetting.requireBank" label="รหัสผ่าน" name="password">
+        <UFormGroup
+          v-if="signupSetting?.dateOfBirth && signupSetting.requireBank"
+          class="w-full"
+          :label="t('dateOfBirth')"
+          name="dateOfBirth"
+          :error="errors?.dateOfBirth?.message"
+        >
+          <BaseInput
+            v-model="form.dateOfBirth"
+            placeholder="DD/MM/YYYY"
+            data-maska="##/##/####"
+            @update:model-value="handleInput('dateOfBirth')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="signupSetting.requireBank"
+          class="w-full"
+          :label="t('affiliateCode')"
+          name="affCode"
+          :error="errors?.affCode?.message"
+        >
+          <BaseInput
+            v-model="form.affCode"
+            :placeholder="t('affiliateCode')"
+            :disabled="!!route.query?.aff_regis_code || !!affCodeLocal"
+            @update:model-value="handleInput('affCode')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="useLobbySetting()?.enableReferCode && signupSetting.requireBank"
+          class="w-full"
+          :label="t('referralCode')"
+          name="referCode"
+          :error="errors?.referCode?.message"
+        >
+          <BaseInput
+            v-model="form.referCode"
+            :placeholder="t('referralCode')"
+            :disabled="!!route.query?.ref || !!referCodeLocal"
+            @update:model-value="handleInput('referCode')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="signupSetting.requireBank"
+          :label="t('password')"
+          name="password"
+          :error="errors?.password?.message"
+        >
           <BaseInput
             v-model="form.password"
             type="password"
-            placeholder="กรอกรหัสผ่าน"
-            @update:model-value="handleInput('password')"
+            :placeholder="t('password')"
+            @update:model-value="handleInput('password'), handleInput('confirmPassword')"
           />
         </UFormGroup>
-        <UFormGroup v-if="signupSetting.requireBank" label="ยืนยันรหัสผ่าน" name="confirmPassword">
-          <BaseInput v-model="form.confirmPassword" type="password" placeholder="กรอกรหัสผ่าน" />
+        <UFormGroup
+          v-if="signupSetting.requireBank"
+          :label="t('confirmPassword')"
+          name="confirmPassword"
+          :error="errors?.confirmPassword?.message"
+        >
+          <BaseInput
+            v-model="form.confirmPassword"
+            type="password"
+            :placeholder="t('confirmPassword')"
+            @update:model-value="handleInput('confirmPassword'), handleInput('password')"
+          />
         </UFormGroup>
         <BaseValidateList
           v-if="signupSetting.requireBank"
@@ -310,17 +346,17 @@ onMounted(() => {
           variant="solid"
           :disabled="!validator.isFormValid"
         >
-          <p>ต่อไป</p>
+          <p>{{ t('next') }}</p>
           <UIcon name="carbon:arrow-right" class="w-5 h-5" />
         </UButton>
       </UForm>
       <div class="p-6 flex justify-center gap-1">
-        <div>มีบัญชีอยู่แล้ว?</div>
+        <div>{{ t('alreadyHaveAccount') }}</div>
         <div
           class="text-blue-400 cursor-pointer"
           @click="handleLoginModal(true), handleRegisterModal(false)"
         >
-          เข้าสู่ระบบ
+          {{ t('login') }}
         </div>
       </div>
     </div>

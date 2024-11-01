@@ -82,6 +82,12 @@ export default {
     'Please make a turnover of more than or equal to {turnover} to be able to withdraw',
   lightTheme: 'Light Mode',
   darkTheme: 'Dark Mode',
+  profile: 'Profile',
+  verified: 'Verified',
+  verifyNow: 'Verify now',
+  notVerify: 'Not verify',
+  referralCode: 'Referral Code',
+  editPersonalInformation: 'Edit Personal Information',
 
   promotionConditions: {
     redeem: 'Distribute {amount} codes',

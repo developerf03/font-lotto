@@ -78,9 +78,16 @@ export default {
   depositAmountSuccess: 'Nạp thành công {amount} {unit}',
   withdrawAmountSuccess: 'Rút thành công {amount} {unit}',
   contactAdmin: 'Liên hệ quản trị viên',
-  withdrawConditionTurnover: 'Vui lòng thực hiện doanh thu bằng hoặc lớn hơn {turnover} để có thể rút tiền',
+  withdrawConditionTurnover:
+    'Vui lòng thực hiện doanh thu bằng hoặc lớn hơn {turnover} để có thể rút tiền',
   lightTheme: 'Chế độ Sáng',
   darkTheme: 'Chế độ Tối',
+  profile: 'Hồ sơ',
+  verified: 'Đã xác minh',
+  verifyNow: 'Xác minh ngay',
+  notVerify: 'Chưa xác minh',
+  referralCode: 'Mã giới thiệu',
+  editPersonalInformation: 'Chỉnh sửa thông tin cá nhân',
 
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',

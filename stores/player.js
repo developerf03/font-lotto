@@ -126,7 +126,7 @@ export const usePlayerStore = defineStore('player', () => {
 
   const updateProfileV2 = async (payload = {}) => {
     loading.value = true
-    const { data, error } = await useFetchAPI().post('/api/auth/v2/changeProfile', payload)
+    const { data, error } = await useAPI().post('/api/auth/v2/changeProfile', payload)
 
     loading.value = false
     if (error.value) return Promise.reject(error.value)

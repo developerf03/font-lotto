@@ -81,6 +81,12 @@ export default {
   withdrawConditionTurnover: 'กรุณาทำเทิร์นมากกว่าหรือเท่ากับ {turnover} จึงจะสามารถถอนได้',
   lightTheme: 'โหมดสว่าง',
   darkTheme: 'โหมดมืด',
+  profile: 'โปรไฟล์',
+  verified: 'ยืนยันตัวตนแล้ว',
+  verifyNow: 'ยืนยันตอนนี้',
+  notVerify: 'ยังไม่ยืนยัน',
+  referralCode: 'รหัสชวนเพื่อน',
+  editPersonalInformation: 'แก้ไขข้อมูลส่วนตัว',
 
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',

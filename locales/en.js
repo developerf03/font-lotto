@@ -89,7 +89,8 @@ export default {
   emailAlreadyExists: 'Email already exists',
   referralCode: 'Referral Code',
   affiliateCode: 'Affiliate Code',
-
+  defaultAccount: 'Default Account',
+  useAnotherAccount: 'Use Another Account',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

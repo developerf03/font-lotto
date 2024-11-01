@@ -5,7 +5,9 @@ const { paymentModal } = useModals()
 // Stores
 
 // State
-const items = ref([
+
+// Computed
+const items = computed(() => [
   {
     id: 'deposit',
     label: t('deposit'),
@@ -16,7 +18,6 @@ const items = ref([
   },
 ])
 
-// Computed
 const componentsPaymentBank = computed(() => ({
   deposit: {
     component: resolveComponent('BaseBankDeposit'),

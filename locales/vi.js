@@ -89,7 +89,8 @@ export default {
   emailAlreadyExists: 'Email đã tồn tại',
   referralCode: 'Mã giới thiệu',
   affiliateCode: 'Mã liên kết',
-
+  defaultAccount: 'Mặc định',
+  useAnotherAccount: 'Sử dụng tài khoản khác',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

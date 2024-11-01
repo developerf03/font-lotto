@@ -88,7 +88,8 @@ export default {
   emailAlreadyExists: 'อีเมลนี้ถูกใช้แล้ว',
   referralCode: 'รหัสชวนเพื่อน',
   affiliateCode: 'รหัสพันธมิตร',
-
+  defaultAccount: 'บัญชีหลัก',
+  useAnotherAccount: 'ใช้บัญชีอื่นๆ',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

@@ -102,7 +102,8 @@ export default {
   selectBank: 'Lựa chọn ngân hàng',
   accountNumber: 'Số tài khoản',
   addAccount: 'Thêm tài khoản',
-
+  defaultAccount: 'Mặc định',
+  useAnotherAccount: 'Sử dụng tài khoản khác',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

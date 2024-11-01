@@ -37,7 +37,7 @@ export const useAlert = ({
   confirmButtonText, // confirm button text
   cancelButtonText, // cancel button text
   html, // element
-  duration = 2000, // time to close
+  duration = 1000, // time to close
   confirmCallback, // use confirm callback
   cancelCallback, // use cancel callback
   closeCallback,

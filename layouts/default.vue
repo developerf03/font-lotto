@@ -13,7 +13,7 @@ const menu = useMenu()
   <MobileHeader class="mlg:hidden" />
   <!-- MAIN CONTENT -->
   <main
-    class="flex gap-8 max-w-[calc(1784px + 66px)] px-[66px] py-[146px] 2xl:p-0 mlg:(pt-10 pb-10) lg:(pt-[170px] px-10) <lg:(px-[20px]) <sm:(px-[18px])"
+    class="flex gap-8 max-w-[calc(1784px + 66px)] px-[66px] py-[146px] <sm:(px-[18px]) <lg:(px-[20px]) mlg:(p-10) "
     :class="[{ 'pt-[161px]': user }]"
   >
     <!-- MENU -->

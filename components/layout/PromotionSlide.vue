@@ -13,37 +13,26 @@ const promotionSlideList = computed(() => {
   let breakpoints = '0'
 
   if (width.value >= 1025) {
-    console.log('0')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['1025']?.slidesPerView
   } else if (width.value >= 1000) {
-    console.log('1')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['100']?.slidesPerView
   } else if (width.value >= 900) {
-    console.log('2')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['900']?.slidesPerView
   } else if (width.value >= 800) {
-    console.log('3')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['800']?.slidesPerView
   } else if (width.value >= 768) {
-    console.log('4')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['768']?.slidesPerView
   } else if (width.value >= 640) {
-    console.log('5')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['640']?.slidesPerView
   } else if (width.value >= 600) {
-    console.log('6')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['600']?.slidesPerView
   } else if (width.value >= 550) {
-    console.log('7')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['550']?.slidesPerView
   } else if (width.value >= 450) {
-    console.log('8')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['450']?.slidesPerView
   } else if (width.value >= 400) {
-    console.log('9')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['400']?.slidesPerView
   } else if (width.value >= 0) {
-    console.log('10')
     breakpoints = promotionSwiperSlide?.value?.breakpoints['0']?.slidesPerView
   }
 
@@ -55,54 +44,6 @@ const promotionSlideList = computed(() => {
   }
   return promoteslist
 })
-
-// const promotionSlideList = computed(() => {
-//   let breakpoints = '0'
-//   console.log('width', width.value)
-
-//   if (width.value >= 0 || width.value <= 399) {
-//     console.log('0')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['0']?.slidesPerView
-//   } else if (width.value >= 400 || width.value <= 449) {
-//     console.log('1')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['400']?.slidesPerView
-//   } else if (width.value >= 450 || width.value <= 549) {
-//     console.log('2')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['450']?.slidesPerView
-//   } else if (width.value >= 550 || width.value <= 599) {
-//     console.log('3')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['550']?.slidesPerView
-//   } else if (width.value >= 600 || width.value <= 649) {
-//     console.log('4')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['600']?.slidesPerView
-//   } else if (width.value >= 640 || width.value <= 767) {
-//     console.log('5')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['640']?.slidesPerView
-//   } else if (width.value >= 768 || width.value <= 799) {
-//     console.log('6')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['768']?.slidesPerView
-//   } else if (width.value >= 800 || width.value <= 899) {
-//     console.log('7')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['800']?.slidesPerView
-//   } else if (width.value >= 900 || width.value <= 999) {
-//     console.log('8')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['900']?.slidesPerView
-//   } else if (width.value >= 1000 || width.value <= 1024) {
-//     console.log('9')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['1000']?.slidesPerView
-//   } else if (width.value >= 1025) {
-//     console.log('10')
-//     breakpoints = promotionSwiperSlide?.value?.breakpoints['1025']?.slidesPerView
-//   }
-//   // else {
-//   //   console.log('else')
-//   //   breakpoints = promotionSwiperSlide?.value?.breakpoints['1025']?.slidesPerView
-//   // }
-
-//   console.log('breakpoints', breakpoints)
-
-//   return activePromotes
-// })
 </script>
 
 <template>

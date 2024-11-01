@@ -134,7 +134,7 @@ const onCancelTransaction = () => {
   })
 }
 
-const closedModal = () => {  
+const closedModal = () => {
   pagination.page = 1
   pagination.pageSize = 5
 }
@@ -189,7 +189,9 @@ onMounted(() => {
           >
             <div class="w-full flex justify-between items-center">
               <div class="flex flex-col justify-center">
-                <div class="text-base">{{ item?.amount }} {{ item?.currencyCode }}</div>
+                <div class="text-base">
+                  {{ $format.currency(item?.amount) }} {{ item?.currencyCode }}
+                </div>
                 <div class="text-sm text-tertiary">
                   {{ $format.dateOnly(item?.createdAt) }}
                   {{ $format.formatTime(item?.createdAt) }}
@@ -259,7 +261,9 @@ onMounted(() => {
           />
         </div>
         <div class="text-right text-base">{{ transactionsViewModal?.item?.currencyCode }}</div>
-        <div class="text-right text-base">{{ transactionsViewModal?.item?.amount }}</div>
+        <div class="text-right text-base">
+          {{ $format.currency(transactionsViewModal?.item?.amount) }}
+        </div>
       </div>
     </div>
     <UButton

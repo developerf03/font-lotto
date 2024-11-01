@@ -101,7 +101,8 @@ export default {
   selectBank: 'เลือกธนาคาร',
   accountNumber: 'เลขบัญชี',
   addAccount: 'เพิ่มบัญชี',
-
+  defaultAccount: 'บัญชีหลัก',
+  useAnotherAccount: 'ใช้บัญชีอื่นๆ',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

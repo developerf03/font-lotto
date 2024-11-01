@@ -39,25 +39,27 @@ export const useLoadingUrl = () => {
 }
 
 export const useHero = () => {
-  const { setting, langDefault } = useLobbySetting()
   const { $i18n } = useNuxtApp()
-  let hero = setting.value?.hero && setting.value?.hero[$i18n.localeProperties.value?.IETF]
+  const setting = useSetting()
+  const heroData =
+    setting.value?.hero?.[$i18n.localeProperties.value?.IETF] ||
+    setting.value?.hero?.[useDefaultLangauge()]
 
-  // Check empty for set dfault
-  const videoType =
-    hero?.length &&
-    hero.data[0].bgType === 'video' &&
-    !hero.data[0].videoUrlMobile &&
-    !hero.data[0].videoUrlPC
-  const imageType =
-    hero?.length &&
-    hero.data[0].bgType === 'image' &&
-    !hero.data[0].imageUrlMobile &&
-    !hero.data[0].imageUrlPC
+  // Helper function to determine if hero data has an empty image or video
+  const isEmptyMedia = (data) => {
+    const type = data?.bgType
 
-  if (videoType || imageType) {
-    hero = setting.value?.hero[langDefault]
+    return (
+      (type === 'image' && !data?.imageUrlMobile && !data?.imageUrlPC) ||
+      (type === 'video' && !data?.videoUrlMobile && !data?.videoUrlPC)
+    )
   }
+
+  // Use default language if media is empty
+  const hero =
+    heroData && isEmptyMedia(heroData.data?.[0])
+      ? setting.value?.hero?.[useDefaultLangauge()]
+      : heroData
 
   return hero?.data || []
 }

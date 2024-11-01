@@ -102,7 +102,8 @@ export default {
   selectBank: 'Select bank',
   accountNumber: 'Account number',
   addAccount: 'add account',
-
+  defaultAccount: 'Default Account',
+  useAnotherAccount: 'Use Another Account',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

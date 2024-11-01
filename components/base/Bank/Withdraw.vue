@@ -21,14 +21,14 @@ const addBankForm = reactive({
   accountNumber: null,
 })
 const bankOption = ref('main')
-const accountOptions = ref([
+const accountOptions = computed(() => [
   {
     value: 'main',
-    label: 'บัญชีหลัก',
+    label: t('defaultAccount'),
   },
   {
     value: 'other',
-    label: 'บัญชีอื่นๆ',
+    label: t('useAnotherAccount'),
   },
 ])
 const loading = ref(false)

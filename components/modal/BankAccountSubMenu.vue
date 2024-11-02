@@ -9,7 +9,6 @@ const { bankAccountModal, handleBankAccountModal } = useModals()
 
 // Computeds
 const dataBankAccount = computed(() => banks?.value?.bankAccountList?.find((v) => v?.isDefault))
-console.log('dataBankAccount :>> ', dataBankAccount.value)
 
 // Functions
 const fetchApi = async () => {
@@ -23,7 +22,6 @@ onMounted(() => {
 
 // Watchs
 watch(bankAccountModal, (val) => {
-  console.log('val :>> ', val)
   if (val) {
     getBankAccounts({ currencyCode: useCurrencyCode() })
   }

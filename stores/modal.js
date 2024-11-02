@@ -90,9 +90,7 @@ export const useModalStore = defineStore('modal', () => {
   }
 
   const handleBankAccountModal = (val) => {
-    console.log('val :>> ', val)
     bankAccountModal.value = val
-    console.log('bankAccountModal.value :>> ', bankAccountModal.value)
   }
 
   const handVerifyOTPModal = ({

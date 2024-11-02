@@ -6,6 +6,7 @@ export default defineNuxtPlugin(async ({ $pinia }) => {
     if (shouldRefresh()) {
       await jwtRefreshToken()
     }
+
     await fetchUser()
   }
 })

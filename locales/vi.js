@@ -123,6 +123,7 @@ export default {
   noAccountForWithdrawal: 'Chưa có tài khoản rút tiền',
   duplicatedNickname: 'Biệt danh trùng lặp',
   pleaseEnterNickname: 'Vui lòng nhập biệt danh',
+  addedBankAccountSuccess: 'Thêm số tài khoản thành công',
 
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',

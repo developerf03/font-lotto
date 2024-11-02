@@ -18,6 +18,7 @@ export const usePayment = () => {
   const {
     fetchBankList,
     getBankAccounts,
+    createBank,
     getGateWays,
     createDeposit,
     cancelTransactionPayment,
@@ -38,6 +39,7 @@ export const usePayment = () => {
     // Actions
     fetchBankList,
     getBankAccounts,
+    createBank,
     getGateWays,
     createDeposit,
     cancelTransactionPayment,

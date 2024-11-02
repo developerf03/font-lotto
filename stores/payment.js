@@ -103,6 +103,14 @@ export const usePaymentStore = defineStore('payment', () => {
     return data.value
   }
 
+  const createBank = async (payload = {}) => {
+    const { data, error } = await useAPI().post('/api/payment/bankAccount/create', payload)
+
+    if (error.value) return Promise.reject(error.value)
+
+    return data.value
+  }
+
   // computed
   const gateWayOption = computed(() => {
     const gateWay = gatewayList.value?.gatewayList?.filter((v) =>
@@ -154,5 +162,6 @@ export const usePaymentStore = defineStore('payment', () => {
     cancelTransactionPayment,
     createWithdraw,
     fetchTransactions,
+    createBank,
   }
 })

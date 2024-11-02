@@ -13,14 +13,6 @@ export const useAuth = () => {
   // Computed
   const isAuthenticated = computed(() => !!user.value)
 
-  // Watch
-  // watch(user, (newUser) => {
-  // Handle after logout
-  // if (!newUser) {
-  //   $navigateTo('/login')
-  // }
-  // })
-
   // Functions
   const login = async (payload = {}) => {
     const apiUrl = 'phone' in payload ? '/api/auth/mobile/signin' : '/api/auth/signin'

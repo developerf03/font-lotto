@@ -20,12 +20,12 @@ export const useAuthStore = defineStore(
     const isAuthenticated = computed(() => !!user.value)
 
     // Watch
-    // watch(user, (newUser) => {
-    // Handle after logout
-    //   if (!newUser) {
-    //     $navigateTo('/login')
-    //   }
-    // })
+    watch(user, (newUser) => {
+      // Handle after logout
+      if (!newUser) {
+        useModals().closeAuthModal()
+      }
+    })
 
     // Functions
     const login = async (payload = {}) => {
@@ -52,7 +52,6 @@ export const useAuthStore = defineStore(
       user.value = null
       accessToken.value = null
       refreshToken.value = null
-      useAlert({ logo: true, text: 'ออกจากระบบ' })
       // disconnectSocket()
     }
 

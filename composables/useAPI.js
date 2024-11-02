@@ -66,11 +66,9 @@ export const useAPI = () => {
     }
 
     if ([4038].includes(response._data.code)) {
-      // alertError({ title: t('sorryThereWasLoginFromAnother') })
-      // alert('sorryThereWasLoginFromAnother')
-      notify({
-        type: 'error',
-        text: 'sorryThereWasLoginFromAnother',
+      useAlert({
+        error: true,
+        text: t('sorryThereWasLoginFromAnother'),
       })
     }
 

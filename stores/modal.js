@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useModalStore = defineStore('modal', () => {
+  // States
   const loginModal = ref(false)
   const registerModal = ref(false)
   const forgotPasswordModal = ref(false)

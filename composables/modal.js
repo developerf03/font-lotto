@@ -31,6 +31,16 @@ export const useModals = () => {
     showPromotionDetailsModal,
   } = useModalStore()
 
+  const closeAuthModal = () => {
+    showPaymentModal(false)
+    showPaymentDepositQaModal(false)
+    showTransactionsModal(false)
+    handleLauncherModal(false)
+    handVerifyOTPModal({ active: false })
+    handleProfileModal(false)
+    showPromotionDetailsModal(false)
+  }
+
   return {
     // state
     loginModal,
@@ -57,5 +67,6 @@ export const useModals = () => {
     handleProfileModal,
     handleLanguageModal,
     showPromotionDetailsModal,
+    closeAuthModal,
   }
 }

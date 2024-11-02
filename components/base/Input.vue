@@ -122,7 +122,7 @@ onMounted(() => {
     :type="inputType"
     :placeholder="type === 'currency' ? '0' : placeholder"
     :class="[{ 'text-right': type === 'currency' }, { 'input-readonly': readonly }]"
-    :input-class="type === 'currency' && digit.setting?.class"
+    :input-class="type === 'currency' ? digit.setting?.class : ''"
     :disabled="disabled || readonly"
     @maska="emit('maska', $event)"
     @update:model-value="handleInput"

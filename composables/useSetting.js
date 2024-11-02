@@ -179,7 +179,10 @@ export const useSubMenu = () => {
   const menuClick = {
     profile: () => handleProfileModal(true),
     bankAccount: () => [],
-    logout: () => logout(),
+    logout: () => {
+      logout()
+      useAlert({ logo: true, text: 'ออกจากระบบ' })
+    },
   }
 
   return [

@@ -1,9 +1,7 @@
 <script setup>
-import { convertPhoneNumberDash } from '~/utils/utils'
-
 // Props
 defineProps({
-  phone: {
+  user: {
     type: String,
     default: '',
   },
@@ -17,9 +15,7 @@ const menu = useSubMenu()
   <div class="home-menu-user flex justify-between rounded-[10px] card-secondary w-full p-4">
     <div class="flex flex-col">
       <span class="text-xs text-secondary">ยูสเซอร์</span>
-      <span class="text-base text-primary font-medium mlg:text-lg">{{
-        convertPhoneNumberDash(phone)
-      }}</span>
+      <span class="text-base text-primary font-medium truncate mlg:text-lg">{{ user }}</span>
     </div>
 
     <slot>

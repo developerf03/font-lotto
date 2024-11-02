@@ -110,6 +110,7 @@ export default {
   verifyEmail: 'ยืนยันอีเมล',
   pleaseEnterPhoneNumberUseRegister: 'โปรดกรอกเบอร์โทรศัพท์ที่เคยใช้สมัครสมาชิก',
   pleaseEnterEmailUseForgotPassword: 'โปรดกรอกอีเมลที่เคยใช้สมัครสมาชิก',
+  sorryThereWasLoginFromAnother: 'ขออภัย มีการเข้าสู่ระบบจากอีกเครื่อง',
 
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',

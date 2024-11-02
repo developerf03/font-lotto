@@ -110,6 +110,7 @@ export default {
   verifyEmail: 'Verify email',
   pleaseEnterPhoneNumberUseRegister: 'Please enter your phone number that you used to register',
   pleaseEnterEmailUseForgotPassword: 'Please enter your email that you used to register',
+  sorryThereWasLoginFromAnother: 'Sorry, there was a login from another machine.',
 
   promotionConditions: {
     redeem: 'Distribute {amount} codes',

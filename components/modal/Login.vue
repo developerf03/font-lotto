@@ -52,8 +52,6 @@ const handleSubmit = async () => {
       autoHide: true,
     })
   } catch (error) {
-    console.log(error)
-
     useAlert({
       error: true,
       text: useErrorMsg({ error }),

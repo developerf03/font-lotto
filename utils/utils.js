@@ -294,8 +294,6 @@ export const validateDate = (date) => {
     if (month == 1 || month > 2) {
       if (day > ListofDays[month - 1]) {
         //to check if the date is out of range
-        console.log('Invalid date')
-
         return false
       }
     } else if (month === 2) {
@@ -304,12 +302,8 @@ export const validateDate = (date) => {
       if ((!(year % 4) && year % 100) || !(year % 400)) leapYear = true
 
       if (leapYear == false && day >= 29) {
-        console.log('Invalid date')
-
         return false
       } else if (leapYear == true && day > 29) {
-        console.log('Invalid date format!')
-
         return false
       }
     }

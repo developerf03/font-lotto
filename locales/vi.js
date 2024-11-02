@@ -110,6 +110,7 @@ export default {
   verifyEmail: 'Xác minh email',
   pleaseEnterPhoneNumberUseRegister: 'Vui lòng nhập số điện thoại mà bạn đã sử dụng để đăng ký',
   pleaseEnterEmailUseForgotPassword: 'Vui lòng nhập email mà bạn đã sử dụng để đăng ký',
+  sorryThereWasLoginFromAnother: 'Xin lỗi, đã có người đăng nhập từ máy khác.',
 
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',

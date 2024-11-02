@@ -232,12 +232,13 @@ onMounted(() => {
         <UButton
           v-for="(item, index) in selectGateWay?.amountRatio"
           :key="index"
-          :label="numeralCommas(item)"
-          class="!w-[23%] !h-9 <sm:(!w-[30%])"
+          class="!w-[23%] !h-9 <sm:(!w-[48%])"
           size="sm"
           variant="tertiary"
           @click="setDeposit(item)"
-        />
+        >
+          <span class="<sm:text-lg"> {{ numeralCommas(item) }}</span></UButton
+        >
       </div>
       <UFormGroup :label="t('promotions')">
         <USelectMenu

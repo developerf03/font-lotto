@@ -97,7 +97,6 @@ const handleWithdrawSubmit = () => {
 }
 
 const submitWithdraw = async () => {
-  console.log('submit')
   loading.value = true
   try {
     //
@@ -160,6 +159,13 @@ const onRadioOtherBank = () => {
   addBankForm.accountName = dataBankAccount.value?.accountName
 }
 
+const handlePhoneOTP = () => {
+  handVerifyOTPModal({
+    active: true,
+    typeSend: 'changeprofile',
+  })
+}
+
 // onMounted
 onMounted(() => {
   getGateWays({
@@ -176,182 +182,237 @@ onMounted(() => {
 
 <template>
   <div class="withdraw-wrapper gap-2 flex justify-center items-center flex-col w-full">
+    <!-- <pre> ==>{{ signUpSetting }}</pre> -->
+    <!-- isVerify -->
     <div
-      class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]"
+      v-if="!signUpSetting?.isVerify"
+      class="gap-2 flex justify-center items-center flex-col w-full min-h-[454px]"
     >
-      <div class="text-secondary text-sm">ยอดเงินปัจจุบัน</div>
-      <div class="text-primary font-medium text-xl <sm:(text-lg)">
-        {{ $format.currency(balanceWallet) }}
+      <!-- NOT VERIFY -->
+      <div
+        v-if="!signUpSetting?.isVerify"
+        class="flex flex-col justify-center items-center gap-2 w-full"
+      >
+        <nuxt-icon
+          :name="signUpSetting?.verifyWith === 'phone' ? 'svg/verify-phone' : 'email-account'"
+          class="text-6xl <sm:(text-5xl) text-tertiary"
+        />
+        <span class="text-base text-tertiary mt-2 text-center <sm:(text-sm)">{{
+          signUpSetting?.verifyWith === 'phone'
+            ? $t('notVerifyPhoneForWithdrawal')
+            : $t('pleaseVerifyEmailBeforeMakingWithdrawal')
+        }}</span>
+        <UButton
+          :label="signUpSetting?.verifyWith === 'phone' ? $t('verifyPhone') : $t('verifyEmail')"
+          type="submit"
+          size="md"
+          variant="solid"
+          class="!min-w-[50px] w-auto mt-4"
+          @click="handlePhoneOTP"
+        />
+      </div>
+      <!-- NOT VERIFY -->
+
+      <!-- NO BANK -->
+      <div
+        v-else-if="!banks.bankAccountList.length"
+        class="flex flex-col justify-center items-center gap-2 w-full"
+      >
+        <nuxt-icon name="svg/bank" class="text-6xl <sm:(text-5xl) text-tertiary" />
+        <span class="text-base text-tertiary mt-2 text-center <sm:(text-sm)">{{
+          $t('noAccountForWithdrawal')
+        }}</span>
+        <UButton
+          :label="t('goToAddAccountForWithdrawal')"
+          type="submit"
+          size="md"
+          variant="solid"
+          class="!min-w-[50px] w-auto mt-4"
+        />
       </div>
     </div>
-    <UForm :state="withdrawForm" class="space-y-4 w-full" @submit="handleWithdrawSubmit">
-      <UFormGroup :label="t('serviceProviderChannel')" name="gateway">
-        <USelectMenu
-          v-model="withdrawForm.gateway"
-          :placeholder="t('selectServiceProvider')"
-          :options="gateWayOption"
-          value-attribute="gatewayCode"
-          option-attribute="channelName"
-          @change="onSelectGateway"
-        >
-          <template #empty> {{ t('noItems') }} </template></USelectMenu
-        >
-      </UFormGroup>
-      <!-- บัญชี -->
-      <div class="flex flex-col gap-1">
-        <URadioGroup
-          v-if="enableOtherBank"
-          v-model="bankOption"
-          :options="accountOptions"
-          class="account-group"
-          @change="onRadioOtherBank"
-        />
-        <BaseBankAccount
-          v-if="bankOption === 'main'"
-          :btn-copy="false"
-          :account="dataBankAccount?.accountNumber"
-          :bank-type="dataBankAccount?.bankName"
-          :account-name="dataBankAccount?.accountName"
-          :bank-short-name="dataBankAccount?.bankCode"
-        />
-        <div v-else class="pt-2">
-          <div class="px-4 pt-3 pb-4 rounded-md border border-[1px] border-[#D1D1D1]">
-            <UForm :state="addBankForm" class="space-y-2 w-full">
-              <UFormGroup label="ชื่อบัญชี" name="accountName">
-                <BaseInput v-model="addBankForm.accountName" placeholder="กรอกชื่อบัญชี" disabled />
-              </UFormGroup>
-              <UFormGroup label="ธนาคาร" name="bankCode">
-                <USelectMenu
-                  v-model="addBankForm.bankCode"
-                  placeholder="เลือกธนาคาร"
-                  :options="bankListOption"
-                  value-attribute="bankCode"
-                  option-attribute="bankDescription"
-                >
-                  <template #empty> {{ t('noItems') }} </template></USelectMenu
-                >
-              </UFormGroup>
-              <UFormGroup label="เลขบัญชีธนาคาร" name="accountNumber">
-                <BaseInput
-                  v-model="addBankForm.accountNumber"
-                  placeholder="กรอกเลขบัญชีธนาคาร"
-                  type="number"
-                />
-              </UFormGroup>
-            </UForm>
-          </div>
+    <div v-else class="w-full gap-2 flex justify-center items-center flex-col">
+      <div
+        class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]"
+      >
+        <div class="text-secondary text-sm">{{ t('remainingBalance') }}</div>
+        <div class="text-primary font-medium text-xl <sm:(text-lg)">
+          {{ $format.currency(balanceWallet) }}
         </div>
       </div>
-
-      <UFormGroup name="deposit">
-        <template #label>
-          <div class="flex items-center gap-1 mb-1">
-            <div class="text-sm">{{ t('table.amount') }}</div>
-            <div v-if="withdrawForm.gateway" class="text-sm text-error">
-              <span
-                v-if="selectGateWay.channelAmountMin && selectGateWay.channelAmountMax"
-                class="text-xs font-normal text-danger"
-                >{{
-                  $t('minMax', {
-                    min: $format.number(selectGateWay.channelAmountMin),
-                    max: $format.number(selectGateWay.channelAmountMax),
-                  })
-                }}</span
-              >
-              <span
-                v-else-if="selectGateWay.channelAmountMin"
-                class="text-xs font-normal text-danger"
-                >{{
-                  $t('minimum', {
-                    min: $format.number(selectGateWay.channelAmountMin),
-                  })
-                }}</span
-              >
-              <span v-else class="text-xs font-normal text-danger">{{
-                $t('maximum', {
-                  max: $format.number(selectGateWay.channelAmountMax),
-                })
-              }}</span>
+      <UForm :state="withdrawForm" class="space-y-4 w-full" @submit="handleWithdrawSubmit">
+        <UFormGroup :label="t('serviceProviderChannel')" name="gateway">
+          <USelectMenu
+            v-model="withdrawForm.gateway"
+            :placeholder="t('selectServiceProvider')"
+            :options="gateWayOption"
+            value-attribute="gatewayCode"
+            option-attribute="channelName"
+            @change="onSelectGateway"
+          >
+            <template #empty> {{ t('noItems') }} </template></USelectMenu
+          >
+        </UFormGroup>
+        <!-- บัญชี -->
+        <div class="flex flex-col gap-1">
+          <URadioGroup
+            v-if="enableOtherBank"
+            v-model="bankOption"
+            :options="accountOptions"
+            class="account-group"
+            @change="onRadioOtherBank"
+          />
+          <BaseBankAccount
+            v-if="bankOption === 'main'"
+            :btn-copy="false"
+            :account="dataBankAccount?.accountNumber"
+            :bank-type="dataBankAccount?.bankName"
+            :account-name="dataBankAccount?.accountName"
+            :bank-short-name="dataBankAccount?.bankCode"
+          />
+          <div v-else class="pt-2">
+            <div class="px-4 pt-3 pb-4 rounded-md border border-[1px] border-[#D1D1D1]">
+              <UForm :state="addBankForm" class="space-y-2 w-full">
+                <UFormGroup :label="t('accountHoldername')" name="accountName">
+                  <BaseInput
+                    v-model="addBankForm.accountName"
+                    :placeholder="t('accountHoldername')"
+                    disabled
+                  />
+                </UFormGroup>
+                <UFormGroup :label="t('bank')" name="bankCode">
+                  <USelectMenu
+                    v-model="addBankForm.bankCode"
+                    :placeholder="t('selectBank')"
+                    :options="bankListOption"
+                    value-attribute="bankCode"
+                    option-attribute="bankDescription"
+                  >
+                    <template #empty> {{ t('noItems') }} </template></USelectMenu
+                  >
+                </UFormGroup>
+                <UFormGroup :label="t('accountNumber')" name="accountNumber">
+                  <BaseInput
+                    v-model="addBankForm.accountNumber"
+                    :placeholder="t('accountNumber')"
+                    type="number"
+                  />
+                </UFormGroup>
+              </UForm>
             </div>
           </div>
-        </template>
-        <BaseInput
-          v-model="withdrawForm.withdraw"
-          placeholder="0.00"
-          type="currency"
-          :disabled="!withdrawForm.gateway"
-        />
-      </UFormGroup>
-      <div
-        v-if="!['tron'].includes(selectGateWay?.gatewayCode) && selectGateWay?.amountRatio.length"
-        class="flex flex-wrap gap-3 mb-4 <sm:(gap-2)"
-      >
-        <UButton
-          v-for="(item, index) in selectGateWay?.amountRatio"
-          :key="index"
-          :label="numeralCommas(item)"
-          class="!w-[23%] !h-9 <sm:(!w-[30%])"
-          size="sm"
-          variant="tertiary"
-          @click="setWithdraw(item)"
-        />
-      </div>
-
-      <!-- withdrawCondition -->
-      <div
-        v-if="withdrawCondition?.length"
-        class="w-full mb-4 p-4 card-secondary rounded-lg animate__animated animate__fadeIn"
-        :class="[
-          {
-            'border !border-[var(--danger)]': currentPromotion?.approve === false,
-          },
-          {
-            'border !border-[var(--success)]': currentPromotion?.approve === true,
-          },
-        ]"
-      >
-        <div class="text-lg font-normal">
-          {{ t('withdrawalConditions') }}
         </div>
-        <div
-          v-for="(group, groupIndex) in withdrawCondition"
-          :key="groupIndex"
-          class="w-full flex justify-center items-center flex-col gap-4 mt-3"
-        >
-          <div v-for="(item, index) in group" :key="index" class="pl-4 w-full">
-            <div class="span-dashed text-sm font-normal text-secondary pl-4">
-              {{ item.text }}
-            </div>
-            <div class="w-full">
-              <UProgress :value="item.remaining" :max="item.conditionAmount" class="my-1" />
-              <div class="flex justify-between items-center">
-                <span class="text-sm <sm:text-xs">{{
-                  item.game_type ? t('remainingBet') : t('remainingBalance')
-                }}</span>
-                <span class="text-sm <sm:text-xs"
-                  >{{ $format.currency(item.remaining) }}/{{
-                    $format.currency(item.condition_amount)
+
+        <UFormGroup name="deposit">
+          <template #label>
+            <div class="flex items-center gap-1 mb-1">
+              <div class="text-sm">{{ t('table.amount') }}</div>
+              <div v-if="withdrawForm.gateway" class="text-sm text-error">
+                <span
+                  v-if="selectGateWay.channelAmountMin && selectGateWay.channelAmountMax"
+                  class="text-xs font-normal text-danger"
+                  >{{
+                    $t('minMax', {
+                      min: $format.number(selectGateWay.channelAmountMin),
+                      max: $format.number(selectGateWay.channelAmountMax),
+                    })
                   }}</span
                 >
+                <span
+                  v-else-if="selectGateWay.channelAmountMin"
+                  class="text-xs font-normal text-danger"
+                  >{{
+                    $t('minimum', {
+                      min: $format.number(selectGateWay.channelAmountMin),
+                    })
+                  }}</span
+                >
+                <span v-else class="text-xs font-normal text-danger">{{
+                  $t('maximum', {
+                    max: $format.number(selectGateWay.channelAmountMax),
+                  })
+                }}</span>
+              </div>
+            </div>
+          </template>
+          <BaseInput
+            v-model="withdrawForm.withdraw"
+            placeholder="0.00"
+            type="currency"
+            :disabled="!withdrawForm.gateway"
+          />
+        </UFormGroup>
+        <div
+          v-if="!['tron'].includes(selectGateWay?.gatewayCode) && selectGateWay?.amountRatio.length"
+          class="flex flex-wrap gap-3 mb-4 <sm:(gap-2)"
+        >
+          <UButton
+            v-for="(item, index) in selectGateWay?.amountRatio"
+            :key="index"
+            :label="numeralCommas(item)"
+            class="!w-[23%] !h-9 <sm:(!w-[30%])"
+            size="sm"
+            variant="tertiary"
+            @click="setWithdraw(item)"
+          />
+        </div>
+
+        <!-- withdrawCondition -->
+        <div
+          v-if="withdrawCondition?.length"
+          class="w-full mb-4 p-4 card-secondary rounded-lg animate__animated animate__fadeIn"
+          :class="[
+            {
+              'border !border-[var(--danger)]': currentPromotion?.approve === false,
+            },
+            {
+              'border !border-[var(--success)]': currentPromotion?.approve === true,
+            },
+          ]"
+        >
+          <div class="text-lg font-normal">
+            {{ t('withdrawalConditions') }}
+          </div>
+          <div
+            v-for="(group, groupIndex) in withdrawCondition"
+            :key="groupIndex"
+            class="w-full flex justify-center items-center flex-col gap-4 mt-3"
+          >
+            <div v-for="(item, index) in group" :key="index" class="pl-4 w-full">
+              <div class="span-dashed text-sm font-normal text-secondary pl-4">
+                {{ item.text }}
+              </div>
+              <div class="w-full">
+                <UProgress :value="item.remaining" :max="item.conditionAmount" class="my-1" />
+                <div class="flex justify-between items-center">
+                  <span class="text-sm <sm:text-xs">{{
+                    item.game_type ? t('remainingBet') : t('remainingBalance')
+                  }}</span>
+                  <span class="text-sm <sm:text-xs"
+                    >{{ $format.currency(item.remaining) }}/{{
+                      $format.currency(item.condition_amount)
+                    }}</span
+                  >
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <UButton
+          :label="t('withdraw')"
+          type="submit"
+          size="md"
+          variant="solid"
+          :disabled="isDisableSubmitBtn || isAddNewBank"
+          :loading="loading"
+        />
+      </UForm>
+      <div
+        class="mt-4 underline text-highlight cursor-pointer text-base <sm:(text-sm)"
+        @click="onTransactions"
+      >
+        {{ t('transactionHistory') }}
       </div>
-      <UButton
-        :label="t('withdraw')"
-        type="submit"
-        size="md"
-        variant="solid"
-        :disabled="isDisableSubmitBtn || isAddNewBank"
-        :loading="loading"
-      />
-    </UForm>
-    <div
-      class="mt-4 underline text-highlight cursor-pointer text-base <sm:(text-sm)"
-      @click="onTransactions"
-    >
-      {{ t('transactionHistory') }}
     </div>
   </div>
 </template>

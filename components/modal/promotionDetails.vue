@@ -41,7 +41,7 @@ const handlePromotionSelected = (code) => {
     :title="promotionSelectedDetail?.title"
   >
     <div class="w-full pt-4">
-      <div class="w-[288px] h-[288px] mx-auto">
+      <div class="w-[290px] h-[290px] mx-auto">
         <div class="card-image relative overflow-hidden">
           <img
             :src="
@@ -50,7 +50,7 @@ const handlePromotionSelected = (code) => {
             "
             :alt="label"
             class="w-full h-full absolute top-0 left-0 object-cover rounded-[17px]"
-          />
+          >
         </div>
       </div>
       <div class="flex items-center gap-2 mt-4">

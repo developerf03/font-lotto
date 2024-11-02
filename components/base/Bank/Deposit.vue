@@ -160,7 +160,7 @@ onMounted(() => {
 <template>
   <div class="deposit-wrapper gap-2 flex justify-center items-center flex-col w-full">
     <div class="text-error text-xs <sm:text-2xs">
-      กรุณาตรวจสอบช่องทางการฝากเงินของท่านให้ถูกต้อง และระบุจำนวนเงินตามที่ระบบกำหนด
+      {{ t('depositAdvice1') }}
     </div>
     <UForm :state="depositForm" class="space-y-4 w-full" @submit="handleDepositSubmit">
       <UFormGroup :label="t('serviceProviderChannel')" name="gateway">

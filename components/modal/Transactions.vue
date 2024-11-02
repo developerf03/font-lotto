@@ -10,14 +10,14 @@ const { transactionsList, transactionsLoading, fetchTransactions, cancelTransact
 // Stores
 
 // State
-const items = ref([
+const items = computed(() => [
   {
     id: 'deposit',
-    label: 'ประวัติเติมเงิน',
+    label: t('depositHistory'),
   },
   {
     id: 'withdraw',
-    label: 'ประวัติถอนเงิน',
+    label: t('withdrawalHistory'),
   },
 ])
 const pagination = reactive({

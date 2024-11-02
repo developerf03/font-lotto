@@ -174,11 +174,11 @@ export const useMenu = () => {
 
 export const useSubMenu = () => {
   const { logout } = useAuth()
-  const { handleProfileModal } = useModals()
+  const { handleProfileModal, handleBankAccountModal } = useModals()
 
   const menuClick = {
     profile: () => handleProfileModal(true),
-    bankAccount: () => [],
+    bankAccount: () => handleBankAccountModal(true),
     logout: () => {
       logout()
       useAlert({ logo: true, text: 'ออกจากระบบ' })

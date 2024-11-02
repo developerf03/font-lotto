@@ -98,7 +98,7 @@ export const usePaymentStore = defineStore('payment', () => {
     bankAccountsLoading.value = false
     if (error.value) return Promise.reject(error.value)
 
-    banks.bankAccountList = data.value.bankAccountList
+    banks.bankAccountList = data.value?.bankAccountList
 
     return data.value
   }

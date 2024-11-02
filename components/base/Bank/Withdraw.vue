@@ -157,7 +157,7 @@ onMounted(() => {
 
 <template>
   <div class="withdraw-wrapper gap-2 flex justify-center items-center flex-col w-full">
-    <div class="crad-Wallet w-full rounded-md flex justify-center items-center flex-col h-[81px]">
+    <div class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]">
       <div class="text-secondary text-sm">ยอดเงินปัจจุบัน</div>
       <div class="text-primary font-medium text-xl <sm:(text-lg)">
         {{ $format.currency(balanceWallet) }}
@@ -341,11 +341,6 @@ onMounted(() => {
       display: flex;
       gap: 10px;
     }
-  }
-  .crad-Wallet {
-    background: linear-gradient(#ecf3ff, #ecf3ff) padding-box,
-      linear-gradient(90deg, #4e65ff 0%, #5cdaed 100%) border-box;
-    border: 1px solid transparent;
   }
   .border {
     border: 1px solid #d1d1d1;

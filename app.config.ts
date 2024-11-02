@@ -8,6 +8,7 @@ import input from '~/constants/nuxt-ui/input'
 import formGroup from '~/constants/nuxt-ui/formGroup'
 import select from '~/constants/nuxt-ui/select'
 import popover from '~/constants/nuxt-ui/popover'
+import tabs from '~/constants/nuxt-ui/tabs'
 import verticalNavigation from '~/constants/nuxt-ui/verticalNavigation'
 import horizontalNavigation from '~/constants/nuxt-ui/horizontalNavigation'
 
@@ -21,6 +22,7 @@ export default defineAppConfig({
     formGroup,
     select,
     popover,
+    tabs,
     verticalNavigation,
     horizontalNavigation,
   },

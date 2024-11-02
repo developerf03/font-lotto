@@ -9,22 +9,28 @@ const props = defineProps({
   steps: { type: Array, required: true },
   nextStep: { type: Function, required: true },
   submitRegister: { type: Function, required: true },
-  loading: { type: Boolean, required: true },
 })
 
 // Composables
 const { bankListByCurrency, fetchBankList } = usePayment()
 const { profileCheckData } = usePlayerStore()
 
-// State
+// States
 const form = reactive({
   accountName: '',
   bankCode: '',
   accountNumber: '',
 })
 const errors = reactive({})
+const loading = reactive({
+  accountName: false,
+  bankCode: false,
+  accountNumber: false,
+})
+const isTyping = ref(false)
 
 // Computeds
+const isLoading = computed(() => !Object.values(loading).every((o) => o === false))
 const bankList = computed(() => bankListByCurrency.value(useCurrencyCode()))
 const validator = computed(() =>
   useValidator(form, errors).rules({
@@ -48,10 +54,12 @@ const validator = computed(() =>
 const checkAccountName = useDebounceFn(() => handleCheckData('accountName'), 200)
 const checkBankCode = useDebounceFn(() => handleCheckData('bankCode'), 200)
 const checkAccountNumber = useDebounceFn(() => handleCheckData('accountNumber'), 200)
+const debounceTyped = useDebounceFn(() => (isTyping.value = false), 300)
 
 const handleCheckData = async (field) => {
   if (!(form.accountName && form.accountNumber && form.bankCode)) return
   try {
+    loading[field] = true
     await profileCheckData({
       accountName: form.accountName,
       accountNumber: form.accountNumber,
@@ -69,7 +77,17 @@ const handleCheckData = async (field) => {
       return 'Duplicate bank account'
     }
     return ''
+  } finally {
+    setTimeout(() => {
+      loading[field] = false
+    }, 500)
   }
+}
+
+const handleInput = (field) => {
+  validator.value.validate(field)
+  isTyping.value = true
+  debounceTyped()
 }
 
 const handleCancelBank = () => {
@@ -83,7 +101,7 @@ const setValueToMainForm = () => {
 }
 
 const handleSubmit = () => {
-  if (!validator.value.isFormValid) return
+  if (!validator.value.isFormValid || isLoading.value || isTyping.value) return
   setValueToMainForm()
   props.nextStep()
 }
@@ -105,7 +123,7 @@ onMounted(() => {
           <BaseInput
             v-model="form.accountName"
             :placeholder="t('accountHoldername')"
-            @update:model-value="validator.validate('accountName')"
+            @update:model-value="handleInput('accountName')"
           />
         </UFormGroup>
         <UFormGroup :label="t('bank')" name="bankCode" :error="errors?.bankCode?.message">
@@ -117,7 +135,7 @@ onMounted(() => {
             value-attribute="bankCode"
             option-attribute="bankDescription"
             :placeholder="t('selectBank')"
-            @update:model-value="validator.validate('bankCode')"
+            @update:model-value="handleInput('bankCode')"
           >
             <template #option="{ option: value }">
               <UAvatar v-if="value" v-bind="{ src: value?.imageUrl }" size="2xs" />
@@ -134,7 +152,7 @@ onMounted(() => {
             v-model="form.accountNumber"
             type="number"
             :placeholder="t('specifyAccountnumber')"
-            @update:model-value="validator.validate('accountNumber')"
+            @update:model-value="handleInput('accountNumber')"
           />
         </UFormGroup>
         <div class="w-full flex justify-center items-center gap-2">
@@ -151,6 +169,8 @@ onMounted(() => {
               :ui="{ rounded: 'rounded-full' }"
               size="xl"
               variant="solid"
+              :loading="isLoading"
+              :disabled="!validator.isFormValid || isLoading || isTyping"
             />
           </div>
         </div>

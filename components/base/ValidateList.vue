@@ -39,7 +39,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkLength }"
       />
-      <p>{{ t('beAtLeastCharacters', { min: 8 }) }}</p>
+      <p>{{ t('condition.beAtLeastCharacters', { min: 8 }) }}</p>
     </div>
     <div class="flex justify-start items-center gap-4">
       <UIcon
@@ -47,7 +47,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkUppercase }"
       />
-      <p>{{ t('uppercaseLetter') }}</p>
+      <p>{{ t('condition.uppercaseLetter') }}</p>
     </div>
     <div class="flex justify-start items-center gap-4">
       <UIcon
@@ -55,7 +55,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkLowercase }"
       />
-      <p>{{ t('lowercaseLetter') }}</p>
+      <p>{{ t('condition.lowercaseLetter') }}</p>
     </div>
     <div class="flex justify-start items-center gap-4">
       <UIcon
@@ -63,7 +63,7 @@ const isNummberCase = (str) => /\d/.test(str)
         class="w-5 h-5 bg-[var(--icon-inactive)]"
         :class="{ '!bg-[var(--icon-default)]': checkNumbercase }"
       />
-      <p>{{ t('atLeastOneNumber') }}</p>
+      <p>{{ t('condition.atLeastOneNumber') }}</p>
     </div>
   </div>
 </template>

@@ -140,13 +140,13 @@ const handleSubmit = () => {
         <UFormGroup
           v-if="useLobbySetting()?.enableReferCode"
           class="w-full"
-          :label="t('affiliateCode')"
+          :label="t('referralCode')"
           name="referCode"
           :error="errors?.referCode?.message"
         >
           <BaseInput
             v-model="form.referCode"
-            :placeholder="t('affiliateCode')"
+            :placeholder="t('referralCode')"
             @update:model-value="handleInput('referCode')"
           />
         </UFormGroup>

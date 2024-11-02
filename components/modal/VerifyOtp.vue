@@ -1,6 +1,5 @@
 <script setup>
 // Import
-import { object, string } from 'yup'
 
 // Props
 
@@ -39,6 +38,7 @@ const stepType = {
     verify: 'verifyEmail',
   },
 }
+const errors = reactive({})
 
 // watch
 watch(
@@ -46,13 +46,13 @@ watch(
   (active) => {
     if (active) {
       resetForm()
-      // if (
-      //   verifyOTPModal.value?.typeSend === 'changeprofile' &&
-      //   userPlayer.value?.[signUpSetting.value?.verifyWith]
-      // ) {
-      //   verifyOTPValidator.value.validate('email')
-      //   verifyOTPValidator.value.validate('phoneNumber')
-      // }
+      if (
+        verifyOTPModal.value?.typeSend === 'changeprofile' &&
+        userPlayer.value?.[signUpSetting.value?.verifyWith]
+      ) {
+        validator.value.validate('email')
+        validator.value.validate('phoneNumber')
+      }
 
       if (signUpSetting.value?.isVerify || userPlayer.value?.[signUpSetting.value?.verifyWith]) {
         if (!verifyOTPModal.value.type) {
@@ -67,19 +67,27 @@ watch(
 )
 
 // Computeds
-const schemaVerify = computed(() => {
-  return object({
-    ...(signUpSetting.value?.verifyWith === 'email' && {
-      email: string().email(t('validation.emailInValid')).required('Required'),
-    }),
+const validator = computed(() =>
+  useValidator(form, errors).rules({
     ...(signUpSetting.value?.verifyWith === 'phone' && {
-      phoneNumber: string()
-        .min(9, t('validation.invalidPhoneNumber'))
-        .max(11, t('validation.invalidPhoneNumber'))
-        .required('Required'),
+      phoneNumber: Rules()
+        .required('validation.pleaseEnterPhoneNumber')
+        .minLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          min: 9,
+        })
+        .maxLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          max: 10,
+        }),
     }),
-  })
-})
+    ...(signUpSetting.value?.verifyWith === 'email' && {
+      email: Rules()
+        .required(t('validation.pleaseEnterUsername'))
+        .email(t('validation.emailInValid')),
+    }),
+  }),
+)
 
 const callingCode = computed(
   () =>
@@ -284,24 +292,40 @@ const resetForm = () => {
         v-if="['editEmail', 'editPhone'].includes(verifyOTPModal?.type) && step === 0"
         class="w-full"
       >
-        <pre>{{ form }}</pre>
         <div class="<sm:text-xl sm:text-xl md:text-2xl mb-2">
           {{ verifyOTPModal?.type === 'editPhone' ? t('phone') : t('email') }}
         </div>
         <!-- Phone / Email -->
         <div v-if="verifyOTPModal?.type === 'editPhone'" class="flex gap-3">
-          <UForm :schema="schemaVerify" :state="form" class="w-full">
-            <UFormGroup :label="t('validation.pleaseEnterPhoneNumber')" name="phoneNumber">
-              <BaseInput v-model="form.phoneNumber" :placeholder="t('phone')" type="tel" />
-            </UFormGroup>
-          </UForm>
+          <!-- PHONE -->
+          <UFormGroup
+            :label="t('validation.pleaseEnterPhoneNumber')"
+            name="phoneNumber"
+            :error="errors?.phoneNumber?.message"
+          >
+            <BaseInput
+              v-model="form.phoneNumber"
+              :placeholder="t('phone')"
+              input-class="!pr-[100px]"
+              trailing
+              @update:model-value="validator.validate('phoneNumber')"
+            />
+          </UFormGroup>
         </div>
         <div v-else class="flex gap-3">
-          <UForm :schema="schemaVerify" :state="form" class="w-full">
-            <UFormGroup :label="t('validation.pleaseEnterEmail')" name="email">
-              <BaseInput v-model="form.email" :placeholder="t('email')" />
-            </UFormGroup>
-          </UForm>
+          <UFormGroup
+            :label="t('validation.pleaseEnterEmail')"
+            name="email"
+            :error="errors?.email?.message"
+          >
+            <BaseInput
+              v-model="form.email"
+              :placeholder="t('email')"
+              input-class="!pr-[100px]"
+              trailing
+              @update:model-value="validator.validate('email')"
+            />
+          </UFormGroup>
         </div>
 
         <div class="flex justify-center items-center gap-4 mt-4 <sm:(gap-2)">
@@ -310,7 +334,7 @@ const resetForm = () => {
             :label="t('next')"
             variant="solid"
             :loading="loading"
-            :disabled="!form.phoneNumber || !form.email"
+            :disabled="!(form.phoneNumber || form.email) ? true : !validator.isFormValid"
             @click="handleSendCode"
           />
         </div>

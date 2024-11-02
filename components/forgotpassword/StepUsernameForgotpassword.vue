@@ -1,5 +1,6 @@
 <script setup>
 // Import
+import { convertPhoneNumber } from '~/utils/utils'
 
 // Props
 const props = defineProps({
@@ -17,34 +18,50 @@ const props = defineProps({
 const emit = defineEmits(['update:remainSec'])
 
 // Composables
-const { handVerifyOTPModal } = useModalStore()
 
-// Stores
-const { profileCheckData, sendOTP } = usePlayerStore()
+// Store
+const { sendOTP } = usePlayerStore()
 
-// State
-const validateType = props?.signinSetting.verifyWith
+// States
 const form = reactive({
   email: '',
-  phone: '',
+  phoneNumber: '',
+  callingPhone: '',
+  callingCode: '',
 })
+const errors = reactive({})
+
+// Computeds
+const validateType = computed(() => props?.signinSetting.verifyWith)
+const validator = computed(() =>
+  useValidator(form, errors).rules({
+    ...(validateType.value === 'email' && {
+      email: Rules().required(t('validation.pleaseEnterEmail')).email(t('validation.emailInValid')),
+    }),
+    ...(validateType.value === 'phone' && {
+      phoneNumber: Rules()
+        .required(t('validation.pleaseEnterPhoneNumber'))
+        .maxLength({
+          errMsg: t('validation.invalidPhoneNumber'),
+          max: 10,
+        }),
+    }),
+  }),
+)
 
 // Functions
 const onSendOtp = async () => {
   try {
-    const { code, remain } = sendOTP({
-      // if verify with phone
-      ...(props?.signinSetting?.verifyWith === 'phone' && {
-        phone: form.phone,
-        callingCode: '+66',
-        callingPhone: convertPhoneNumber(form.phone, '+66'),
+    const { code, remain } = await sendOTP({
+      ...(validateType.value === 'phone' && {
+        // phone: form.phoneNumber,
+        callingPhone: form.callingPhone,
+        // callingCode: form.callingCode?.callingCode,
       }),
-      // if verify with email
-      ...(props?.signinSetting?.verifyWith === 'email' && {
+      ...(validateType.value === 'email' && {
         email: form.email,
       }),
-      currency: 'THB',
-      type: 'register',
+      type: 'forgotpassword', // register, forgotpassword, changeprofile, withdraw, firsttimedeposit
     })
     setValueToMainForm()
     if (code === 6040) {
@@ -66,37 +83,81 @@ const onSendOtp = async () => {
       props.nextStep(props.steps[2])
     } else {
       // send OTP error
-      console.log('error :>> ', error)
+      useAlert({
+        error: true,
+        text: error.data?.message,
+        autoHide: true,
+      })
     }
   }
 }
+
+const setValueToMainForm = () => {
+  Object.keys(form).forEach((o) => {
+    props.setForm(o, form[o])
+  })
+}
+
+const setCallingCode = () => {
+  form.callingCode = useCountryCallingCodes()
+}
+
+const handleInput = (field) => {
+  if (field === 'phoneNumber') {
+    form.callingPhone = convertPhoneNumber(form.phoneNumber, form.callingCode[0]?.callingCode)
+  }
+  validator.value.validate(field)
+}
+
+onMounted(() => {
+  setCallingCode()
+})
 </script>
 
 <template>
   <div class="flex justify-center items-center flex-col w-full">
     <div class="font-bold text-primary <sm:(text-sm)">
-      กรุณากรอกเบอร์โทรศัพท์ที่เคยใช้สมัครใช้งาน
+      {{
+        validateType === 'phone'
+          ? t('pleaseEnterPhoneNumberUseRegister')
+          : t('pleaseEnterEmailUseForgotPassword')
+      }}
     </div>
-    <div class="w-full">
-      <UForm :state="form" class="space-y-4" @submit="submitFirstStep">
-        <UFormGroup v-if="validateType === 'email'" label="Email" name="email" required>
-          <BaseInput v-model="form.email" placeholder="email" />
-        </UFormGroup>
-        <UFormGroup v-if="validateType === 'phone'" label="เบอร์โทรศัพท์" name="phone" required>
+    <div class="w-full p-6">
+      <UForm :state="form" class="space-y-4" @submit="onSendOtp">
+        <UFormGroup
+          v-if="validateType === 'email'"
+          :label="t('email')"
+          name="email"
+          :error="errors?.email?.message"
+        >
           <BaseInput
-            v-model="form.phone"
-            placeholder="เช่น 081-234-5678"
-            type="tel"
+            v-model="form.email"
+            :placeholder="t('email')"
+            @update:model-value="handleInput('email')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-if="validateType === 'phone'"
+          :label="t('phone')"
+          name="phoneNumber"
+          :error="errors?.phoneNumber?.message"
+        >
+          <BaseInput
+            v-model="form.phoneNumber"
+            :placeholder="t('phone')"
             :maxlength="10"
+            @update:model-value="handleInput('phoneNumber')"
           />
         </UFormGroup>
         <UButton
-          label="ต่อไป"
+          :label="t('next')"
           class="!w-full"
           type="submit"
           :ui="{ rounded: 'rounded-full' }"
           size="xl"
           variant="solid"
+          :disabled="!validator.isFormValid"
         />
       </UForm>
     </div>

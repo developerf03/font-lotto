@@ -119,6 +119,7 @@ export default {
   pleaseVerifyEmailBeforeMakingWithdrawal: 'กรุณายืนยันอีเมล ก่อนทำรายการถอนเงิน',
   goToAddAccountForWithdrawal: 'ไปเพิ่มบัญชีสำหรับถอนเงิน',
   noAccountForWithdrawal: 'ไม่มีบัญชีสำหรับถอนเงิน',
+  betLotto: 'แทงหวย',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

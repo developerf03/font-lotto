@@ -41,6 +41,7 @@ useInitApp()
         <Profile />
         <LanguageModal />
         <PromotionDetails />
+        <BaseLoadingPage />
       </NuxtLayout>
     </Body>
   </Html>

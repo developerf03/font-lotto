@@ -120,6 +120,7 @@ export default {
     'Vui lòng xác minh email trước khi thực hiện giao dịch rút tiền',
   goToAddAccountForWithdrawal: 'Thêm tài khoản để rút tiền',
   noAccountForWithdrawal: 'Chưa có tài khoản rút tiền',
+  betLotto: 'Cá cược xổ số',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

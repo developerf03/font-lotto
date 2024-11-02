@@ -2,8 +2,8 @@ export const alertSuccess = ({ title, text } = {}) => {
   const { $i18n } = useNuxtApp()
 
   useAlert({
-    autoHide: false,
-    status: 'success',
+    autoHide: true,
+    success: true,
     title: title ?? $i18n.t('success'),
     text,
   })
@@ -13,8 +13,8 @@ export const alertError = ({ title, text } = {}) => {
   const { $i18n } = useNuxtApp()
 
   useAlert({
-    autoHide: false,
-    status: 'error',
+    autoHide: true,
+    error: true,
     title: title ?? $i18n.t('anErrorOccurred'),
     text,
   })
@@ -24,8 +24,8 @@ export const alertWarning = ({ title, text } = {}) => {
   const { $i18n } = useNuxtApp()
 
   useAlert({
-    autoHide: false,
-    status: 'warning',
+    autoHide: true,
+    warning: true,
     title: title ?? $i18n.t('warning'),
     text,
   })

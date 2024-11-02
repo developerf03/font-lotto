@@ -120,6 +120,7 @@ export default {
     'Please verify your email. before making a withdrawal transaction',
   goToAddAccountForWithdrawal: 'Go to add account for withdrawal',
   noAccountForWithdrawal: 'No account for withdrawal',
+  betLotto: 'Bet Lotto',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

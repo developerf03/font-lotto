@@ -110,7 +110,10 @@ export default {
   verifyEmail: 'Xác minh email',
   pleaseEnterPhoneNumberUseRegister: 'Vui lòng nhập số điện thoại mà bạn đã sử dụng để đăng ký',
   pleaseEnterEmailUseForgotPassword: 'Vui lòng nhập email mà bạn đã sử dụng để đăng ký',
-
+  depositAdvice1:
+    'Vui lòng kiểm tra nếu phương thức nạp tiền của bạn là chính xác và nhập số tiền tối thiểu/tối đa trong hệ thống',
+  depositHistory: 'Lịch sử nạp tiền',
+  withdrawalHistory: 'Lịch sử rút tiền',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

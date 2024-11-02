@@ -110,7 +110,10 @@ export default {
   verifyEmail: 'ยืนยันอีเมล',
   pleaseEnterPhoneNumberUseRegister: 'โปรดกรอกเบอร์โทรศัพท์ที่เคยใช้สมัครสมาชิก',
   pleaseEnterEmailUseForgotPassword: 'โปรดกรอกอีเมลที่เคยใช้สมัครสมาชิก',
-
+  depositAdvice1:
+    'ตรวจสอบช่องทางการฝากเงินของท่านให้ถูกต้อง และระบุจำนวนเงินตามที่ระบบกำหนด ขั้นต่ำ/สูงสุด',
+  depositHistory: 'ประวัติการฝาก',
+  withdrawalHistory: 'ประวัติการถอน',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

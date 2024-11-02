@@ -176,10 +176,11 @@ onMounted(() => {
 
 <template>
   <div class="withdraw-wrapper gap-2 flex justify-center items-center flex-col w-full">
+    <!-- <pre>{{ signUpSetting }}</pre> -->
     <div
       class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]"
     >
-      <div class="text-secondary text-sm">ยอดเงินปัจจุบัน</div>
+      <div class="text-secondary text-sm">{{ t('remainingBalance') }}</div>
       <div class="text-primary font-medium text-xl <sm:(text-lg)">
         {{ $format.currency(balanceWallet) }}
       </div>
@@ -217,13 +218,13 @@ onMounted(() => {
         <div v-else class="pt-2">
           <div class="px-4 pt-3 pb-4 rounded-md border border-[1px] border-[#D1D1D1]">
             <UForm :state="addBankForm" class="space-y-2 w-full">
-              <UFormGroup label="ชื่อบัญชี" name="accountName">
-                <BaseInput v-model="addBankForm.accountName" placeholder="กรอกชื่อบัญชี" disabled />
+              <UFormGroup :label="t('accountHoldername')" name="accountName">
+                <BaseInput v-model="addBankForm.accountName" :placeholder="t('accountHoldername')" disabled />
               </UFormGroup>
-              <UFormGroup label="ธนาคาร" name="bankCode">
+              <UFormGroup :label="t('bank')" name="bankCode">
                 <USelectMenu
                   v-model="addBankForm.bankCode"
-                  placeholder="เลือกธนาคาร"
+                  :placeholder="t('selectBank')"
                   :options="bankListOption"
                   value-attribute="bankCode"
                   option-attribute="bankDescription"
@@ -231,10 +232,10 @@ onMounted(() => {
                   <template #empty> {{ t('noItems') }} </template></USelectMenu
                 >
               </UFormGroup>
-              <UFormGroup label="เลขบัญชีธนาคาร" name="accountNumber">
+              <UFormGroup :label="t('accountNumber')" name="accountNumber">
                 <BaseInput
                   v-model="addBankForm.accountNumber"
-                  placeholder="กรอกเลขบัญชีธนาคาร"
+                  :placeholder="t('accountNumber')"
                   type="number"
                 />
               </UFormGroup>

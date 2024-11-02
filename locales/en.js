@@ -123,6 +123,18 @@ export default {
   noAccountForWithdrawal: 'No account for withdrawal',
   duplicatedNickname: 'Duplicated nickname',
   pleaseEnterNickname: 'Please enter nickname',
+  balance: 'Balance',
+  menu: 'Menu',
+  logout: 'Logout',
+  manageAccount: 'Manage account',
+  cannotEdit: 'Cannot edit {type}',
+  betLotto: 'Bet Lotto',
+  lotteryResult1: 'Thai Government Lottery Results',
+  lotteryResult2: 'Government Savings Bank Lottery Results',
+  lotteryResult3: 'Thai Stock Lottery Results',
+  lotteryResult4: 'International Stock Lottery Results',
+  lotteryResult5: 'Lottery Set Results',
+  lotteryResult6: 'YEEKEE Lottery Results',
 
   promotionConditions: {
     redeem: 'Distribute {amount} codes',

@@ -122,6 +122,18 @@ export default {
   noAccountForWithdrawal: 'ไม่มีบัญชีสำหรับถอนเงิน',
   duplicatedNickname: 'นามแฝงนี้ถูกใช้แล้ว',
   pleaseEnterNickname: 'กรุณากรอกนามแฝง',
+  balance: 'ยอดเงิน',
+  menu: 'เมนู',
+  logout: 'ออกจากระบบ',
+  manageAccount: 'จัดการบัญชี',
+  cannotEdit: 'ไม่สามารถแก้ไข{type}ได้',
+  betLotto: 'แทงหวย',
+  lotteryResult1: 'ดูผลหวยรัฐบาลไทย',
+  lotteryResult2: 'ดูผลหวยออมสิน',
+  lotteryResult3: 'ดูผลหวยหุ้นไทย',
+  lotteryResult4: 'ดูผลหวยหุ้นต่างประเทศ',
+  lotteryResult5: 'ดูผลหวยเลขชุด',
+  lotteryResult6: 'ดูผลจับยี่กี',
 
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',

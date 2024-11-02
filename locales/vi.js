@@ -123,6 +123,18 @@ export default {
   noAccountForWithdrawal: 'Chưa có tài khoản rút tiền',
   duplicatedNickname: 'Biệt danh trùng lặp',
   pleaseEnterNickname: 'Vui lòng nhập biệt danh',
+  balance: 'số dư',
+  menu: 'Menu',
+  logout: 'Đăng xuất',
+  manageAccount: 'Quản lý tài khoản',
+  cannotEdit: 'Không thể chỉnh sửa {type}',
+  betLotto: 'Cá cược xổ số',
+  lotteryResult1: 'Xem kết quả xổ số chính phủ Thái Lan',
+  lotteryResult2: 'Xem kết quả xổ số tiết kiệm chính phủ',
+  lotteryResult3: 'Xem kết quả xổ số cổ phiếu Thái Lan',
+  lotteryResult4: 'Xem kết quả xổ số cổ phiếu quốc tế',
+  lotteryResult5: 'Xem kết quả xổ số số lô',
+  lotteryResult6: 'Xem kết quả xổ số YEEKEE',
 
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',

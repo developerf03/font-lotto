@@ -181,25 +181,25 @@ export const useSubMenu = () => {
     bankAccount: () => [],
     logout: () => {
       logout()
-      useAlert({ logo: true, text: 'ออกจากระบบ' })
+      useAlert({ logo: true, text: t('logout') })
     },
   }
 
-  return [
+  return computed(() => [
     {
-      label: 'โปรไฟล์',
+      label: t('profile'),
       icon: 'i-tabler:user',
       click: menuClick['profile'],
     },
     {
-      label: 'บัญชีของฉัน',
+      label: t('manageAccount'),
       icon: 'i-tabler:building-bank',
       click: menuClick['bankAccount'],
     },
     {
-      label: 'ออกจากระบบ',
+      label: t('logout'),
       icon: 'i-tabler:logout-2',
       click: menuClick['logout'],
     },
-  ]
+  ])
 }

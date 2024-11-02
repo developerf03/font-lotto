@@ -17,10 +17,18 @@ const form = reactive({
   email: '',
   dateOfBirth: '',
 })
+const loading = reactive({
+  playerNickname: false,
+  phone: false,
+  email: false,
+  dateOfBirth: false,
+  typing: false,
+})
 const errors = reactive({})
 const isEdit = ref(false)
 
 // Computeds
+const isLoading = computed(() => !Object.values(loading).every((o) => o === false))
 const validator = computed(() =>
   useValidator(form, errors).rules({
     playerNickname: Rules().required(t('pleaseEnterNickname')).custom(checkPlayerNickname),
@@ -54,6 +62,7 @@ watch(profileModal, (o) => {
 
 // Functions
 const handleCheckData = async (field) => {
+  loading[field] = true
   try {
     await profileCheckData({ [field]: form?.[field] || '' })
     return ''
@@ -64,13 +73,22 @@ const handleCheckData = async (field) => {
       return useErrorMsg({ error })
     }
   } finally {
-    setTimeout(() => {}, 500)
+    setTimeout(() => {
+      loading[field] = false
+    }, 200)
   }
 }
 
+const debounceTyped = useDebounceFn(() => (loading.typing = false), 300)
 const checkPhone = useDebounceFn(() => handleCheckData('phone'), 200)
 const checkEmail = useDebounceFn(() => handleCheckData('email'), 200)
 const checkPlayerNickname = useDebounceFn(() => handleCheckData('playerNickname'), 200)
+
+const onInput = async (field) => {
+  loading.typing = true
+  await validator.value.validate(field)
+  debounceTyped()
+}
 
 const reset = () => {
   isEdit.value = false
@@ -82,8 +100,9 @@ const reset = () => {
 }
 
 const onChangeProfile = async (isChanged) => {
+  if (validator.value.checkHaveErrors()) return
   const payload = {
-    ...(isChanged.playerNickname && { playerNickname: form.playerNickname }),
+    ...(isChanged.playerNickname && { nickname: form.playerNickname }),
     ...(isChanged.phone && { phone: form.phone }),
     ...(isChanged.email && { email: form.email }),
     ...(isChanged.dateOfBirth && { dateOfBirth: dateToISOString(form.dateOfBirth) }),
@@ -110,7 +129,9 @@ const onVerify = (type) => {
   })
 }
 
-const onSubmit = () => {
+const onSubmit = async () => {
+  if (isLoading.value) return
+
   // status valule changed
   const isChanged = {
     playerNickname: userPlayer.value?.playerNickname !== form.playerNickname,
@@ -124,10 +145,15 @@ const onSubmit = () => {
     email: isChanged.email && userPlayer.value?.verify,
   }
 
+  if (isChanged.playerNickname) await validator.value.validate('playerNickname')
+  if (isChanged.phone) await validator.value.validate('phone')
+  if (isChanged.email) await validator.value.validate('email')
+  if (isChanged.dateOfBirth) await validator.value.validate('dateOfBirth')
+
   // cannot be changed email or phone
   if (isCanNotBeChange.phone || isCanNotBeChange.email) {
     const type = isCanNotBeChange.phone ? 'phone' : 'email'
-    useAlert({ error: true, text: `ไม่สามารถแก้ไข${t(type)}ได้` })
+    useAlert({ error: true, text: t('cannotEdit', { type }) })
     reset()
     return
   }
@@ -143,7 +169,7 @@ const onSubmit = () => {
       <UFormGroup
         :label="t('nickname')"
         name="playerNickname"
-        :error="form?.playerNickname ? errors?.playerNickname?.message : t('pleaseEnterNickname')"
+        :error="errors?.playerNickname?.message"
       >
         <BaseInput
           v-model="form.playerNickname"
@@ -151,7 +177,7 @@ const onSubmit = () => {
           input-class="!pr-[100px]"
           trailing
           :readonly="!isEdit"
-          @update:model-value="validator.validate('playerNickname')"
+          @update:model-value="onInput('playerNickname')"
         />
       </UFormGroup>
 
@@ -177,7 +203,7 @@ const onSubmit = () => {
           input-class="!pr-[100px]"
           trailing
           :readonly="!isEdit || userPlayer?.verifyPhone || signUpSetting?.verifyWith === 'phone'"
-          @update:model-value="validator.validate('phone')"
+          @update:model-value="onInput('phone')"
         >
           <template
             v-if="signUpSetting?.verifyWith === 'phone' && !userPlayer?.verifyPhone"
@@ -209,7 +235,7 @@ const onSubmit = () => {
           input-class="!pr-[100px]"
           trailing
           :readonly="!isEdit || userPlayer?.verify || signUpSetting?.verifyWith === 'email'"
-          @update:model-value="validator.validate('email')"
+          @update:model-value="onInput('email')"
         >
           <template v-if="signUpSetting?.verifyWith === 'email' && !userPlayer?.verify" #trailing>
             <p
@@ -237,7 +263,7 @@ const onSubmit = () => {
           placeholder="DD/MM/YYYY"
           data-maska="##/##/####"
           :readonly="!isEdit || !lobbySetting?.setting?.value?.profileSetting?.editDateOfBirth"
-          @update:model-value="validator.validate('dateOfBirth')"
+          @update:model-value="onInput('dateOfBirth')"
         />
       </UFormGroup>
 
@@ -245,11 +271,10 @@ const onSubmit = () => {
       <UFormGroup v-if="lobbySetting?.enableReferCode" :label="t('referralCode')" name="code">
         <BaseInput :model-value="userPlayer?.code" :copy="userPlayer?.code" readonly />
       </UFormGroup>
-
       <!-- BUTTON -->
       <div v-if="isEdit" class="flex gap-4">
         <UButton :label="t('cancel')" size="sm" variant="outline" @click="onCancelEdit" />
-        <UButton :label="t('save')" size="sm" type="submit" />
+        <UButton :label="t('save')" size="sm" type="submit" :loading="isLoading" />
       </div>
       <UButton v-else :label="t('editPersonalInformation')" size="sm" @click="isEdit = true" />
     </UForm>

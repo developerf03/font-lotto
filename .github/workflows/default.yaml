@@ -11,7 +11,7 @@ jobs:
     uses: tEiQnZPp8hvWMq2/workflows/.github/workflows/ci.yml@main
     with:
       repository-name: 'tm-frontend-lotto'
-      service-name: "lotto"
+      service-name: "frontend-lotto"
       name-space: 'tm-frontend'
     secrets: inherit
 
@@ -21,6 +21,6 @@ jobs:
     uses: tEiQnZPp8hvWMq2/workflows/.github/workflows/cd.yml@main
     with:
       repository-name: 'tm-frontend-lotto'
-      service-name: "lotto"
+      service-name: "frontend-lotto"
       name-space: "tm-frontend"
     secrets: inherit

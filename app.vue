@@ -17,7 +17,10 @@ import 'swiper/css/bundle'
 const { locale } = useI18n()
 const theme = useCookie('theme')
 
-useInitApp()
+onMounted(() => {
+  useInitApp()
+})
+useInitAppSSR()
 </script>
 
 <template>

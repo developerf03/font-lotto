@@ -1,3 +1,4 @@
+ 
 import { defineStore } from 'pinia'
 
 export const useInformationStore = defineStore(
@@ -22,24 +23,43 @@ export const useInformationStore = defineStore(
     })
 
     // Functions
-    const getPromotes = async () => {
-      loading.value = true
-      const { data, error } = await useAPI().get('/api/promote')
+    // const getPromotes = async () => {
+    //   loading.value = true
+    //   const { data, error } = await useAPI().get('/api/promote')
 
-      loading.value = false
-      if (error.value) return Promise.reject(error.value)
-      promotes.value = data.value.data || []
-      showAllCloseBtn.value = data.value?.showAllCloseBtn
-      promotesDontShowAgainDuration.value = data.value?.dontShowAgainDuration || 24
+    //   loading.value = false
+    //   if (error.value) return Promise.reject(error.value)
+    //   promotes.value = data.value.data || []
+    //   showAllCloseBtn.value = data.value?.showAllCloseBtn
+    //   promotesDontShowAgainDuration.value = data.value?.dontShowAgainDuration || 24
+    // }
+
+    const getPromotes = async () => {
+      try {
+        loading.value = true
+        const res = await useAPI().$get('/api/promote')
+        
+        promotes.value = res.data || []
+        showAllCloseBtn.value = res?.showAllCloseBtn
+        promotesDontShowAgainDuration.value = res?.dontShowAgainDuration || 24
+      } catch (error) {
+        return new Promise.reject(error)
+      } finally {
+        loading.value = false
+      }
     }
 
     const getInformations = async () => {
-      loading.value = true
-      const { data, error } = await useAPI().get('/api/information')
+      try {
+        loading.value = true
+        const { data } = await useAPI().$get('/api/information')
 
-      loading.value = false
-      if (error.value) return Promise.reject(error.value)
-      information.value = isObjEmpty(data.value.data) ? information.value : data.value.data
+        information.value = data
+      } catch (error) {
+        return Promise.reject(error)
+      } finally {
+        loading.value = false
+      }
     }
 
     // Computed

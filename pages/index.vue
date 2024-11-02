@@ -1,4 +1,8 @@
 <script setup>
+import { nextTick } from 'vue'
+
+const { fetchGames } = useGame()
+
 definePageMeta({
   // middleware: ['auth'],
   layout: 'home',
@@ -12,6 +16,16 @@ useHead({
       content: t('home'),
     },
   ],
+})
+
+onMounted(() => {
+  nextTick(() => {
+    fetchGames({
+      page: 1,
+      pageSize: 30,
+      currency: useCurrencyCode(),
+    })
+  })
 })
 </script>
 

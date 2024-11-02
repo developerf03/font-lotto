@@ -30,6 +30,7 @@ export const useGameStore = defineStore(
 
     // Functions
     const fetchGames = async (payload = {}) => {
+
       loading.value = true
       const { data, error } = await useAPI().post('/api/v2/game/gameSearch', payload)
 
@@ -91,7 +92,10 @@ export const useGameStore = defineStore(
       if (type === 'follow') {
         games.favorite.list.unshift({ partner, gameId })
       } else if (type === 'unfollow') {
-        games.favorite.list.splice(games.favorite.list.findIndex((v) => v.partner === partner && v.gameId === gameId), 1)
+        games.favorite.list.splice(
+          games.favorite.list.findIndex((v) => v.partner === partner && v.gameId === gameId),
+          1,
+        )
       }
     }
 

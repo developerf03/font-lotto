@@ -46,6 +46,7 @@ useInitAppSSR()
         <BankAccountSubMenu />
         <LanguageModal />
         <PromotionDetails />
+        <BaseLoadingPage />
       </NuxtLayout>
     </Body>
   </Html>

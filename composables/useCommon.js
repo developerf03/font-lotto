@@ -26,7 +26,7 @@ export const useCategoryFilterMap = (category) => ({
   },
 })
 
-export const t = (str, opt) => {
+export const t = (str = '', opt = '') => {
   const { $i18n } = useNuxtApp()
 
   return $i18n.t(str, opt)

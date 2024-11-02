@@ -77,8 +77,6 @@ export const useInitLang = () => {
 }
 
 export const useInitHead = (setting) => {
-  console.log('setting', setting)
-
   useHead({
     title: setting.title,
     meta: [

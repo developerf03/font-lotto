@@ -14,8 +14,9 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/bundle'
 const { locale } = useI18n()
-useInitApp()
 const theme = useCookie('theme')
+
+useInitApp()
 </script>
 
 <template>

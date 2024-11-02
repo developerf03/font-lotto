@@ -3,7 +3,7 @@ import placeholder from '~/constants/placeholder'
 
 // Composables
 const { promotionDetailsModal, showPaymentModal, showPromotionDetailsModal } = useModals()
-const { locale } = useI18n()
+const { localeProperties } = useI18n()
 const { width } = useWindowSize()
 const { user } = useAuth()
 
@@ -18,7 +18,7 @@ const remainingQuota = computed(
 // function
 const dateFormat = (date) => {
   return $format.date(new Date(date), {
-    locale: locale.value,
+    locale: localeProperties.value.IEFT,
     year: 'numeric',
     month: 'short',
     day: 'numeric',

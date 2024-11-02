@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 
 export const usePromotionStore = defineStore('promotion', () => {
-  const { locale, t } = useI18n()
+  const { t } = useI18n()
+  const { $i18n } = useNuxtApp()
   const defaultLocale = 'th-TH'
 
   // Initial
@@ -137,7 +138,7 @@ export const usePromotionStore = defineStore('promotion', () => {
       .map((v) => ({
         id: v.code,
         name:
-          v.detail.find((v) => v.lang === locale.value)?.title ||
+          v.detail.find((v) => v.lang === $i18n.localeProperties.value?.IETF)?.title ||
           v.detail.find((v) => v.lang === defaultLocale)?.title ||
           '-',
       })),

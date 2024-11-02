@@ -46,16 +46,15 @@ const formatHHMM = (dateInInt) => {
 }
 
 export const usePromotionData = (item = {}) => {
-  const locale = useDefaultLangauge()
   const { $i18n } = useNuxtApp()
 
   const detail =
     item?.detail?.find((v) => v.lang === $i18n.localeProperties.value?.IETF) ||
-    item?.detail?.find((v) => v.lang === locale) ||
+    item?.detail?.find((v) => v.lang === $i18n.localeProperties.value?.IETF) ||
     {}
   const images =
     item?.image?.filter((v) => v.lang === $i18n.localeProperties.value?.IETF) ||
-    item?.image?.filter((v) => v.lang === locale) ||
+    item?.image?.filter((v) => v.lang === $i18n.localeProperties.value?.IETF) ||
     []
   const image = {
     desktop: images?.find((v) => v.type === 'desktop')?.url,

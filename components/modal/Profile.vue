@@ -92,10 +92,11 @@ const onChangeProfile = async (isChanged) => {
   }
 }
 
-const onVerify = () => {
+const onVerify = (type) => {
   handVerifyOTPModal({
     active: true,
     typeSend: 'changeprofile',
+    type,
   })
 }
 
@@ -148,7 +149,7 @@ const onSubmit = () => {
           >
             <p
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
-              @click="onVerify"
+              @click="onVerify('editPhone')"
             >
               {{ t('verifyNow') }}
             </p>
@@ -177,7 +178,7 @@ const onSubmit = () => {
           <template v-if="signUpSetting?.verifyWith === 'email' && !userPlayer?.verify" #trailing>
             <p
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
-              @click="onVerify"
+              @click="onVerify('editPhone')"
             >
               {{ t('verifyNow') }}
             </p>

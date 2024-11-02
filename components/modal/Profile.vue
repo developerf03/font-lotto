@@ -12,6 +12,7 @@ const lobbySetting = computed(() => useLobbySetting())
 
 // States
 const form = reactive({
+  playerNickname: '',
   phone: '',
   email: '',
   dateOfBirth: '',
@@ -22,6 +23,7 @@ const isEdit = ref(false)
 // Computeds
 const validator = computed(() =>
   useValidator(form, errors).rules({
+    playerNickname: Rules().required(t('pleaseEnterNickname')).custom(checkPlayerNickname),
     phone: Rules()
       .required('validation.pleaseEnterPhoneNumber')
       .minLength({
@@ -56,7 +58,11 @@ const handleCheckData = async (field) => {
     await profileCheckData({ [field]: form?.[field] || '' })
     return ''
   } catch (error) {
-    return useErrorMsg({ error })
+    if (field === 'playerNickname') {
+      return t('duplicatedNickname')
+    } else {
+      return useErrorMsg({ error })
+    }
   } finally {
     setTimeout(() => {}, 500)
   }
@@ -64,9 +70,11 @@ const handleCheckData = async (field) => {
 
 const checkPhone = useDebounceFn(() => handleCheckData('phone'), 200)
 const checkEmail = useDebounceFn(() => handleCheckData('email'), 200)
+const checkPlayerNickname = useDebounceFn(() => handleCheckData('playerNickname'), 200)
 
 const reset = () => {
   isEdit.value = false
+  form.playerNickname = userPlayer.value?.playerNickname || ''
   form.phone = userPlayer.value?.phone || ''
   form.email = userPlayer.value?.email || ''
   form.dateOfBirth = $format.dateOnly(userPlayer.value?.dateOfBirth) || ''
@@ -75,6 +83,7 @@ const reset = () => {
 
 const onChangeProfile = async (isChanged) => {
   const payload = {
+    ...(isChanged.playerNickname && { playerNickname: form.playerNickname }),
     ...(isChanged.phone && { phone: form.phone }),
     ...(isChanged.email && { email: form.email }),
     ...(isChanged.dateOfBirth && { dateOfBirth: dateToISOString(form.dateOfBirth) }),
@@ -104,6 +113,7 @@ const onVerify = (type) => {
 const onSubmit = () => {
   // status valule changed
   const isChanged = {
+    playerNickname: userPlayer.value?.playerNickname !== form.playerNickname,
     phone: userPlayer.value?.phone !== form.phone,
     email: userPlayer.value?.email !== form.email,
     dateOfBirth: $format.dateOnly(userPlayer.value?.dateOfBirth) !== form.dateOfBirth,
@@ -129,6 +139,31 @@ const onSubmit = () => {
 <template>
   <BaseModal v-model="profileModal" :title="t('profile')" disable-click-out>
     <UForm :state="form" class="w-full space-y-4" @submit="onSubmit">
+      <!-- PLAYER USER NICKNAME -->
+      <UFormGroup
+        :label="t('nickname')"
+        name="playerNickname"
+        :error="form?.playerNickname ? errors?.playerNickname?.message : t('pleaseEnterNickname')"
+      >
+        <BaseInput
+          v-model="form.playerNickname"
+          :placeholder="t('nickname')"
+          input-class="!pr-[100px]"
+          trailing
+          :readonly="!isEdit"
+          @update:model-value="validator.validate('playerNickname')"
+        />
+      </UFormGroup>
+
+      <!-- PLAYER USER NAME -->
+      <UFormGroup :label="t('username')" name="playerUsername">
+        <BaseInput
+          :model-value="userPlayer?.playerUsername"
+          :copy="userPlayer?.playerUsername"
+          readonly
+        />
+      </UFormGroup>
+
       <!-- PHONE -->
       <UFormGroup
         v-if="userPlayer?.phone"

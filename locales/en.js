@@ -41,6 +41,7 @@ export default {
   email: 'Email',
   dateOfBirth: 'Date of Birth',
   username: 'Username',
+  nickname: 'Nickname',
   password: 'Password',
   confirmPassword: 'Confirm password',
   pleaseEnter: 'Please enter',
@@ -120,6 +121,9 @@ export default {
     'Please verify your email. before making a withdrawal transaction',
   goToAddAccountForWithdrawal: 'Go to add account for withdrawal',
   noAccountForWithdrawal: 'No account for withdrawal',
+  duplicatedNickname: 'Duplicated nickname',
+  pleaseEnterNickname: 'Please enter nickname',
+
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

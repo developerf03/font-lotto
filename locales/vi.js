@@ -41,6 +41,7 @@ export default {
   email: 'Email',
   dateOfBirth: 'Ngày sinh',
   username: 'Tên tài khoản',
+  nickname: 'Biệt danh',
   password: 'Mật khẩu',
   confirmPassword: 'Xác nhận mật khẩu',
   pleaseEnter: 'Vui lòng nhập',
@@ -120,6 +121,9 @@ export default {
     'Vui lòng xác minh email trước khi thực hiện giao dịch rút tiền',
   goToAddAccountForWithdrawal: 'Thêm tài khoản để rút tiền',
   noAccountForWithdrawal: 'Chưa có tài khoản rút tiền',
+  duplicatedNickname: 'Biệt danh trùng lặp',
+  pleaseEnterNickname: 'Vui lòng nhập biệt danh',
+
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

@@ -133,7 +133,7 @@ onMounted(() => {
         <span
           v-if="type === 'currency'"
           class="text-sm text-[var(--input-placeholder)]"
-          :class="[{ 'text-[var(--input-text-disabled)]': disabled || readonly }]"
+          :class="[{ 'opacity-70': disabled }]"
           >{{ digit.setting?.text }}</span
         >
         <UIcon

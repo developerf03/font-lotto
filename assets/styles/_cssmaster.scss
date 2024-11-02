@@ -144,12 +144,12 @@ form {
       color: var(--font-primary) !important;
       cursor: pointer;
       &:hover {
-        background: var(--card-primary);
+        background: var(--icon-default);
       }
 
       &[data-headlessui-state='selected'],
       &[data-headlessui-state='active selected'] {
-        background: var(--card-primary);
+        background: var(--icon-default);
       }
 
       .iconify {

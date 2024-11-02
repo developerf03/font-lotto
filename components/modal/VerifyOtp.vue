@@ -141,7 +141,7 @@ const fetchSendOtp = async () => {
     } else {
       useAlert({
         error: true,
-        text: t(error?.data?.code),
+        text: useErrorMsg({ error }),
       })
       console.log('error', error)
       verifyOTPModal.value.active = false

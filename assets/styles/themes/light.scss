@@ -87,10 +87,10 @@
   // Cancel
   --btn-cancel: var(--font-error);
   --btn-cancel-font: var(--font-white);
-  --btn-hover-cancel-font: var(--font-highlight);
-  --btn-hover-cancel: var(--button-hover-secondary-bg);
-  --btn-press-cancel: var(--button-press-cancel-bg);
-  --btn-press-cancel-font: var(--button-press-cancel-font);
+  --btn-hover-cancel-font: var(--font-white);
+  --btn-hover-cancel: #ff7074;
+  --btn-press-cancel: #cc3d40;
+  --btn-press-cancel-font: var(--font-white);
   --btn-cancel-disable-font: var(--font-secondary);
   --btn-cancel-disable-left: var(--button-disable-left);
   --btn-cancel-disable-right: var(--button-disable-right);

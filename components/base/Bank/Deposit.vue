@@ -64,11 +64,11 @@ const handleDepositSubmit = async () => {
     })
     if (url) {
       setTimeout(() => {
-        if (depositForm.gateway.gatewayCode === 'alpha') {
-          useNewWindowUrl(url)
-        } else {
-          location.href = url
-        }
+        // if (depositForm.gateway.gatewayCode === 'alpha') {
+        useNewWindowUrl(url)
+        // } else {
+        //   location.href = url
+        // }
         loading.value = false
         showPaymentModal(false, '', null)
         loading.value = false
@@ -87,7 +87,7 @@ const handleDepositSubmit = async () => {
     //
     useAlert({
       error: true,
-      title: t(error?.data?.code),
+      title: useErrorMsg({ error }),
       autoHide: true,
     })
     loading.value = false

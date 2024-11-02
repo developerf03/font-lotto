@@ -3,11 +3,13 @@
 // import placeholder from '~/constants/placeholder';
 
 // Composables
-const { showPaymentModal, showTransactionsModal } = useModals()
+const { showPaymentModal, showTransactionsModal, handVerifyOTPModal } = useModals()
 const { gateWayOption, banks, getGateWays, getBankAccounts, fetchBankList, createWithdraw } =
   usePayment()
 const { promotionWithdrawCheck } = usePromotion()
 const route = useRoute()
+const signUpSetting = computed(() => useSignUpSetting())
+
 // Stores
 
 // State
@@ -82,7 +84,19 @@ const withdrawCondition = computed(() =>
 // Watch
 
 // Functions
-const handleWithdrawSubmit = async () => {
+const handleWithdrawSubmit = () => {
+  if (signUpSetting.value?.verifyWithdraw) {
+    handVerifyOTPModal({
+      active: true,
+      typeSend: 'withdraw',
+      cb: submitWithdraw,
+    })
+  } else {
+    submitWithdraw()
+  }
+}
+
+const submitWithdraw = async () => {
   console.log('submit')
   loading.value = true
   try {
@@ -118,7 +132,7 @@ const handleWithdrawSubmit = async () => {
       //
       useAlert({
         error: true,
-        title: t(error?.data?.code),
+        title: useErrorMsg({ error }),
         autoHide: true,
       })
     }
@@ -141,6 +155,11 @@ const onTransactions = () => {
   showTransactionsModal(true, 'withdraw')
 }
 
+const onRadioOtherBank = () => {
+  console.log('onRadioOtherBank')
+  addBankForm.accountName = dataBankAccount.value?.accountName
+}
+
 // onMounted
 onMounted(() => {
   getGateWays({
@@ -157,7 +176,9 @@ onMounted(() => {
 
 <template>
   <div class="withdraw-wrapper gap-2 flex justify-center items-center flex-col w-full">
-    <div class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]">
+    <div
+      class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]"
+    >
       <div class="text-secondary text-sm">ยอดเงินปัจจุบัน</div>
       <div class="text-primary font-medium text-xl <sm:(text-lg)">
         {{ $format.currency(balanceWallet) }}
@@ -183,10 +204,11 @@ onMounted(() => {
           v-model="bankOption"
           :options="accountOptions"
           class="account-group"
+          @change="onRadioOtherBank"
         />
         <BaseBankAccount
           v-if="bankOption === 'main'"
-          :btn-copy="true"
+          :btn-copy="false"
           :account="dataBankAccount?.accountNumber"
           :bank-type="dataBankAccount?.bankName"
           :account-name="dataBankAccount?.accountName"
@@ -196,7 +218,7 @@ onMounted(() => {
           <div class="px-4 pt-3 pb-4 rounded-md border border-[1px] border-[#D1D1D1]">
             <UForm :state="addBankForm" class="space-y-2 w-full">
               <UFormGroup label="ชื่อบัญชี" name="accountName">
-                <BaseInput v-model="addBankForm.accountName" placeholder="กรอกชื่อบัญชี" />
+                <BaseInput v-model="addBankForm.accountName" placeholder="กรอกชื่อบัญชี" disabled />
               </UFormGroup>
               <UFormGroup label="ธนาคาร" name="bankCode">
                 <USelectMenu

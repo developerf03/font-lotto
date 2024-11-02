@@ -76,7 +76,7 @@ const handleCancelSubmit = () => {
           <UButton
             v-if="globalAlerts.cancelButtonText"
             :label="globalAlerts.cancelButtonText || 'Cancel'"
-            variant="cancel"
+            variant="outline"
             :class="globalAlerts.confirmButtonText ? 'btn-secondary' : 'btn-primary'"
             @click="handleCancelSubmit"
           />

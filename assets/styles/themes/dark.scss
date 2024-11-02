@@ -34,8 +34,8 @@
   --card-success: #49cd42;
   --card-error: #ff4c51;
 
-  --card-tertiary1: #282A34;
-  --card-tertiary2: #282A34;
+  --card-tertiary1: #282a34;
+  --card-tertiary2: #282a34;
   --card-border1: #4e65ff;
   --card-border2: #5cdaed;
 
@@ -81,16 +81,16 @@
   --btn-tertiary-disable-font: var(--font-secondary);
   --btn-tertiary-disable-left: var(--button-disable-left);
   --btn-tertiary-disable-right: var(--button-disable-right);
-   // Cancel
-   --btn-cancel: var(--font-error);
-   --btn-cancel-font: var(--font-white);
-   --btn-hover-cancel-font: var(--font-highlight);
-   --btn-hover-cancel: var(--button-hover-secondary-bg);
-   --btn-press-cancel: var(--button-press-cancel-bg);
-   --btn-press-cancel-font: var(--button-press-cancel-font);
-   --btn-cancel-disable-font: var(--font-secondary);
-   --btn-cancel-disable-left: var(--button-disable-left);
-   --btn-cancel-disable-right: var(--button-disable-right);
+  // Cancel
+  --btn-cancel: var(--font-error);
+  --btn-cancel-font: var(--font-white);
+  --btn-hover-cancel-font: var(--font-white);
+  --btn-hover-cancel: #ff7074;
+  --btn-press-cancel: #cc3d40;
+  --btn-press-cancel-font: var(--font-white);
+  --btn-cancel-disable-font: var(--font-secondary);
+  --btn-cancel-disable-left: var(--button-disable-left);
+  --btn-cancel-disable-right: var(--button-disable-right);
   // Provider item
   --provider-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.35);
   // VerticalNavigation

@@ -264,3 +264,14 @@
     color: var(--btn-tertiary-font);
   }
 }
+
+.radio-wrapper {
+  .form-radio {
+    color: var(--icon-default);
+  }
+  .form-radio:checked {
+    background-image: url('~/assets/icons/svg/check.svg');
+    background-size: 70%;
+    border: 0px solid !important;
+  }
+}

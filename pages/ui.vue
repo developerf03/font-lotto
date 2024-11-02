@@ -310,6 +310,24 @@ const handleOpenConfirmDialog = () => {
           </UButton>
         </div>
       </div>
+
+      <div class="p-6">
+        <h1 class="py-2 card-secondary text-center text-primary font-bold">BUTTON Cancel</h1>
+        <div class="flex justify-center">
+          <UButton size="md" variant="cancel">
+            <p class="flex justify-center">
+              <UIcon name="i-carbon-warning" class="w-7 h-5" />สมัครสมาชิก
+              <UIcon name="i-carbon-warning" class="w-7 h-5" />
+            </p>
+          </UButton>
+          <UButton size="md" variant="cancel" disabled>
+            <p class="text-secondary-disable flex justify-center">
+              <UIcon name="i-carbon-warning" class="w-7 h-5" />สมัครสมาชิก
+              <UIcon name="i-carbon-warning" class="w-7 h-5" />
+            </p>
+          </UButton>
+        </div>
+      </div>
       <div class="p-6">
         <h1 class="py-2 card-secondary text-center text-primary font-bold">BUTTON TERTIARY</h1>
         <div class="flex justify-center">

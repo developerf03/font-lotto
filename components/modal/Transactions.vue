@@ -49,7 +49,7 @@ const status = computed(() => {
 const statusTransactions = computed(
   () =>
     transactionsList.value?.transactionList.find(
-      (o) => o?.status === transactionsViewModal?.item.status,
+      (o) => o?.status === transactionsViewModal?.item?.status,
     )?.status,
 )
 

@@ -104,6 +104,13 @@ export default {
   addAccount: 'add account',
   defaultAccount: 'Default Account',
   useAnotherAccount: 'Use Another Account',
+  changeYourPassword: 'Change Your Password',
+  enterCodeWeSentToEmail: 'Enter the code we just sent to {email} for verification',
+  verifyPhone: 'Verify phone number',
+  verifyEmail: 'Verify email',
+  pleaseEnterPhoneNumberUseRegister: 'Please enter your phone number that you used to register',
+  pleaseEnterEmailUseForgotPassword: 'Please enter your email that you used to register',
+
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

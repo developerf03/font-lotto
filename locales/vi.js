@@ -104,6 +104,13 @@ export default {
   addAccount: 'Thêm tài khoản',
   defaultAccount: 'Mặc định',
   useAnotherAccount: 'Sử dụng tài khoản khác',
+  changeYourPassword: 'Thay đổi mật khẩu của bạn',
+  enterCodeWeSentToEmail: 'Nhập mã chúng tôi vừa gửi đến {email} để xác minh',
+  verifyPhone: 'Xác minh số điện thoại',
+  verifyEmail: 'Xác minh email',
+  pleaseEnterPhoneNumberUseRegister: 'Vui lòng nhập số điện thoại mà bạn đã sử dụng để đăng ký',
+  pleaseEnterEmailUseForgotPassword: 'Vui lòng nhập email mà bạn đã sử dụng để đăng ký',
+
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

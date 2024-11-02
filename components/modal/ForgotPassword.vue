@@ -5,33 +5,30 @@ import ForgotPassowrdStepOtp from '~/components/forgotpassword/StepOtpForgotpasa
 import ForgotPassowrdStepNewPassword from '~/components/forgotpassword/StepNewPassword.vue'
 
 // Composables
-const { forgotPasswordModal } = useModals()
+const { forgotPasswordModal, handleForgotPasswordModal } = useModals()
 const setting = useSetting()
 
 // Sotres
+const { changeNewPassword } = usePlayerStore()
 
 // State
 const form = reactive({
   email: '',
-  phone: '',
+  phoneNumber: '',
   callingPhone: '',
   callingCode: '',
   password: '',
   confirmPassword: '',
 })
 const currentStep = ref('input-phone') // input-phone , verify-otp , submit
+const remainSec = ref(0)
 
 // Computeds
 const signInSetting = computed(() => useSignInSetting())
+const validateType = computed(() => signInSetting?.value.verifyWith)
 
 const isStep = computed(() => (targetStep) => targetStep === currentStep.value)
-const steps = computed(() =>
-  [
-    'input-phone',
-    signInSetting.value?.verifyRegister && 'verify-otp',
-    'submit',
-  ].filter((v) => v),
-)
+const steps = computed(() => ['input-phone', 'verify-otp', 'submit'].filter((v) => v))
 
 // Function
 const nextStep = (targetStep) => {
@@ -42,6 +39,46 @@ const nextStep = (targetStep) => {
   }
 }
 
+const resetForm = () => {
+  Object.assign(form, clearObj(form))
+}
+
+const setForm = (field, value) => {
+  form[field] = value
+}
+
+const submitForgotpassword = async () => {
+  try {
+    await changeNewPassword({
+      ...(validateType.value === 'phone' && {
+        phone: form.phoneNumber,
+        callingPhone: form.callingPhone,
+      }),
+      ...(validateType.value === 'email' && {
+        email: form.email,
+      }),
+      newPassword: form.password,
+    })
+    nextStep('input-phone')
+    resetForm()
+    handleForgotPasswordModal(false)
+    useAlert({
+      logo: true,
+      text: t('passwordChangedSuccessfully'),
+      autoHide: true,
+    })
+  } catch (error) {
+    if (error.data?.code === 6049) {
+      nextStep('input-phone')
+      resetForm()
+    }
+    useAlert({
+      error: true,
+      text: error.data?.message,
+      autoHide: true,
+    })
+  }
+}
 </script>
 
 <template>
@@ -55,7 +92,12 @@ const nextStep = (targetStep) => {
     <div class="flex justify-center items-center flex-col w-full">
       <div class="text-center">
         <BaseLogo />
-        <div class="font-bold text-primary <sm:(text-sm)">ลืมรหัสผ่าน</div>
+        <div
+          v-if="isStep('input-phone') || isStep('submit')"
+          class="font-bold text-primary <sm:(text-sm)"
+        >
+          {{ isStep('input-phone') ? t('forgotPassword') : t('changeYourPassword') }}
+        </div>
       </div>
 
       <!-- Input Phone -->
@@ -73,12 +115,12 @@ const nextStep = (targetStep) => {
       <ForgotPassowrdStepOtp
         v-if="isStep('verify-otp')"
         :email="form.email"
-        :phone="form.phone"
+        :phone-number="form.phoneNumber"
         :calling-phone="form.callingPhone"
         :calling-code="form.callingCode?.callingCode"
         :steps="steps"
         :next-step="nextStep"
-        :signup-setting="signInSetting"
+        :signin-setting="signInSetting"
         :remain-sec="remainSec"
         :reset-form="resetForm"
       />
@@ -86,12 +128,13 @@ const nextStep = (targetStep) => {
       <!-- Submit Forgot Password -->
       <ForgotPassowrdStepNewPassword
         v-if="isStep('submit')"
+        :email="form.email"
+        :phone-number="form.phoneNumber"
         :setting="setting"
-        :signup-setting="signInSetting"
+        :signin-setting="signInSetting"
         :set-form="setForm"
         :reset-form="resetForm"
-        :submit-register="handleSubmit"
-        :register-loading="loading"
+        :submit-forgotpassword="submitForgotpassword"
       />
     </div>
   </baseModal>

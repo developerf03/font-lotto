@@ -28,6 +28,9 @@ const props = defineProps({
   signupSetting: { type: Object, required: true },
 })
 
+// Composables
+const { registerModal } = useModals()
+
 // Store
 const { sendOTP, verifyOTP } = usePlayerStore()
 
@@ -54,6 +57,7 @@ const handleRequestOtp = async () => {
         email: props.email,
       }),
       currency: useDefaults()?.currencyCode,
+      type: 'register', // register, forgotpassword, changeprofile, withdraw, firsttimedeposit
     })
     otp.remainSec = remain || otp.remainSecDefault
     if (code === 6040) {
@@ -130,6 +134,16 @@ const onInput = (value) => {
     handleVerifyOTP()
   }
 }
+
+// Watch
+watch(
+  () => registerModal.value,
+  (val) => {
+    if (!val) {
+      props.nextStep(props.steps[0])
+    }
+  },
+)
 </script>
 
 <template>
@@ -146,7 +160,7 @@ const onInput = (value) => {
     <div class="p-8">
       <BaseInputOtp
         v-modal="otp.pincode"
-        :error="otp.isVerifyValid === false ? 'Invalid code. Try again' : ''"
+        :error="otp.isVerifyValid === false ? t('invalidCodeTryAgain') : ''"
         @on-change="onInput"
       />
     </div>

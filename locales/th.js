@@ -103,6 +103,14 @@ export default {
   addAccount: 'เพิ่มบัญชี',
   defaultAccount: 'บัญชีหลัก',
   useAnotherAccount: 'ใช้บัญชีอื่นๆ',
+  passwordChangedSuccessfully: 'ตั้งรหัสผ่านใหม่สำเร็จ',
+  changeYourPassword: 'เปลี่ยนรหัสผ่านใหม่',
+  enterCodeWeSentToEmail: 'ใส่รหัส ที่เราพึ่งส่งไปยัง {email} เพื่อยืนยันตัวตน',
+  verifyPhone: 'ยืนยันเบอร์โทรศัพท์',
+  verifyEmail: 'ยืนยันอีเมล',
+  pleaseEnterPhoneNumberUseRegister: 'โปรดกรอกเบอร์โทรศัพท์ที่เคยใช้สมัครสมาชิก',
+  pleaseEnterEmailUseForgotPassword: 'โปรดกรอกอีเมลที่เคยใช้สมัครสมาชิก',
+
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

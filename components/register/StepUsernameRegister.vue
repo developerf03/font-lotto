@@ -64,7 +64,7 @@ const validator = computed(() =>
     }),
     ...(props.signupSetting?.registerWith?.phone && {
       phone: Rules()
-        .required('validation.pleaseEnterPhoneNumber')
+        .required(t('validation.pleaseEnterPhoneNumber'))
         .minLength({
           errMsg: t('validation.invalidPhoneNumber'),
           min: 9,

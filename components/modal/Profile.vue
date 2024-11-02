@@ -8,6 +8,7 @@ const { userPlayer, fetchUser } = useAuth()
 const { profileModal, handVerifyOTPModal } = useModals()
 const { profileCheckData, updateProfileV2 } = usePlayerStore()
 const signUpSetting = computed(() => useSignUpSetting())
+const lobbySetting = computed(() => useLobbySetting())
 
 // States
 const form = reactive({
@@ -51,17 +52,11 @@ watch(profileModal, (o) => {
 
 // Functions
 const handleCheckData = async (field) => {
-  const textErrors = {
-    email: 'emailAlreadyExists',
-    phone: 'phoneAlreadyExists',
-  }
-
   try {
     await profileCheckData({ [field]: form?.[field] || '' })
     return ''
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return t(textErrors[field])
+    return useErrorMsg({ error })
   } finally {
     setTimeout(() => {}, 500)
   }
@@ -75,6 +70,7 @@ const reset = () => {
   form.phone = userPlayer.value?.phone || ''
   form.email = userPlayer.value?.email || ''
   form.dateOfBirth = $format.dateOnly(userPlayer.value?.dateOfBirth) || ''
+  validator.value.clear()
 }
 
 const onChangeProfile = async (isChanged) => {
@@ -90,6 +86,11 @@ const onChangeProfile = async (isChanged) => {
   } catch (error) {
     useAlert({ error: true, text: useErrorMsg(error) })
   }
+}
+
+const onCancelEdit = () => {
+  isEdit.value = false
+  reset()
 }
 
 const onVerify = () => {
@@ -199,19 +200,19 @@ const onSubmit = () => {
           v-model="form.dateOfBirth"
           placeholder="DD/MM/YYYY"
           data-maska="##/##/####"
-          :readonly="!isEdit"
+          :readonly="!isEdit || !lobbySetting?.setting?.value?.profileSetting?.editDateOfBirth"
           @update:model-value="validator.validate('dateOfBirth')"
         />
       </UFormGroup>
 
       <!-- REFERAL CODE -->
-      <UFormGroup v-if="useLobbySetting().enableReferCode" :label="t('referralCode')" name="code">
+      <UFormGroup v-if="lobbySetting?.enableReferCode" :label="t('referralCode')" name="code">
         <BaseInput :model-value="userPlayer?.code" :copy="userPlayer?.code" readonly />
       </UFormGroup>
 
       <!-- BUTTON -->
       <div v-if="isEdit" class="flex gap-4">
-        <UButton :label="t('cancel')" size="sm" variant="outline" @click="isEdit = false" />
+        <UButton :label="t('cancel')" size="sm" variant="outline" @click="onCancelEdit" />
         <UButton :label="t('save')" size="sm" type="submit" />
       </div>
       <UButton v-else :label="t('editPersonalInformation')" size="sm" @click="isEdit = true" />

@@ -28,6 +28,10 @@ const validator = computed(() =>
   }),
 )
 
+watch(loginModal, () => {
+  validator.value.clear()
+})
+
 // Functions
 const handleSubmit = async () => {
   validator.value.validate()

@@ -66,7 +66,7 @@ const mockup = [
     <!-- WALLET AND PROFILE -->
     <div
       v-if="user"
-      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--color-100)] hidden mlg:flex"
+      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:flex"
     >
       <HomeMenuUser :phone="user?.player?.phone" />
       <HomeMenuWallet :balance="balance" />
@@ -75,7 +75,7 @@ const mockup = [
     <!-- BUTTON => LOGIN / REGISTER -->
     <div
       v-else
-      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--color-100)] hidden mlg:flex"
+      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:flex"
     >
       <UButton :label="t('login')" variant="outline" size="md" @click="handleLoginModal(true)" />
       <UButton
@@ -105,7 +105,7 @@ const mockup = [
     </div>
 
     <!-- LANGUAGE AND THEME -->
-    <div class="w-full h-6 my-auto divide-x-1 hidden mlg:flex">
+    <div class="w-full h-6 my-auto hidden mlg:flex">
       <div class="flex-1 flex items-center justify-center gap-4">
         <BaseChangeLanguage />
       </div>

@@ -37,7 +37,7 @@ const promotionSlideList = computed(() => {
   }
 
   const promoteslist = []
-  
+
   promoteslist.push(...activePromotes.value)
   if (activePromotes.value.length > breakpoints) {
     promoteslist.push(...activePromotes.value)
@@ -115,6 +115,10 @@ const promotionSlideList = computed(() => {
         >
       </SwiperSlide>
     </Swiper>
+    <!-- Skeleton -->
+    <div v-if="!activePromotes.length" class="flex gap-3 w-full">
+      <USkeleton v-for="i in 4" :key="i" class="h-24 rounded-[2vw] 2xl:rounded-[20px] w-full" />
+    </div>
   </div>
 </template>
 

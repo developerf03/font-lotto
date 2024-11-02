@@ -20,6 +20,7 @@ const theme = useCookie('theme')
 onMounted(() => {
   useInitApp()
 })
+
 useInitAppSSR()
 </script>
 

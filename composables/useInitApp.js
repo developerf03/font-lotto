@@ -63,11 +63,16 @@ export const useFetchAfterAuthen = () => {
 export const useInitLang = () => {
   const { $i18n } = useNuxtApp()
   const lang = useCookie('i18n_redirected')
+  const theme = useCookie('theme')
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
 
   if (!lang.value || lang.value === 'undefined' || (lang.value === 'null' && !!agentLang.length)) {
     $i18n.setLocale(agentLang[0])
     lang.value = agentLang[0]
+  }
+
+  if (!theme.value || theme.value === 'undefined' || theme.value === 'null') {
+    theme.value = 'light-theme'
   }
 }
 

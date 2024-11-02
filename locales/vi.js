@@ -123,8 +123,8 @@ export default {
   noAccountForWithdrawal: 'Chưa có tài khoản rút tiền',
   duplicatedNickname: 'Biệt danh trùng lặp',
   pleaseEnterNickname: 'Vui lòng nhập biệt danh',
+  betLotto: 'Cá cược xổ số',
   addedBankAccountSuccess: 'Thêm số tài khoản thành công',
-
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

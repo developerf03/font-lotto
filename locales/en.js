@@ -123,8 +123,8 @@ export default {
   noAccountForWithdrawal: 'No account for withdrawal',
   duplicatedNickname: 'Duplicated nickname',
   pleaseEnterNickname: 'Please enter nickname',
+  betLotto: 'Bet Lotto',
   addedBankAccountSuccess: 'Successfully added bank account',
-
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

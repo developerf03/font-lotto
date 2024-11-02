@@ -1,7 +1,5 @@
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '~/stores/setting'
-import { useInformationStore } from '~/stores/information'
-import { useProviderStore } from '~/stores/provider'
 import { useAuthStore } from '~/stores/auth'
 import { useCurrencyStore } from '~/stores/currency'
 
@@ -20,9 +18,9 @@ export const useInitAppSSR = async () => {
 }
 
 export const useInitApp = async () => {
-  const { getInformations, getPromotes } = useInformationStore()
+  const { getInformations, getPromotes } = useInformation()
   const { getAssets } = useSettingStore()
-  const { getProviders } = useProviderStore()
+  const { getProviders } = useProvider()
   const { fetchCurrencyList } = useCurrencyStore()
 
   const { isAuthenticated } = storeToRefs(useAuthStore())
@@ -33,11 +31,20 @@ export const useInitApp = async () => {
       useFetchAfterAuthen()
     }
 
-    // Independent of settings
-    Promise.all([getAssets(), getPromotes(), getInformations()])
+    // Init langauge
+    useInitLang()
+
+    // Init functions
+    useInitHead(setting.value)
 
     // Depends on settings
-    Promise.all([getProviders(), fetchCurrencyList({ agent: true })])
+    Promise.all([
+      getAssets(),
+      getInformations(),
+      getPromotes(),
+      getProviders(),
+      fetchCurrencyList({ agent: true }),
+    ])
   } catch (error) {
     return Promise.reject(error)
   }

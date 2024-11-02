@@ -122,8 +122,8 @@ export default {
   noAccountForWithdrawal: 'ไม่มีบัญชีสำหรับถอนเงิน',
   duplicatedNickname: 'นามแฝงนี้ถูกใช้แล้ว',
   pleaseEnterNickname: 'กรุณากรอกนามแฝง',
+  betLotto: 'แทงหวย',
   addedBankAccountSuccess: 'เพิ่มบัญชีธนาคารสำเร็จ',
-
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

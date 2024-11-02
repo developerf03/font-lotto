@@ -111,7 +111,15 @@ export default {
   pleaseEnterPhoneNumberUseRegister: 'Please enter your phone number that you used to register',
   pleaseEnterEmailUseForgotPassword: 'Please enter your email that you used to register',
   sorryThereWasLoginFromAnother: 'Sorry, there was a login from another machine.',
-
+  depositAdvice1:
+    'Please check if your deposit method is correct and specify the min/max amount in the system',
+  depositHistory: 'Deposit history',
+  withdrawalHistory: 'Withdrawal history',
+  notVerifyPhoneForWithdrawal: 'Please verify your phone number before making a cash withdrawal',
+  pleaseVerifyEmailBeforeMakingWithdrawal:
+    'Please verify your email. before making a withdrawal transaction',
+  goToAddAccountForWithdrawal: 'Go to add account for withdrawal',
+  noAccountForWithdrawal: 'No account for withdrawal',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

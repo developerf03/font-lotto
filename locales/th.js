@@ -111,7 +111,14 @@ export default {
   pleaseEnterPhoneNumberUseRegister: 'โปรดกรอกเบอร์โทรศัพท์ที่เคยใช้สมัครสมาชิก',
   pleaseEnterEmailUseForgotPassword: 'โปรดกรอกอีเมลที่เคยใช้สมัครสมาชิก',
   sorryThereWasLoginFromAnother: 'ขออภัย มีการเข้าสู่ระบบจากอีกเครื่อง',
-
+  depositAdvice1:
+    'ตรวจสอบช่องทางการฝากเงินของท่านให้ถูกต้อง และระบุจำนวนเงินตามที่ระบบกำหนด ขั้นต่ำ/สูงสุด',
+  depositHistory: 'ประวัติการฝาก',
+  withdrawalHistory: 'ประวัติการถอน',
+  notVerifyPhoneForWithdrawal: 'กรุณายืนยันตัวตนเบอร์โทรศัพท์ก่อนทำรายการถอนเงินสด',
+  pleaseVerifyEmailBeforeMakingWithdrawal: 'กรุณายืนยันอีเมล ก่อนทำรายการถอนเงิน',
+  goToAddAccountForWithdrawal: 'ไปเพิ่มบัญชีสำหรับถอนเงิน',
+  noAccountForWithdrawal: 'ไม่มีบัญชีสำหรับถอนเงิน',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

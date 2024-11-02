@@ -111,7 +111,15 @@ export default {
   pleaseEnterPhoneNumberUseRegister: 'Vui lòng nhập số điện thoại mà bạn đã sử dụng để đăng ký',
   pleaseEnterEmailUseForgotPassword: 'Vui lòng nhập email mà bạn đã sử dụng để đăng ký',
   sorryThereWasLoginFromAnother: 'Xin lỗi, đã có người đăng nhập từ máy khác.',
-
+  depositAdvice1:
+    'Vui lòng kiểm tra nếu phương thức nạp tiền của bạn là chính xác và nhập số tiền tối thiểu/tối đa trong hệ thống',
+  depositHistory: 'Lịch sử nạp tiền',
+  withdrawalHistory: 'Lịch sử rút tiền',
+  notVerifyPhoneForWithdrawal: 'Vui lòng xác minh số điện thoại của bạn trước khi rút tiền mặt',
+  pleaseVerifyEmailBeforeMakingWithdrawal:
+    'Vui lòng xác minh email trước khi thực hiện giao dịch rút tiền',
+  goToAddAccountForWithdrawal: 'Thêm tài khoản để rút tiền',
+  noAccountForWithdrawal: 'Chưa có tài khoản rút tiền',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

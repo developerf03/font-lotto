@@ -23,6 +23,8 @@ export const useSettingStore = defineStore(
         const res = await useAPI().$post('/api/setting/v2/lobby?platformType=website')
 
         setting.value = res.data
+
+        return res.data
       } catch ({ response }) {
         if (response._data?.code === 2004) {
           setting.value = response._data

@@ -42,7 +42,7 @@ const errors = reactive({})
 
 // watch
 watch(
-  () => verifyOTPModal.value.active,
+  () => verifyOTPModal.value?.active,
   (active) => {
     if (active) {
       resetForm()
@@ -159,6 +159,8 @@ const fetchSendOtp = async () => {
 }
 
 const handleVerifyOTP = async () => {
+  console.log(pincode.value)
+
   try {
     loadingOtp.value = true
     await verifyOTP({
@@ -255,6 +257,7 @@ const handleResendCode = () => {
 
 const handleOnChangeOTP = (val) => {
   if (val.length === OTPDigit.value) {
+    pincode.value = val
     handleVerifyOTP()
     isVerifyValid.value = false
   }
@@ -403,6 +406,5 @@ const resetForm = () => {
         </div>
       </div>
     </div>
-    <!-- <pre>{{ verifyOTPModal }}</pre> -->
   </BaseModal>
 </template>

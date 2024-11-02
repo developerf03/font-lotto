@@ -60,11 +60,11 @@ defineProps({
   },
   width: {
     type: [String, Number],
-    default: '288',
+    default: '290',
   },
   height: {
     type: [String, Number],
-    default: '288',
+    default: '290',
   },
 })
 

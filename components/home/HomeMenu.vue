@@ -95,6 +95,10 @@ const mockup = [
         :icon="flag1"
         :background="item?.images?.['dark']?.url"
       /> -->
+      <UButton size="md" variant="play">
+        <!-- <nuxt-icon name="svg/bank" class="" />  -->
+        ซื้อหวย
+      </UButton>
       <HomeMenuItem
         v-for="(item, index) in mockup"
         :key="index"

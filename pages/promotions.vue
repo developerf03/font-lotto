@@ -4,7 +4,7 @@ import { useWindowSize } from '@vueuse/core'
 // Composables
 const { showPromotionDetailsModal, showPaymentModal } = useModals()
 const { fetchPromotions, getPromotionDetail, promotions, loading } = usePromotion()
-const { locale } = useI18n()
+const { $i18n } = useNuxtApp()
 const { width } = useWindowSize()
 const { user } = useAuth()
 
@@ -26,7 +26,7 @@ const fetchPromotionList = () => {
 
 const dateFormat = (date) => {
   return $format.date(new Date(date), {
-    locale: locale.value,
+    locale: $i18n.localeProperties.value?.IETF,
     year: 'numeric',
     month: 'short',
     day: 'numeric',

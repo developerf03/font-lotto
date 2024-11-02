@@ -5,8 +5,8 @@ export const useInformationStore = defineStore(
   'information',
   () => {
     // Composables
-    const { langDefault } = useLobbySetting()
-    const { locale } = useI18n()
+    // const { langDefault } = useLobbySetting()
+    // const { $i18n } = useNuxtApp()
     const { user } = useAuth()
 
     // State
@@ -66,30 +66,30 @@ export const useInformationStore = defineStore(
     const activePromotes = computed(() =>
       promotes.value.filter((v) => v?.isActive && v?.type === 'promote'),
     )
-    const socials = computed(() => {
-      const socialList =
-        information.value.social[locale.value] ?? information.value.social[langDefault] ?? []
+    // const socials = computed(() => {
+    //   const socialList =
+    //     information.value?.social[$i18n.localeProperties.value?.IETF] ?? information.value.social[langDefault] ?? []
 
-      return socialList.filter((o) => o?.key !== 'phone')
-    })
-    const phone = computed(() => {
-      const phoneList =
-        information.value.social[locale.value] ?? information.value.social[langDefault] ?? []
+    //   return socialList.filter((o) => o?.key !== 'phone')
+    // })
+    // const phone = computed(() => {
+    //   const phoneList =
+    //     information.value?.social[$i18n.localeProperties.value?.IETF] ?? information.value.social[langDefault] ?? []
 
-      return phoneList.find((o) => o?.key === 'phone')
-    })
-    const socialsChat = computed(() => {
-      const socials =
-        information.value.social[locale.value] ?? information.value.social[langDefault]
+    //   return phoneList.find((o) => o?.key === 'phone')
+    // })
+    // const socialsChat = computed(() => {
+    //   const socials =
+    //     information.value?.social[$i18n.localeProperties.value?.IETF] ?? information.value.social[langDefault]
 
-      return {
-        contact: socials?.find((v) => v.key === 'contact')?.value,
-        whatsapp: socials?.find((v) => v.key === 'whatsapp')?.value,
-        telegram: socials?.find((v) => v.key === 'telegram'),
-        line: socials?.find((v) => v.key === 'line')?.value,
-        kakaotalk: socials?.find((v) => v.key === 'kakaotalk')?.value,
-      }
-    })
+    //   return {
+    //     contact: socials?.find((v) => v.key === 'contact')?.value,
+    //     whatsapp: socials?.find((v) => v.key === 'whatsapp')?.value,
+    //     telegram: socials?.find((v) => v.key === 'telegram'),
+    //     line: socials?.find((v) => v.key === 'line')?.value,
+    //     kakaotalk: socials?.find((v) => v.key === 'kakaotalk')?.value,
+    //   }
+    // })
     const popupAnnouncement = computed(() => {
       const today = new Date()
       const type = user.value?.player?.playerId ? 'popup_afterlogin' : 'popup_prelogin'
@@ -106,10 +106,10 @@ export const useInformationStore = defineStore(
       activePromotes,
       loading,
       information,
-      phone,
+      // phone,
       popupAnnouncement,
-      socials,
-      socialsChat,
+      // socials,
+      // socialsChat,
       promotesDontShowAgainDuration,
       showAllCloseBtn,
 

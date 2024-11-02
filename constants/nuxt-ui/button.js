@@ -42,6 +42,7 @@ export default {
     outline: 'btn-outline',
     tertiary: 'btn-tertiary',
     cancel: 'btn-cancel',
+    play: 'btn-play',
   },
   icon: {
     base: 'animation-none',

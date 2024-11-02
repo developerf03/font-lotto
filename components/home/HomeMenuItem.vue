@@ -28,7 +28,7 @@ const handleLauncher = () => {
 
 <template>
   <div
-    class="provider-item-wrapper w-full border border-solid border-[var(--color-100)] rounded-[10px] p-3 flex items-center gap-[14px] cursor-pointer relative overflow-hidden mlg:px-4"
+    class="provider-item-wrapper w-full border border-solid border-[var(--provider-item-border)] rounded-[10px] p-3 flex items-center gap-[14px] cursor-pointer relative overflow-hidden mlg:px-4"
     @click="handleLauncher"
   >
     <img :src="background" alt="provider background" class="provider-background" >

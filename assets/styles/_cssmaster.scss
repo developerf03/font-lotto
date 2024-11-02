@@ -125,6 +125,7 @@ form {
     border: 1px solid var(--input-border);
     background: var(--input-bg);
     --tw-ring-color: transparent;
+    color: var(--font-primary);
     &:focus {
       border-color: var(--input-focus);
       --tw-ring-color: var(--input-focus);
@@ -134,6 +135,26 @@ form {
     &:disabled {
       color: var(--input-text-disabled);
       background-color: var(--input-bg-disabled);
+    }
+  }
+  ul {
+    background: var(--card-secondary);
+    --tw-ring-color: var(--input-border);
+    li {
+      color: var(--font-primary) !important;
+      cursor: pointer;
+      &:hover {
+        background: var(--card-primary);
+      }
+
+      &[data-headlessui-state='selected'],
+      &[data-headlessui-state='active selected'] {
+        background: var(--card-primary);
+      }
+
+      .iconify {
+        color: var(--font-primary);
+      }
     }
   }
 }

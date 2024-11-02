@@ -17,5 +17,5 @@ export const useErrorMsg = ({ code = '', error = {}, message = '', custom = {} }
     errorCustomMsg = custom[errorCode]
   }
 
-  return message || errorMgsFromInvalidList || errorCustomMsg || errorTranslated || error?.message
+  return message || errorTranslated || errorMgsFromInvalidList || errorCustomMsg || error?.message
 }

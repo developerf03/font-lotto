@@ -348,6 +348,14 @@ const handleOpenConfirmDialog = () => {
         </div>
       </div>
       <div class="p-6">
+        <h1 class="py-2 card-secondary text-center text-primary font-bold">BUTTON Play Game</h1>
+        <div class="flex justify-center">
+          <UButton size="md" variant="play">
+            <nuxt-icon name="svg/bank" class="" /> เล่นเกม
+          </UButton>
+        </div>
+      </div>
+      <div class="p-6">
         <h1 class="py-2 card-secondary text-center text-primary font-bold">BUTTON SIZE</h1>
         <div class="flex justify-center">
           <UButton class="w-full" :ui="{ rounded: 'rounded-full' }" size="sm" variant="solid">

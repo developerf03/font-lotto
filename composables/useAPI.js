@@ -4,6 +4,7 @@ export const useAPI = () => {
   const config = useRuntimeConfig()
   const lang = useCookie('i18n_redirected')
   const { jwtRefreshToken, logout, accessToken } = useAuth()
+  const { $i18n } = useNuxtApp()
 
   // Functions
   const getHeaders = (path) => {
@@ -33,9 +34,10 @@ export const useAPI = () => {
   const tokenBearer = {
     Authorization: `Bearer ${accessToken.value}`,
   }
+
   const headers = {
     'x-signature': config.public.xSignature,
-    lang: lang.value,
+    lang: $i18n.localeProperties.value?.IETF,
     timestamp: getTimeHeader().timstamp,
     timezone: getTimeHeader().timezone,
   }

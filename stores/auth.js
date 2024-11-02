@@ -42,7 +42,7 @@ export const useAuthStore = defineStore(
         await fetchUser()
         // useFetchAfterAuthen()
       } catch (error) {
-        return Promise.reject(error.value)
+        return Promise.reject(error)
       } finally {
         loading.value = false
       }
@@ -52,6 +52,7 @@ export const useAuthStore = defineStore(
       user.value = null
       accessToken.value = null
       refreshToken.value = null
+      useAlert({ logo: true, text: 'ออกจากระบบ' })
       // disconnectSocket()
     }
 

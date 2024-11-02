@@ -5,6 +5,7 @@
   // COLOR
   --color-100: #e7e7e7;
   --color-200: #d1d1d1;
+  --color-900: #393939;
 
   // FONT
   --font-primary: #393939;
@@ -94,6 +95,13 @@
   --btn-cancel-disable-font: var(--font-secondary);
   --btn-cancel-disable-left: var(--button-disable-left);
   --btn-cancel-disable-right: var(--button-disable-right);
+  // Play
+  --btn-font-play: var(--font-white);
+  --btn-play-left: #ff8a42;
+  --btn-play-right: #d12162;
+  --btn-play-disable-left: var(--button-disable-left);
+  --btn-play-disable-right: var(--button-disable-right);
+  --shadow-play: #f36f4b;
   // Provider item
   --provider-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
   // VerticalNavigation
@@ -101,4 +109,8 @@
   --vertical-navigation-bg-click: #64aaff;
   --vertical-navigation-text: var(--font-primary);
   --vertical-navigation-text-active: var(--font-white);
+  // Provider item
+  --provider-item-border: var(--color-100);
+  // Home menu
+  --home-menu-divide: var(--color-100);
 }

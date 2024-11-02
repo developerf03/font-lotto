@@ -25,9 +25,18 @@ const props = defineProps({
 // Emits
 const emit = defineEmits(['update:modelValue', 'maska'])
 
+// Variables
+const digitSetting = {
+  0: { class: '!pr-[32px]', text: '.00' },
+  1: { class: '!pr-[29px]', text: '00' },
+  2: { class: '!pr-[20px]', text: '0' },
+  3: { class: '!pr-3', text: '' },
+}
+
 // States
 const inputRef = ref(null)
 const eye = ref(false)
+const digit = reactive({ setting: {} })
 
 // Computeds
 const inputType = computed(() =>
@@ -53,6 +62,13 @@ const convertCurrency = (value) => {
   }
 }
 
+const getDigitSetting = (value) => {
+  if (value) {
+    return digitSetting[numeralCommas(value, 'decimal')?.length || 0]
+  }
+  return digitSetting[0]
+}
+
 const handleInput = (e) => {
   if (!e) {
     emit('update:modelValue', '')
@@ -65,6 +81,7 @@ const handleInput = (e) => {
     if (/^[0-9.,]*$/gm.test(e)) {
       const result = convertCurrency(e)
       emit('update:modelValue', result)
+      digit.setting = getDigitSetting(result)
     } else {
       const result = e.replace(/[^0-9.,]/g, '')
       emit('update:modelValue', result)
@@ -88,6 +105,13 @@ const handleInput = (e) => {
 
   emit('update:modelValue', e)
 }
+
+// Mounted
+onMounted(() => {
+  if (props.type === 'currency') {
+    digit.setting = getDigitSetting(inputRef?.value?.modelValue)
+  }
+})
 </script>
 
 <template>
@@ -96,15 +120,22 @@ const handleInput = (e) => {
     v-maska
     :data-maska="dataMaska"
     :type="inputType"
-    :placeholder="type === 'currency' ? '0.00' : placeholder"
+    :placeholder="type === 'currency' ? '0' : placeholder"
     :class="[{ 'text-right': type === 'currency' }, { 'input-readonly': readonly }]"
+    :input-class="type === 'currency' && digit.setting?.class"
     :disabled="disabled || readonly"
     @maska="emit('maska', $event)"
     @update:model-value="handleInput"
   >
-    <template v-if="type === 'password' || copy || trailing" #trailing>
+    <template v-if="['password', 'currency'].includes(type) || copy || trailing" #trailing>
       <slot name="trailing" />
       <div class="flex items-center justify-center gap-2">
+        <span
+          v-if="type === 'currency'"
+          class="text-sm text-[var(--input-placeholder)]"
+          :class="[{ 'text-[var(--input-text-disabled)]': disabled || readonly }]"
+          >{{ digit.setting?.text }}</span
+        >
         <UIcon
           v-if="type === 'password'"
           :name="eye ? 'i-mdi:eye-outline' : 'i-mdi:eye-off-outline'"

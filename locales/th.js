@@ -41,6 +41,7 @@ export default {
   email: 'อีเมล',
   dateOfBirth: 'วันเกิด',
   username: 'ชื่อผู้ใช้',
+  nickname: 'นามแฝง',
   password: 'รหัสผ่าน',
   confirmPassword: 'ยืนยันรหัสผ่าน',
   pleaseEnter: 'กรุณากรอก',
@@ -119,6 +120,9 @@ export default {
   pleaseVerifyEmailBeforeMakingWithdrawal: 'กรุณายืนยันอีเมล ก่อนทำรายการถอนเงิน',
   goToAddAccountForWithdrawal: 'ไปเพิ่มบัญชีสำหรับถอนเงิน',
   noAccountForWithdrawal: 'ไม่มีบัญชีสำหรับถอนเงิน',
+  duplicatedNickname: 'นามแฝงนี้ถูกใช้แล้ว',
+  pleaseEnterNickname: 'กรุณากรอกนามแฝง',
+
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

@@ -147,23 +147,23 @@ export const useMenu = () => {
 
     return [
       {
-        label: 'หน้าหลัก',
+        label: t('home'),
         icon: 'i-tabler:home',
         click: menuClick['home'],
         active: route.name.includes('index'),
       },
       {
-        label: 'เติมเงิน',
+        label: t('deposit'),
         icon: 'i-tabler:wallet',
         click: menuClick['deposit'],
       },
       {
-        label: 'ถอนเงิน',
+        label: t('withdraw'),
         icon: 'i-tabler:cash',
         click: menuClick['withdraw'],
       },
       {
-        label: 'โปรโมชั่น',
+        label: t('promotions'),
         icon: 'i-tabler:confetti',
         click: menuClick['promotion'],
         active: route.name.includes('promotion'),

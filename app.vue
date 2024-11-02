@@ -10,6 +10,7 @@ import Register from '~/components/modal/Register.vue'
 import Launcher from '~/components/modal/Launcher.vue'
 import ForgotPassword from '~/components/modal/ForgotPassword.vue'
 import Profile from '~/components/modal/Profile.vue'
+import BankAccountSubMenu from '~/components/modal/BankAccountSubMenu.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/bundle'
@@ -39,6 +40,7 @@ useInitApp()
         <Launcher />
         <VerifyOtpModal />
         <Profile />
+        <BankAccountSubMenu />
         <LanguageModal />
         <PromotionDetails />
       </NuxtLayout>

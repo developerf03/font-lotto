@@ -6,6 +6,7 @@ export const useModalStore = defineStore('modal', () => {
   const registerModal = ref(false)
   const forgotPasswordModal = ref(false)
   const profileModal = ref(false)
+  const bankAccountModal = ref(false)
   const languageModal = ref(false)
   const promotionDetailsModal = reactive({
     active: false,
@@ -88,6 +89,12 @@ export const useModalStore = defineStore('modal', () => {
     languageModal.value = val
   }
 
+  const handleBankAccountModal = (val) => {
+    console.log('val :>> ', val)
+    bankAccountModal.value = val
+    console.log('bankAccountModal.value :>> ', bankAccountModal.value)
+  }
+
   const handVerifyOTPModal = ({
     active,
     type,
@@ -111,6 +118,7 @@ export const useModalStore = defineStore('modal', () => {
     loginModal,
     registerModal,
     forgotPasswordModal,
+    bankAccountModal,
     paymentModal,
     paymentDepositQaModal,
     transactionsModal,
@@ -123,6 +131,7 @@ export const useModalStore = defineStore('modal', () => {
     handleLoginModal,
     handleRegisterModal,
     handleForgotPasswordModal,
+    handleBankAccountModal,
     showPaymentModal,
     showPaymentDepositQaModal,
     showTransactionsModal,

@@ -99,6 +99,7 @@ const handleSubmit = async () => {
       }),
       password: form.password,
       currency: useCurrencyCode(),
+      playerCurrency: useCurrencyCode(),
     })
     utm.value = ''
     affCodeLocal.value = ''

@@ -135,6 +135,7 @@ export default {
   lotteryResult5: 'ดูผลหวยเลขชุด',
   lotteryResult6: 'ดูผลจับยี่กี',
 
+  addedBankAccountSuccess: 'เพิ่มบัญชีธนาคารสำเร็จ',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

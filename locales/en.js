@@ -136,6 +136,7 @@ export default {
   lotteryResult5: 'Lottery Set Results',
   lotteryResult6: 'YEEKEE Lottery Results',
 
+  addedBankAccountSuccess: 'Successfully added bank account',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

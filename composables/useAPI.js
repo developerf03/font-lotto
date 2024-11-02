@@ -30,6 +30,11 @@ export const useAPI = () => {
     '/gameSearch',
     '/refreshtoken',
     '/providerSearch',
+    '/assets',
+    '/setting',
+    '/promote',
+    '/information',
+    '/getHeaderInfo',
   ]
   const tokenBearer = {
     Authorization: `Bearer ${accessToken.value}`,

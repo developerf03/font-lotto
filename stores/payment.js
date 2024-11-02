@@ -98,7 +98,15 @@ export const usePaymentStore = defineStore('payment', () => {
     bankAccountsLoading.value = false
     if (error.value) return Promise.reject(error.value)
 
-    banks.bankAccountList = data.value.bankAccountList
+    banks.bankAccountList = data.value?.bankAccountList
+
+    return data.value
+  }
+
+  const createBank = async (payload = {}) => {
+    const { data, error } = await useAPI().post('/api/payment/bankAccount/create', payload)
+
+    if (error.value) return Promise.reject(error.value)
 
     return data.value
   }
@@ -154,5 +162,6 @@ export const usePaymentStore = defineStore('payment', () => {
     cancelTransactionPayment,
     createWithdraw,
     fetchTransactions,
+    createBank,
   }
 })

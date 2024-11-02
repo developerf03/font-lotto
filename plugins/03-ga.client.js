@@ -1,6 +1,6 @@
 export default defineNuxtPlugin(() => {
   const setting = useSetting()
-  const gtag = setting.value?.gtmTag
+  const gtag = setting.value?.gaTag
 
   const initGTAG = (gtagId) => {
     function gtag() {

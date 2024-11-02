@@ -1,6 +1,5 @@
 <script setup>
 import { nextTick } from 'vue'
-// import { object, string } from 'yup'
 
 // Composables
 const { showPaymentModal, showPaymentDepositQaModal, showTransactionsModal, paymentModal } =
@@ -105,16 +104,24 @@ const setDeposit = (val) => {
   }
 }
 
-const onPromotionSelected = (val) => {
+const onPromotionSelected = async (val) => {
   if (val !== 'null') {
-    promotionDepositCheck({
-      amount: depositInput.value || 0,
-      currencyCode: useCurrencyCode(),
-      promotionCode: val,
-    }).then((res) => {
+    try {
+      const res = await promotionDepositCheck({
+        amount: depositInput.value || 0,
+        currencyCode: useCurrencyCode(),
+        promotionCode: val,
+      })
       promotionCheck.value = res
       promotionCheckApprove.value = res?.approve
-    })
+    } catch (error) {
+      useAlert({
+        error: true,
+        title: useErrorMsg({ error }),
+      })
+
+      promotionCheckApprove.value = false
+    }
   } else {
     promotionCheckApprove.value = true
   }

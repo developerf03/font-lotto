@@ -1,32 +1,35 @@
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '~/stores/setting'
-import { useInformationStore } from '~/stores/information'
-import { useProviderStore } from '~/stores/provider'
 import { useAuthStore } from '~/stores/auth'
 import { useCurrencyStore } from '~/stores/currency'
-// import { usePromotionStore } from '~/stores/promotion'
+
+export const useInitAppSSR = async () => {
+  const { setting } = storeToRefs(useSettingStore())
+
+  try {
+    // Init langauge
+    useInitLang()
+
+    // Init functions
+    useInitHead(setting.value)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
 
 export const useInitApp = async () => {
-  const { getInformations, getPromotes } = useInformationStore()
+  const { getInformations, getPromotes } = useInformation()
   const { getAssets } = useSettingStore()
-  const { getProviders } = useProviderStore()
+  const { getProviders } = useProvider()
   const { fetchCurrencyList } = useCurrencyStore()
-  // const { fetchPromotions } = usePromotionStore()
 
-  const { setting } = storeToRefs(useSettingStore())
   const { isAuthenticated } = storeToRefs(useAuthStore())
 
   try {
-    // Check visibility Change
-    // useVisibilitychange()
-
     // Check authen
     if (isAuthenticated.value) {
       useFetchAfterAuthen()
     }
-
-    // Independent of settings
-    Promise.all([getAssets(), getInformations(), getPromotes()])
 
     // Init langauge
     useInitLang()
@@ -36,11 +39,9 @@ export const useInitApp = async () => {
 
     // Depends on settings
     Promise.all([
-      // fetchPromotions({
-      //   currency: useDefaults()?.currencyCode,
-      //   page: 1,
-      //   pageSize: 100,
-      // }),
+      getAssets(),
+      getInformations(),
+      getPromotes(),
       getProviders(),
       fetchCurrencyList({ agent: true }),
     ])

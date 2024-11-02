@@ -9,10 +9,12 @@ import flag4 from '~/assets/icons/flags/4.png'
 import flag5 from '~/assets/icons/flags/5.png'
 import flag6 from '~/assets/icons/flags/6.png'
 import logo from '~/assets/images/logo.png'
+const { $i18n } = useNuxtApp()
 
 // Composables
 const { user, balance } = useAuth()
 const { handleLoginModal, handleRegisterModal } = useModals()
+const { games } = useGame()
 
 // Stores
 // const { providers } = storeToRefs(useProviderStore())
@@ -55,6 +57,21 @@ const mockup = [
       'https://s3-alpha-sig.figma.com/img/d6c9/f263/87df969420c8f1da4c664fe3e43bacc5?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Qww760pZUJkxX-sQMlEiC1enFVpADytKwSOXCuuAKMt9qfOfPN9lsClno616FLze5kQ2W4Qp7loqx1T5VNBHjNq5V7x6BF3ymNxcwwwssOsA~qoGtPYTL4-Q9lRvRfFJMafhjtg05jRBxK1Gda6~xVSfLvsp12zZqYk5Yup9djfyP4J30P0zDrTNBnCHY0gwudNJHWuo8GowZqSPbFoaC05F4VgypBr7DpTRcKyGYk~7L5x2qB-q9fK4JGKmoGxCPqnp4qq1FblUaBVSysu9AYgldF3MND8trmmnM-ZhHHPoA9e0X2Ht-XnnQKb1Lcjcis3TVX97T0qFpptQSukczQ__',
   },
 ]
+
+const gameLotto = computed(() => games.value?.search?.list.find((o) => o?.type === 'lotto'))
+
+// function
+const handleLaunchGame = () => {
+  if (!user.value) {
+    handleLoginModal(true)
+  } else {
+    useLaunchGame({
+      partner: gameLotto.value.partner,
+      gameId: gameLotto.value.gameId,
+      locale: $i18n.localeProperties.value?.IETF,
+    })
+  }
+}
 </script>
 
 <template>
@@ -85,7 +102,6 @@ const mockup = [
         @click="handleRegisterModal(true)"
       />
     </div>
-
     <!-- LAUNCHER -->
     <div class="w-full gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex flex-col)">
       <!-- <HomeMenuItem
@@ -95,7 +111,9 @@ const mockup = [
         :icon="flag1"
         :background="item?.images?.['dark']?.url"
       /> -->
-      <UButton size="md" variant="play">
+      <!-- v-for="(item, index) in games?.search?.list"
+      :key="index" -->
+      <UButton size="md" variant="play" @click="handleLaunchGame">
         <!-- <nuxt-icon name="svg/bank" class="" />  -->
         {{ t('betLotto') }}
       </UButton>

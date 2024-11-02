@@ -136,6 +136,7 @@ export default {
   lotteryResult5: 'Xem kết quả xổ số số lô',
   lotteryResult6: 'Xem kết quả xổ số YEEKEE',
 
+  addedBankAccountSuccess: 'Thêm số tài khoản thành công',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

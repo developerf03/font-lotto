@@ -19,7 +19,7 @@
     height: 17px;
     animation-fill-mode: both;
     animation: bblFadInOut 1s infinite ease-in-out;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.7);
   }
   &.xs {
     .dot {

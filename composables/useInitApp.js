@@ -31,12 +31,6 @@ export const useInitApp = async () => {
       useFetchAfterAuthen()
     }
 
-    // Init langauge
-    useInitLang()
-
-    // Init functions
-    useInitHead(setting.value)
-
     // Depends on settings
     Promise.all([
       getAssets(),

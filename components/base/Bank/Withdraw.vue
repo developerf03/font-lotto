@@ -3,7 +3,8 @@
 // import placeholder from '~/constants/placeholder';
 
 // Composables
-const { showPaymentModal, showTransactionsModal, handVerifyOTPModal } = useModals()
+const { showPaymentModal, showTransactionsModal, handVerifyOTPModal, handleBankAccountModal } =
+  useModals()
 const { gateWayOption, banks, getGateWays, getBankAccounts, fetchBankList, createWithdraw } =
   usePayment()
 const { promotionWithdrawCheck } = usePromotion()
@@ -228,6 +229,7 @@ onMounted(() => {
           size="md"
           variant="solid"
           class="!min-w-[50px] w-auto mt-4"
+          @click="handleBankAccountModal(true)"
         />
       </div>
     </div>
@@ -236,7 +238,7 @@ onMounted(() => {
         class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]"
       >
         <div class="text-secondary text-sm">{{ t('remainingBalance') }}</div>
-        <div class="text-primary font-medium text-xl <sm:(text-lg)">
+        <div class="text-primary font-medium text-xl <sm:(text-2xl)">
           {{ $format.currency(balanceWallet) }}
         </div>
       </div>
@@ -350,11 +352,12 @@ onMounted(() => {
             v-for="(item, index) in selectGateWay?.amountRatio"
             :key="index"
             :label="numeralCommas(item)"
-            class="!w-[23%] !h-9 <sm:(!w-[30%])"
+            class="!w-[23%] !h-9 <sm:(!w-[48%])"
             size="sm"
             variant="tertiary"
             @click="setWithdraw(item)"
-          />
+            ><span class="<sm:text-lg"> {{ numeralCommas(item) }}</span></UButton
+          >
         </div>
 
         <!-- withdrawCondition -->

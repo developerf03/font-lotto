@@ -114,6 +114,10 @@ export default {
     'ตรวจสอบช่องทางการฝากเงินของท่านให้ถูกต้อง และระบุจำนวนเงินตามที่ระบบกำหนด ขั้นต่ำ/สูงสุด',
   depositHistory: 'ประวัติการฝาก',
   withdrawalHistory: 'ประวัติการถอน',
+  notVerifyPhoneForWithdrawal: 'กรุณายืนยันตัวตนเบอร์โทรศัพท์ก่อนทำรายการถอนเงินสด',
+  pleaseVerifyEmailBeforeMakingWithdrawal: 'กรุณายืนยันอีเมล ก่อนทำรายการถอนเงิน',
+  goToAddAccountForWithdrawal: 'ไปเพิ่มบัญชีสำหรับถอนเงิน',
+  noAccountForWithdrawal: 'ไม่มีบัญชีสำหรับถอนเงิน',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

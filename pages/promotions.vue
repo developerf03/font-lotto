@@ -111,8 +111,8 @@ onMounted(() => {
             :is-expired="usePromotionData(item)?.['isExpires']"
             :tier="item.tierDetail"
             :show-select-button="!!user && !['promote'].includes(item?.promotion?.sub_type)"
-            width="280"
-            height="280"
+            width="290"
+            height="290"
             @on-read="onRead(item)"
             @selected="handlePromotionSelected"
           />

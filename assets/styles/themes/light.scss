@@ -94,6 +94,13 @@
   --btn-cancel-disable-font: var(--font-secondary);
   --btn-cancel-disable-left: var(--button-disable-left);
   --btn-cancel-disable-right: var(--button-disable-right);
+  // Play
+  --btn-font-play: var(--font-white);
+  --btn-play-left: #ff8a42;
+  --btn-play-right: #d12162;
+  --btn-play-disable-left: var(--button-disable-left);
+  --btn-play-disable-right: var(--button-disable-right);
+  --shadow-play: #f36f4b;
   // Provider item
   --provider-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.35);
   // VerticalNavigation

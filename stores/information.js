@@ -6,7 +6,7 @@ export const useInformationStore = defineStore(
   () => {
     // Composables
     const { langDefault } = useLobbySetting()
-    const { locale } = useI18n()
+    const { localeProperties } = useI18n()
     const { user } = useAuth()
 
     // State
@@ -54,7 +54,8 @@ export const useInformationStore = defineStore(
         loading.value = true
         const { data } = await useAPI().$get('/api/information')
 
-        information.value = data
+        if (!isObjEmpty(data))
+          information.value = data
       } catch (error) {
         return Promise.reject(error)
       } finally {
@@ -68,19 +69,19 @@ export const useInformationStore = defineStore(
     )
     const socials = computed(() => {
       const socialList =
-        information.value.social[locale.value] ?? information.value.social[langDefault] ?? []
+        information.value.social[localeProperties.value.IETF] ?? information.value.social[langDefault] ?? []
 
       return socialList.filter((o) => o?.key !== 'phone')
     })
     const phone = computed(() => {
       const phoneList =
-        information.value.social[locale.value] ?? information.value.social[langDefault] ?? []
+        information.value.social[localeProperties.value.IETF] ?? information.value.social[langDefault] ?? []
 
       return phoneList.find((o) => o?.key === 'phone')
     })
     const socialsChat = computed(() => {
       const socials =
-        information.value.social[locale.value] ?? information.value.social[langDefault]
+        information.value.social[localeProperties.value.IETF] ?? information.value.social[langDefault]
 
       return {
         contact: socials?.find((v) => v.key === 'contact')?.value,

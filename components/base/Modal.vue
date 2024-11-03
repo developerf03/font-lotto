@@ -48,14 +48,9 @@ const modalRef = ref(null)
 // emit
 const emit = defineEmits(['opened', 'closed'])
 
-const checkIsOpen = useDebounceFn(() => {
-  if (modalRef.value?.modelValue) {
-    emit('opened')
-  }
-}, 400)
-
 const vFocus = {
   mounted: (el) => {
+    emit('opened')
     document.activeElement.blur()
     el.focus()
   },
@@ -75,7 +70,6 @@ const vFocus = {
       v-focus
       class="w-full flex items-center flex-col relative p-4 lg:(py-5 px-6)"
       :class="[contentClass, { 'not-fullscreen': !fullscreen }]"
-      :onchange="checkIsOpen()"
     >
       <div class="flex justify-center items-start flex-col w-full">
         <nuxt-icon

@@ -1,7 +1,4 @@
 <script setup>
-// Imports
-import { useDebounceFn } from '@vueuse/core'
-
 // props
 defineProps({
   overlay: {

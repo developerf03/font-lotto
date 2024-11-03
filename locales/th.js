@@ -33,6 +33,7 @@ export default {
   back: 'กลับ',
   next: 'ถัดไป',
   alert: 'แจ้งเตือน',
+  close: 'ปิด',
   closedAll: 'ปิดทั้งหมด',
   cancelTransaction: 'ยกเลิกรายการ',
   pendingTransaction: 'ไม่พบธุรกรรมที่รอดำเนินการ',
@@ -106,7 +107,7 @@ export default {
   useAnotherAccount: 'ใช้บัญชีอื่นๆ',
   passwordChangedSuccessfully: 'ตั้งรหัสผ่านใหม่สำเร็จ',
   changeYourPassword: 'เปลี่ยนรหัสผ่านใหม่',
-  enterCodeWeSentToEmail: 'ใส่รหัส ที่เราพึ่งส่งไปยัง {email} เพื่อยืนยันตัวตน',
+  enterCodeWeSentToEmail: 'ใส่รหัส ที่เราพึ่งส่งไปยัง{email}เพื่อยืนยันตัวตน',
   verifyPhone: 'ยืนยันเบอร์โทรศัพท์',
   verifyEmail: 'ยืนยันอีเมล',
   pleaseEnterPhoneNumberUseRegister: 'โปรดกรอกเบอร์โทรศัพท์ที่เคยใช้สมัครสมาชิก',
@@ -135,8 +136,12 @@ export default {
   lotteryResult5: 'ดูผลหวยเลขชุด',
   lotteryResult6: 'ดูผลจับยี่กี',
   profileUpdateSuccessful: 'แก้ไขโปรไฟล์สำเร็จ',
-
+  manageBankAccount: 'จัดการบัญชีธนาคาร',
   addedBankAccountSuccess: 'เพิ่มบัญชีธนาคารสำเร็จ',
+  notHaveBankAccountPleaseAdd: 'ท่านยังไม่มีข้อมูลบัญชีธนาคารในระบบ กรุณาเพิ่มบัญชีธนาคาร',
+  addBankAccount: 'เพิ่มบัญชีธนาคาร',
+  pleaseAddBankAccount: 'กรุณาเพิ่มบัญชีธนาคาร',
+  bankAccountlabel: 'บัญชีธนาคาร',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

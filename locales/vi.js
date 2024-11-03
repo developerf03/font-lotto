@@ -33,6 +33,7 @@ export default {
   back: 'Trở về',
   next: 'Tiếp theo',
   alert: 'Cảnh báo',
+  close: 'Đóng',
   closedAll: 'Đóng tất cả',
   cancelTransaction: 'Hủy giao dịch',
   pendingTransaction: 'Không tìm thấy giao dịch đang chờ',
@@ -136,8 +137,13 @@ export default {
   lotteryResult5: 'Xem kết quả xổ số số lô',
   lotteryResult6: 'Xem kết quả xổ số YEEKEE',
   profileUpdateSuccessful: 'Cập nhật hồ sơ thành công',
-
+  manageBankAccount: 'Tài khoản ngân hàng',
   addedBankAccountSuccess: 'Thêm số tài khoản thành công',
+  notHaveBankAccountPleaseAdd:
+    'Bạn không có bất kỳ thông tin tài khoản ngân hàng nào trong hệ thống. Vui lòng thêm tài khoản ngân hàng!',
+  addBankAccount: 'Thêm số tài khoản',
+  pleaseAddBankAccount: 'Vui lòng thêm tài khoản ngân hàng',
+  bankAccountlabel: 'Tài khoản ngân hàng',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

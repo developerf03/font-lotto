@@ -33,6 +33,7 @@ export default {
   back: 'Back',
   next: 'Next',
   alert: 'Alert',
+  close: 'Close',
   closedAll: 'Close all',
   cancelTransaction: 'Cancel transaction',
   pendingTransaction: 'Not Found Transaction Pending',
@@ -136,8 +137,13 @@ export default {
   lotteryResult5: 'Lottery Set Results',
   lotteryResult6: 'YEEKEE Lottery Results',
   profileUpdateSuccessful: 'Profile update successful',
-
+  manageBankAccount: 'Bank account',
   addedBankAccountSuccess: 'Successfully added bank account',
+  notHaveBankAccountPleaseAdd:
+    'You do not have any bank account information in the system. Please add a bank account.',
+  addBankAccount: 'Add bank account',
+  pleaseAddBankAccount: 'Please Add Bank Account',
+  bankAccountlabel: 'Bank account',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

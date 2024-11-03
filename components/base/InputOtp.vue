@@ -25,7 +25,6 @@ const inputRef = ref(null)
 
 const handleOnComplete = (value) => {
   emit('update:modelValue', value)
-  emit('complete', value)
 }
 
 const handleOnChange = (value) => {
@@ -41,8 +40,8 @@ const handleOnChange = (value) => {
       :value="modelValue"
       :num-inputs="5"
       autofocus
-      :should-auto-focus="true"
       :input-classes="errorFill"
+      :should-auto-focus="true"
       @on-change="handleOnChange"
       @on-complete="handleOnComplete"
     />

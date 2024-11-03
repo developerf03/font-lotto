@@ -14,14 +14,16 @@ import BankAccountSubMenu from '~/components/modal/BankAccountSubMenu.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/bundle'
-const { locale } = useI18n()
+
+// Composables
 const theme = useCookie('theme')
+const { locale } = useI18n()
+
+useInitAppSSR()
 
 onMounted(() => {
   useInitApp()
 })
-
-useInitAppSSR()
 </script>
 
 <template>

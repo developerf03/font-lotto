@@ -243,24 +243,25 @@ onMounted(() => {
     :disable-click-out="true"
     :hide-icon-close="true"
   >
-    <div class="flex justify-between items-center gap-2 w-full">
+    <div class="flex justify-between items-center gap-4 <sm:gap-4 w-full">
       <div>
         <div class="text-base whitespace-nowrap">Transaction ID</div>
         <div class="text-base whitespace-nowrap">สกุลเงิน</div>
         <div class="text-base whitespace-nowrap">จำนวนเงิน</div>
       </div>
-      <div class="">
-        <div class="relative text-right text-base flex gap-1">
-          <div class="relative base-truncate-1">
+      <div>
+        <div class="flex justify-end items-center gap-2 <sm:gap-0">
+          <div class="base-truncate-1">
             {{ transactionsViewModal?.item?.id }}
           </div>
           <UIcon
             name="i-tabler:copy"
-            class="w-5 h-5 cursor-pointer pointer-events-auto text-[var(--icon-default)]"
+            class="w-7 h-7 cursor-pointer pointer-events-auto text-[var(--icon-default)] <sm:(w-10 h-6)"
             @click="useCopyClipboard(transactionsViewModal?.item?.id)"
             @touchend="useCopyClipboard(transactionsViewModal?.item?.id)"
           />
         </div>
+        <!-- -->
         <div class="text-right text-base">{{ transactionsViewModal?.item?.currencyCode }}</div>
         <div class="text-right text-base">
           {{ $format.currency(transactionsViewModal?.item?.amount) }}

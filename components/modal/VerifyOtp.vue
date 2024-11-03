@@ -1,10 +1,11 @@
 <script setup>
 // Import
+import { useDebounceFn } from '@vueuse/core'
 
 // Props
 
 // Composables
-const { sendOTP, verifyOTP, updateProfileV2 } = usePlayerStore()
+const { sendOTP, verifyOTP, updateProfileV2, profileCheckData } = usePlayerStore()
 const { fetchUser, userPlayer } = useAuth()
 const { verifyOTPModal } = useModals()
 const signUpSetting = computed(() => useSignUpSetting())
@@ -39,6 +40,8 @@ const stepType = {
   },
 }
 const errors = reactive({})
+const checkPhone = useDebounceFn(() => handleCheckData('phone'), 200)
+const checkEmail = useDebounceFn(() => handleCheckData('email'), 200)
 
 // watch
 watch(
@@ -87,12 +90,14 @@ const validator = computed(() =>
         .maxLength({
           errMsg: t('validation.invalidPhoneNumber'),
           max: 10,
-        }),
+        })
+        .custom(checkPhone),
     }),
     ...(signUpSetting.value?.verifyWith === 'email' && {
       email: Rules()
         .required(t('validation.pleaseEnterUsername'))
-        .email(t('validation.emailInValid')),
+        .email(t('validation.emailInValid'))
+        .custom(checkEmail),
     }),
   }),
 )
@@ -281,6 +286,24 @@ const resetForm = () => {
     CountryCallingCodes.value?.length === 1
       ? CountryCallingCodes.value?.[0]
       : CountryCallingCodes.value?.find((o) => o?.currencyCode === useCurrencyCode())
+}
+
+const handleCheckData = async () => {
+  try {
+    await profileCheckData({
+      ...(signUpSetting.value?.verifyWith === 'phone' && {
+        phone: form.phoneNumber,
+      }),
+      ...(signUpSetting.value?.verifyWith === 'email' && {
+        email: form.email,
+      }),
+    })
+    return ''
+  } catch (error) {
+    if (userPlayer.value?.email !== form.email || userPlayer.value?.phone !== form.phoneNumber) {
+      return useErrorMsg({ error })
+    }
+  }
 }
 
 // onMounted

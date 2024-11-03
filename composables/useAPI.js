@@ -2,7 +2,6 @@
 export const useAPI = () => {
   const { notify } = useNotification()
   const config = useRuntimeConfig()
-  const lang = useCookie('i18n_redirected')
   const { jwtRefreshToken, logout, accessToken } = useAuth()
   const { $i18n } = useNuxtApp()
 

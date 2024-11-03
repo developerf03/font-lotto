@@ -218,6 +218,7 @@ const handleOpenConfirmDialog = () => {
         <p class="text-center font-bold text-primary">Default</p>
         <BaseInputOtp v-model="inputOtp.value" />
       </div>
+      <pre>{{ inputOtp }}</pre>
     </div>
 
     <!-- FORM -->

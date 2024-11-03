@@ -4,9 +4,17 @@ import VOtpInput from 'vue3-otp-input'
 
 // Props
 defineProps({
+  modelValue: {
+    type: String,
+    required: true,
+  },
   error: {
     type: String,
     default: '',
+  },
+  errorFill: {
+    type: String,
+    default: '', // error, success , warning
   },
 })
 
@@ -14,19 +22,35 @@ const emit = defineEmits('onChange', 'onComplete')
 
 // States
 const inputRef = ref(null)
+
+const handleOnComplete = (value) => {
+  emit('update:modelValue', value)
+  emit('complete', value)
+}
+
+const handleOnChange = (value) => {
+  emit('update:modelValue', value)
+}
 </script>
 
 <template>
-  <VOtpInput
-    id="otp-input-container"
-    ref="inputRef"
-    :num-inputs="5"
-    @on-change="(val) => emit('onChange', val)"
-    @on-complete="(val) => emit('onComplete', val)"
-  />
-  <Teleport v-if="inputRef && error" to="#otp-input-container">
+  <div>
+    <VOtpInput
+      id="otp-input-container"
+      ref="inputRef"
+      :value="modelValue"
+      :num-inputs="5"
+      autofocus
+      :should-auto-focus="true"
+      :input-classes="errorFill"
+      @on-change="handleOnChange"
+      @on-complete="handleOnComplete"
+    />
+    <slot name="error" />
+  </div>
+  <!-- <Teleport v-if="inputRef && error" to="#otp-input-container">
     <p class="otp-input-error">{{ error }}</p>
-  </Teleport>
+  </Teleport> -->
 </template>
 
 <style lang="scss">
@@ -60,6 +84,15 @@ const inputRef = ref(null)
         outline: 2px solid var(--input-focus);
       }
     }
+  }
+  .error {
+    border: 1px solid var(--danger) !important;
+  }
+  .warning {
+    border: 1px solid var(--warning) !important;
+  }
+  .success {
+    border: 1px solid var(--success) !important;
   }
 }
 </style>

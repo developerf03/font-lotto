@@ -53,6 +53,13 @@ const checkIsOpen = useDebounceFn(() => {
     emit('opened')
   }
 }, 400)
+
+const vFocus = {
+  mounted: (el) => {
+    document.activeElement.blur()
+    el.focus()
+  },
+}
 </script>
 
 <template>
@@ -65,6 +72,7 @@ const checkIsOpen = useDebounceFn(() => {
     @after-leave="emit('closed')"
   >
     <div
+      v-focus
       class="w-full flex items-center flex-col relative p-4 lg:(py-5 px-6)"
       :class="[contentClass, { 'not-fullscreen': !fullscreen }]"
       :onchange="checkIsOpen()"

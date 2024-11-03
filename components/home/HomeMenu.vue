@@ -102,6 +102,11 @@ const handleLaunchGame = () => {
         @click="handleRegisterModal(true)"
       />
     </div>
+
+    <UButton size="md" variant="play" class="mb-4" @click="handleLaunchGame">
+      <!-- <nuxt-icon name="svg/bank" class="" />  -->
+      {{ t('betLotto') }}
+    </UButton>
     <!-- LAUNCHER -->
     <div class="w-full gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex flex-col)">
       <!-- <HomeMenuItem
@@ -113,10 +118,6 @@ const handleLaunchGame = () => {
       /> -->
       <!-- v-for="(item, index) in games?.search?.list"
       :key="index" -->
-      <UButton size="md" variant="play" @click="handleLaunchGame">
-        <!-- <nuxt-icon name="svg/bank" class="" />  -->
-        {{ t('betLotto') }}
-      </UButton>
       <HomeMenuItem
         v-for="(item, index) in mockup"
         :key="index"

@@ -135,6 +135,7 @@ export default {
   lotteryResult4: 'Xem kết quả xổ số cổ phiếu quốc tế',
   lotteryResult5: 'Xem kết quả xổ số số lô',
   lotteryResult6: 'Xem kết quả xổ số YEEKEE',
+  profileUpdateSuccessful: 'Cập nhật hồ sơ thành công',
 
   addedBankAccountSuccess: 'Thêm số tài khoản thành công',
   promotionConditions: {

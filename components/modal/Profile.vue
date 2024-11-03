@@ -23,6 +23,7 @@ const loading = reactive({
   email: false,
   dateOfBirth: false,
   typing: false,
+  changeProfile: false,
 })
 const errors = reactive({})
 const isEdit = ref(false)
@@ -101,6 +102,7 @@ const reset = () => {
 
 const onChangeProfile = async (isChanged) => {
   if (validator.value.checkHaveErrors()) return
+  loading.changeProfile = true
   const payload = {
     ...(isChanged.playerNickname && { nickname: form.playerNickname }),
     ...(isChanged.phone && { phone: form.phone }),
@@ -108,11 +110,14 @@ const onChangeProfile = async (isChanged) => {
     ...(isChanged.dateOfBirth && { dateOfBirth: dateToISOString(form.dateOfBirth) }),
   }
   try {
+    useAlert({ success: true, title: t('profileUpdateSuccessful') })
     await updateProfileV2(payload)
     await fetchUser()
     reset()
   } catch (error) {
     useAlert({ error: true, text: useErrorMsg(error) })
+  } finally {
+    loading.changeProfile = false
   }
 }
 

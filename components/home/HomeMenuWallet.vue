@@ -17,7 +17,7 @@ const { showPaymentModal } = useModals()
   >
     <div class="flex flex-col">
       <span class="text-xs text-secondary">{{ t('balance') }}</span>
-      <span class="text-base text-primary font-medium lg:text-lg">{{
+      <span class="text-xl text-primary font-medium lg:text-lg">{{
         $format.currency(balance)
       }}</span>
     </div>

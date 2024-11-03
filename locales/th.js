@@ -134,6 +134,7 @@ export default {
   lotteryResult4: 'ดูผลหวยหุ้นต่างประเทศ',
   lotteryResult5: 'ดูผลหวยเลขชุด',
   lotteryResult6: 'ดูผลจับยี่กี',
+  profileUpdateSuccessful: 'แก้ไขโปรไฟล์สำเร็จ',
 
   addedBankAccountSuccess: 'เพิ่มบัญชีธนาคารสำเร็จ',
   promotionConditions: {

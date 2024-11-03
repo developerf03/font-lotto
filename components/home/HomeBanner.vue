@@ -61,6 +61,10 @@ const { width } = useWindowSize()
     width: 67%;
     right: 0;
     left: unset;
+    @media only screen and (max-width: 1024px) {
+      right: 50%;
+      transform: translateX(50%);
+    }
     .swiper-pagination-bullet {
       background: rgba(255, 255, 255, 0.5) !important;
       opacity: 1 !important;

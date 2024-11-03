@@ -116,8 +116,14 @@ const promotionSlideList = computed(() => {
       </SwiperSlide>
     </Swiper>
     <!-- Skeleton -->
-    <div v-if="!activePromotes.length" class="flex gap-3 w-full">
-      <USkeleton v-for="i in 4" :key="i" class="h-24 rounded-[2vw] 2xl:rounded-[20px] w-full" />
+    <div v-if="!activePromotes.length" class="flex gap-3 w-full overflow-x-scroll">
+      <div
+        v-for="i in 5"
+        :key="i"
+        class="flex-shrink-0 w-[80%] sm:w-[39%] md:w-[29.5%] mlg:w-[23%]"
+      >
+        <USkeleton class="pt-[calc(96_/_288_*_100%)] rounded-[2vw] w-full 2xl:rounded-[20px]" />
+      </div>
     </div>
   </div>
 </template>

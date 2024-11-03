@@ -135,6 +135,7 @@ export default {
   lotteryResult4: 'International Stock Lottery Results',
   lotteryResult5: 'Lottery Set Results',
   lotteryResult6: 'YEEKEE Lottery Results',
+  profileUpdateSuccessful: 'Profile update successful',
 
   addedBankAccountSuccess: 'Successfully added bank account',
   promotionConditions: {

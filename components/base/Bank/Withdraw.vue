@@ -36,6 +36,7 @@ const accountOptions = computed(() => [
 ])
 const loading = ref(false)
 const currentPromotion = ref(null)
+const refCodeOTP = useState('refCodeOTP')
 
 // Computed
 // const schema = object({
@@ -108,8 +109,7 @@ const submitWithdraw = async () => {
       redirectUrl: `${location.origin}${route.fullPath}`,
       amount: $format.removeCommas(withdrawForm.withdraw),
       bankAccountId: dataBankAccount.value.id,
-      refCode: '',
-      // refCode: refCodeOTP.value?.Code || '',
+      refCode: refCodeOTP.value?.Code || '',
       ...(enableOtherBank.value &&
         !['main'].includes(bankOption.value) && {
           ...addBankForm,
@@ -186,7 +186,7 @@ onMounted(() => {
     <!-- <pre> ==>{{ signUpSetting }}</pre> -->
     <!-- isVerify -->
     <div
-      v-if="!signUpSetting?.isVerify"
+      v-if="!signUpSetting?.isVerify || !banks.bankAccountList.length"
       class="gap-2 flex justify-center items-center flex-col w-full min-h-[454px]"
     >
       <!-- NOT VERIFY -->

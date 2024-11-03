@@ -52,19 +52,30 @@ watch(
       ) {
         validator.value.validate('email')
         validator.value.validate('phoneNumber')
+        console.log('lll');
+
       }
 
       if (signUpSetting.value?.isVerify || userPlayer.value?.[signUpSetting.value?.verifyWith]) {
+        console.log('kk',signUpSetting.value?.isVerify, userPlayer.value?.[signUpSetting.value?.verifyWith]);
+
         if (!verifyOTPModal.value.type) {
           verifyOTPModal.value.type = stepType?.[signUpSetting.value?.verifyWith]?.verify
           fetchSendOtp()
         }
       } else {
+        console.log('oo');
         verifyOTPModal.value.type = stepType?.[signUpSetting.value?.verifyWith]?.edit
       }
     }
   },
 )
+
+watch(pincode, (val) => {
+  if (val.length === 5) {
+    handleVerifyOTP()
+  }
+})
 
 // Computeds
 const validator = computed(() =>
@@ -159,8 +170,6 @@ const fetchSendOtp = async () => {
 }
 
 const handleVerifyOTP = async () => {
-  console.log(pincode.value)
-
   try {
     loadingOtp.value = true
     await verifyOTP({
@@ -231,7 +240,7 @@ const updateDataProfile = async () => {
       })
     }
     setTimeout(() => {
-      verifyOTPModal.value.show = false
+      verifyOTPModal.value.active = false
       resetForm()
     }, 1000)
     await fetchUser()
@@ -253,14 +262,6 @@ const onCallBack = () => {
 const handleResendCode = () => {
   fetchSendOtp()
   resetForm()
-}
-
-const handleOnChangeOTP = (val) => {
-  if (val.length === OTPDigit.value) {
-    pincode.value = val
-    handleVerifyOTP()
-    isVerifyValid.value = false
-  }
 }
 
 const handleClose = () => {
@@ -366,11 +367,18 @@ const resetForm = () => {
           <div style="width: fit-content">
             <BaseInputOtp
               v-model="pincode"
-              :error="
-                isVerifyValid === null || isVerifyValid === true ? '' : t('invalidCodeTryAgain')
-              "
+              autofocus
+              :error-fill="[
+                isBoolean(isVerifyValid) ? (isVerifyValid === true ? 'success' : 'error') : '',
+              ]"
               @on-change="handleOnChangeOTP"
-            />
+            >
+              <template #error>
+                <span v-show="isVerifyValid === false" class="text-danger text-sm">{{
+                  $t('invalidCodeTryAgain')
+                }}</span>
+              </template>
+            </BaseInputOtp>
           </div>
           <base-countdown
             v-slot="{ fullSeconds }"

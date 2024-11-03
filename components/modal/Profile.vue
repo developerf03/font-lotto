@@ -197,14 +197,14 @@ const onSubmit = async () => {
 
       <!-- PHONE -->
       <UFormGroup
-        v-if="userPlayer?.phone"
+        v-if="userPlayer?.phone || signUpSetting?.verifyWith === 'phone'"
         :label="t('phone')"
         name="phone"
         :error="errors?.phone?.message"
       >
         <BaseInput
           v-model="form.phone"
-          :placeholder="t('phone')"
+          :placeholder="userPlayer?.phone ? t('phone') : '-'"
           input-class="!pr-[100px]"
           trailing
           :readonly="!isEdit || userPlayer?.verifyPhone || signUpSetting?.verifyWith === 'phone'"
@@ -229,14 +229,14 @@ const onSubmit = async () => {
 
       <!-- EMAIL -->
       <UFormGroup
-        v-if="userPlayer?.email"
+        v-if="userPlayer?.email || signUpSetting?.verifyWith === 'email'"
         :label="t('email')"
         name="email"
         :error="errors?.email?.message"
       >
         <BaseInput
           v-model="form.email"
-          :placeholder="t('email')"
+          :placeholder="userPlayer?.email ? t('email') : '-'"
           input-class="!pr-[100px]"
           trailing
           :readonly="!isEdit || userPlayer?.verify || signUpSetting?.verifyWith === 'email'"

@@ -330,13 +330,19 @@ const resetForm = () => {
         </div>
 
         <div class="flex justify-center items-center gap-4 mt-4 <sm:(gap-2)">
-          <UButton :label="t('cancel')" variant="outline" @click="handCancel" />
+          <UButton
+            :label="t('cancel')"
+            variant="outline"
+            @click="handCancel"
+            @touchend="handCancel"
+          />
           <UButton
             :label="t('next')"
             variant="solid"
             :loading="loading"
             :disabled="!(form.phoneNumber || form.email) ? true : !validator.isFormValid"
             @click="handleSendCode"
+            @touchend="handleSendCode"
           />
         </div>
       </div>
@@ -397,6 +403,7 @@ const resetForm = () => {
                 "
                 variant="outline"
                 @click="handleClose"
+                @touchend="handleClose"
               />
               <UButton
                 :label="t('resendCode')"
@@ -404,6 +411,7 @@ const resetForm = () => {
                 :loading="loadingOtp"
                 :disabled="remainSec === 300 ? true : fullSeconds > 0"
                 @click="fullSeconds <= 0 && handleResendCode()"
+                @touchend="fullSeconds <= 0 && handleResendCode()"
               />
             </div>
           </base-countdown>

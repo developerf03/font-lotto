@@ -79,6 +79,7 @@ const handleCancelSubmit = () => {
             variant="outline"
             :class="globalAlerts.confirmButtonText ? 'btn-secondary' : 'btn-primary'"
             @click="handleCancelSubmit"
+            @touchend="handleCancelSubmit"
           />
           <UButton
             v-if="globalAlerts.confirmButtonText"
@@ -86,6 +87,7 @@ const handleCancelSubmit = () => {
             variant="solid"
             :class="[isConfirmDialog ? 'min-w-[120px]' : 'min-w-[200px]']"
             @click="handleConfirmSubmit"
+            @touchend="handleConfirmSubmit"
           />
         </div>
       </div> </client-only

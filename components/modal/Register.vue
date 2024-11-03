@@ -122,14 +122,15 @@ const handleSubmit = async () => {
       useAlert({
         error: true,
         title: t('error'),
-        text: error.data?.message,
+        text: useErrorMsg({ error }),
         autoHide: true,
       })
       return
     }
     useAlert({
       error: true,
-      text: error.data?.message,
+      title: t('error'),
+      text: useErrorMsg({ error }),
       autoHide: true,
     })
   }

@@ -162,7 +162,7 @@ watch(pincode, (val) => {
         t('enterCodeWeSentToEmail', { email: validateType === 'phone' ? t('phone') : t('email') })
       }}
       <span class="color-[var(--font-highlight)]">{{
-        validateType === 'phone' ? phoneNumber : email
+        validateType === 'phone' ? callingPhone : email
       }}</span></span
     >
     <div class="px-8 pt-8 pb-2 relative text-center flex justify-center items-center flex-col">

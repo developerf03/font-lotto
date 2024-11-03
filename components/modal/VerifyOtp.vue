@@ -50,8 +50,8 @@ watch(
         verifyOTPModal.value?.typeSend === 'changeprofile' &&
         userPlayer.value?.[signUpSetting.value?.verifyWith]
       ) {
-        validator.value.validate('email')
-        validator.value.validate('phoneNumber')
+        if (verifyOTPModal.value.type === 'editEmail') validator.value.validate('email')
+        if (verifyOTPModal.value.type === 'editPhone') validator.value.validate('phoneNumber')
       }
 
       if (signUpSetting.value?.isVerify || userPlayer.value?.[signUpSetting.value?.verifyWith]) {
@@ -106,10 +106,12 @@ const callingCode = computed(
 
 // Function
 const handCancel = () => {
+  console.log('kkk');
   verifyOTPModal.value.active = false
 }
 
 const handleSendCode = () => {
+  console.log('handleSendCode');
   loading.value = true
   fetchSendOtp()
 }
@@ -287,7 +289,7 @@ const resetForm = () => {
 </script>
 
 <template>
-  <BaseModal v-model="verifyOTPModal.active" disable-click-out logo>
+  <BaseModal id="verify-otp-modal" v-model="verifyOTPModal.active" disable-click-out logo>
     <div class="w-full mt-4">
       <div
         v-if="['editEmail', 'editPhone'].includes(verifyOTPModal?.type) && step === 0"
@@ -330,7 +332,7 @@ const resetForm = () => {
         </div>
 
         <div class="flex justify-center items-center gap-4 mt-4 <sm:(gap-2)">
-          <UButton :label="t('cancel')" variant="cancel" @click="handCancel" />
+          <UButton :label="t('cancel')" variant="outline" @click="handCancel" />
           <UButton
             :label="t('next')"
             variant="solid"
@@ -396,7 +398,7 @@ const resetForm = () => {
                     ? t('back')
                     : t('cancel')
                 "
-                variant="cancel"
+                variant="outline"
                 @click="handleClose"
               />
               <UButton
@@ -413,3 +415,9 @@ const resetForm = () => {
     </div>
   </BaseModal>
 </template>
+
+<style lang="scss">
+#verify-otp-modal {
+  z-index: 9999;
+}
+</style>

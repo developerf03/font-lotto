@@ -245,7 +245,7 @@ const onSubmit = async () => {
           <template v-if="signUpSetting?.verifyWith === 'email' && !userPlayer?.verify" #trailing>
             <p
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
-              @click="onVerify('editPhone')"
+              @click="onVerify('editEmail')"
             >
               {{ t('verifyNow') }}
             </p>

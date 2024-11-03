@@ -40,7 +40,6 @@ const form = reactive({
   },
 })
 const paymentDepositModalState = useState('paymentDepositModal', () => false)
-const paymentModal = useState('paymentModal', () => false)
 const { handleRegisterModal } = useModals()
 // function
 const onSubmit = (key) => {
@@ -553,36 +552,7 @@ const handleOpenConfirmDialog = () => {
         <BaseLogo />
       </div>
     </div>
-
-    <!-- CARD Payment -->
-    <div
-      class="flex flex-col border-[1px] overflow-hidden border-solid rounded-lg border-black text-primary"
-    >
-      <!-- title -->
-      <h1 class="py-2 card-secondary text-center text-primary font-bold border-b border-black">
-        HEAD CARD Payment
-      </h1>
-      <!-- content -->
-      <div class="p-6 flex flex-col justify-center items-center w-full gap-4">
-        <BaseButtonTest
-          label="Payment Deposit Modal"
-          variant="solid"
-          rounded="rounded-full"
-          @submit="paymentDepositModalState = true"
-        />
-        <pre>paymentDepositModalState> {{ paymentDepositModalState }}</pre>
-        <BaseButtonTest
-          label="payment Modal"
-          variant="solid"
-          rounded="rounded-full"
-          @submit="paymentModal = true"
-        />
-        <pre>paymentModal =>{{ paymentModal }}</pre>
-        <modal-payment />
-      </div>
-    </div>
-    <payment-deposit-modal />
-
+    
     <!-- CARD Register -->
     <div
       class="flex flex-col border-[1px] overflow-hidden border-solid rounded-lg border-black text-primary"

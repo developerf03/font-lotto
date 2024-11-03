@@ -62,8 +62,9 @@ export const useInitLang = () => {
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
 
   if (!lang.value || lang.value === 'undefined' || (lang.value === 'null' && !!agentLang.length)) {
-    $i18n.setLocale(agentLang[0])
-    lang.value = agentLang[0]
+    $i18n.setLocale('th')
+    // lang.value = agentLang[0]
+    lang.value = 'th'
   }
 
   if (!theme.value || theme.value === 'undefined' || theme.value === 'null') {

@@ -61,6 +61,11 @@ const handleDepositSubmit = async () => {
       amount: depositInput.value,
       ...(promotionSelected.value?.id && { promotionCode: promotionSelected.value?.id }),
     })
+    useAlert({
+      success: true,
+      title: t('success'),
+      autoHide: true,
+    })
     if (url) {
       setTimeout(() => {
         // if (depositForm.gateway.gatewayCode === 'alpha') {
@@ -70,14 +75,8 @@ const handleDepositSubmit = async () => {
         // }
         loading.value = false
         showPaymentModal(false, '', null)
-        loading.value = false
       }, 3200)
     } else {
-      useAlert({
-        success: true,
-        title: t('success'),
-        autoHide: true,
-      })
       showPaymentModal(false, '', null)
       showPaymentDepositQaModal(true, true, dataCreateDeposit.value)
       loading.value = false

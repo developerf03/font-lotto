@@ -106,12 +106,10 @@ const callingCode = computed(
 
 // Function
 const handCancel = () => {
-  console.log('kkk');
   verifyOTPModal.value.active = false
 }
 
 const handleSendCode = () => {
-  console.log('handleSendCode');
   loading.value = true
   fetchSendOtp()
 }
@@ -370,7 +368,6 @@ const resetForm = () => {
               :error-fill="[
                 isBoolean(isVerifyValid) ? (isVerifyValid === true ? 'success' : 'error') : '',
               ]"
-              @on-change="handleOnChangeOTP"
             >
               <template #error>
                 <span v-show="isVerifyValid === false" class="text-danger text-sm">{{
@@ -415,9 +412,3 @@ const resetForm = () => {
     </div>
   </BaseModal>
 </template>
-
-<style lang="scss">
-#verify-otp-modal {
-  z-index: 9999;
-}
-</style>

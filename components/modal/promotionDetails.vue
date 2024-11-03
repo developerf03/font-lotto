@@ -38,6 +38,7 @@ const handlePromotionSelected = (code) => {
   <BaseModal
     id="promotion-details-wrapper"
     v-model="promotionDetailsModal.active"
+    disable-click-out
     :title="promotionSelectedDetail?.title"
   >
     <div class="w-full pt-4">

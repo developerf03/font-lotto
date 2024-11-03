@@ -11,7 +11,7 @@ const flag = computed(() => (code) => flags?.[code])
 
 // Funtions
 const handleChangeLang = (val) => {
-  const langCookie = useCookie('lang')
+  const langCookie = useCookie('i18n_redirected')
   setLocale(val)
   langCookie.value = val
 }

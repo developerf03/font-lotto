@@ -77,7 +77,7 @@ const handleInput = (field) => {
 }
 
 const handleCancelRegister = () => {
-  props.nextStep(props.steps[0])
+  props.nextStep(props.signupSetting?.requireBank ? 'bank-account' : props.steps[0])
 }
 
 const setValueToMainForm = () => {
@@ -173,7 +173,7 @@ const handleSubmit = () => {
         <BaseValidateList ref="checkValidate" :password="form.password" />
         <div class="flex justify-center gap-2">
           <div class="w-50">
-            <UButton size="sm" variant="outline" @click="handleCancelRegister">
+            <UButton size="xl" variant="outline" @click="handleCancelRegister">
               <p class="text-secondary flex justify-center">{{ t('back') }}</p>
             </UButton>
           </div>

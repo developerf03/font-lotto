@@ -35,12 +35,13 @@ const { forgotPasswordModal } = useModals()
 const { sendOTP, verifyOTP } = usePlayerStore()
 
 // States
+const pincode = ref('')
 const otp = reactive({
-  pincode: '',
   isVerifyValid: null,
   remainSec: props?.remainSec,
   remainSecDefault: 300,
 })
+const loadingOtp = ref(false)
 
 // Computeds
 const validateType = computed(() => props?.signinSetting.verifyWith)
@@ -87,6 +88,7 @@ const handleRequestOtp = async () => {
 
 const handleVerifyOTP = async () => {
   try {
+    loadingOtp.value = true
     await verifyOTP({
       // if verify with phone
       ...(validateType.value === 'phone' && {
@@ -97,7 +99,7 @@ const handleVerifyOTP = async () => {
       ...(validateType.value === 'email' && {
         email: props.email,
       }),
-      otp: otp.pincode,
+      otp: pincode.value,
       type: 'forgotpassword', // register, forgotpassword, changeprofile, withdraw, firsttimedeposit
     })
     otp.isVerifyValid = true
@@ -114,6 +116,8 @@ const handleVerifyOTP = async () => {
     } else {
       otp.isVerifyValid = false
     }
+  } finally {
+    loadingOtp.value = false
   }
 }
 
@@ -122,20 +126,13 @@ const handleCancelOtp = () => {
 }
 
 const resetPincode = () => {
-  otp.pincode = ''
+  pincode.value = ''
   otp.isVerifyValid = null
 }
 
 const handleResendCode = () => {
   handleRequestOtp()
   resetPincode()
-}
-
-const onInput = (value) => {
-  if (value?.length === 5) {
-    otp.pincode = value
-    handleVerifyOTP()
-  }
 }
 
 // Watch
@@ -147,6 +144,12 @@ watch(
     }
   },
 )
+
+watch(pincode, (val) => {
+  if (val.length === 5) {
+    handleVerifyOTP()
+  }
+})
 </script>
 
 <template>
@@ -162,39 +165,45 @@ watch(
         validateType === 'phone' ? phoneNumber : email
       }}</span></span
     >
-    <div class="p-8">
+    <div class="px-8 pt-8 pb-2 relative text-center flex justify-center items-center flex-col">
       <BaseInputOtp
-        v-modal="otp.pincode"
-        :error="otp.isVerifyValid === false ? t('invalidCodeTryAgain') : ''"
-        @on-change="onInput"
-      />
+        v-model="pincode"
+        autofocus
+        :error-fill="[
+          isBoolean(otp.isVerifyValid) ? (otp.isVerifyValid === true ? 'success' : 'error') : '',
+        ]"
+      >
+        <template #error>
+          <span v-show="otp.isVerifyValid === false" class="text-danger text-sm">{{
+            $t('invalidCodeTryAgain')
+          }}</span>
+        </template>
+      </BaseInputOtp>
     </div>
     <div class="w-full flex justify-center items-center gap-2">
-      <div class="w-50">
-        <UButton size="sm" variant="outline" @click="handleCancelOtp">
-          <p class="text-secondary flex justify-center">{{ t('back') }}</p>
-        </UButton>
-      </div>
-      <div class="w-50">
-        <base-countdown
-          v-slot="{ fullSeconds }"
-          :time="otp.remainSec * 1000"
-          class="w-full"
-          @end="otp.remainSec = 0"
-        >
+      <base-countdown
+        v-slot="{ fullSeconds }"
+        :time="otp.remainSec * 1000"
+        class="w-full"
+        @end="otp.remainSec = 0"
+      >
+        <div v-if="fullSeconds > 0" class="flex justify-center items-center">
+          <span v-if="!fullSeconds && fullSeconds !== null">{{ $t('resendCode') }}</span>
+          <span v-else class="leading-none">{{
+            $t('resendWithin', { second: fullSeconds || otp.remainSec })
+          }}</span>
+        </div>
+        <div class="flex justify-center items-center gap-4 w-full mt-4 <sm:(gap-2 mt-1)">
+          <UButton :label="t('back')" variant="outline" @click="handleCancelOtp" />
           <UButton
-            size="sm"
+            :label="t('resendCode')"
             variant="solid"
-            :disabled="true"
+            :loading="loadingOtp"
+            :disabled="otp.remainSec === 300 ? true : fullSeconds > 0"
             @click="fullSeconds <= 0 && handleResendCode()"
-          >
-            <span v-if="!fullSeconds && fullSeconds !== null">{{ $t('resendCode') }}</span>
-            <span v-else class="leading-none">{{
-              `Resend within ${fullSeconds || otp.remainSec} seconds`
-            }}</span>
-          </UButton>
-        </base-countdown>
-      </div>
+          />
+        </div>
+      </base-countdown>
     </div>
   </div>
 </template>

@@ -229,7 +229,7 @@ onMounted(() => {
           size="md"
           variant="solid"
           class="!min-w-[50px] w-auto mt-4"
-          @click="handleBankAccountModal(true)"
+          @click="handleBankAccountModal(true), showPaymentModal(false, '', null)"
         />
       </div>
     </div>

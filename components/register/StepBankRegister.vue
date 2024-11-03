@@ -157,7 +157,7 @@ onMounted(() => {
         </UFormGroup>
         <div class="w-full flex justify-center items-center gap-2">
           <div class="w-50">
-            <UButton size="sm" variant="outline" @click="handleCancelBank">
+            <UButton size="xl" variant="outline" @click="handleCancelBank">
               <p class="text-secondary flex justify-center">{{ t('back') }}</p>
             </UButton>
           </div>

@@ -151,6 +151,7 @@ export const usePaymentStore = defineStore('payment', () => {
     dataCreateDeposit,
     transactionsList,
     transactionsLoading,
+    bankAccountsLoading,
     bankListByCurrency,
     depositTransactionDataTable,
     depositTrigger,

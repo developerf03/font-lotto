@@ -10,6 +10,7 @@ export const usePayment = () => {
     dataCreateDeposit,
     transactionsList,
     transactionsLoading,
+    bankAccountsLoading,
     bankListByCurrency,
     depositTrigger,
   } = storeToRefs(usePaymentStore())
@@ -34,6 +35,7 @@ export const usePayment = () => {
     dataCreateDeposit,
     transactionsList,
     transactionsLoading,
+    bankAccountsLoading,
     bankListByCurrency,
     depositTrigger,
     // Actions

@@ -70,6 +70,7 @@
         linear-gradient(90deg, var(--btn-primary-left) 0%, var(--btn-primary-right) 100%);
     }
     &:disabled {
+      color: var(--font-secondary);
       background: linear-gradient(
         90deg,
         var(--btn-primary-disable-left),

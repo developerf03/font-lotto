@@ -3,14 +3,20 @@
 import { useDebounceFn } from '@vueuse/core'
 
 // Composables
-const { getBankAccounts, banks, bankListByCurrency, fetchBankList, createBank } = usePayment()
-const { bankAccountModal, handleBankAccountModal } = useModals()
+const {
+  getBankAccounts,
+  bankAccountsLoading,
+  banks,
+  bankListByCurrency,
+  fetchBankList,
+  createBank,
+} = usePayment()
+const { bankAccountModal } = useModals()
 
 // Stores
 const { profileCheckData } = usePlayerStore()
 
 // States
-const addBankAccount = ref(false)
 const form = reactive({
   accountName: '',
   bankCode: '',
@@ -86,11 +92,6 @@ const handleInput = (field) => {
   debounceTyped()
 }
 
-const addBank = () => {
-  addBankAccount.value = true
-  fetchBankList({ currencyCode: useCurrencyCode() })
-}
-
 const handleSubmit = async () => {
   try {
     await createBank({
@@ -113,8 +114,6 @@ const handleSubmit = async () => {
       text: error.data?.message,
       autoHide: true,
     })
-  } finally {
-    addBankAccount.value = false
   }
 }
 
@@ -122,15 +121,11 @@ const resetForm = () => {
   Object.assign(form, clearObj(form))
 }
 
-const handleCancelBank = () => {
-  addBankAccount.value = false
-  resetForm()
-}
-
 // Watchs
 watch(bankAccountModal, (val) => {
   if (val) {
     getBankAccounts({ currencyCode: useCurrencyCode() })
+    fetchBankList({ currencyCode: useCurrencyCode() })
   }
 })
 </script>
@@ -139,49 +134,29 @@ watch(bankAccountModal, (val) => {
   <baseModal
     id="bank-account-sub-menu-modal-wrapper"
     v-model="bankAccountModal"
+    :title="t('bankAccountlabel')"
     :disable-click-out="true"
-    :hide-icon-close="false"
+    :hide-icon-close="true"
   >
-    <div v-if="!addBankAccount" class="flex justify-center items-center flex-col w-full gap-4">
-      <span>จัดการบัญชีธนาคาร</span>
+    <!-- Skeleton -->
+    <div v-if="bankAccountsLoading" class="flex justify-center items-center flex-col w-full gap-4">
+      <USkeleton class="h-[200px] !rounded-lg 2xl:rounded-[20px] w-full" />
+      <USkeleton class="h-[42px] !rounded-xl 2xl:rounded-[20px] w-full" />
+    </div>
+    <div
+      v-if="dataBankAccount && !bankAccountsLoading"
+      class="flex justify-center items-center flex-col w-full gap-4 mb-6"
+    >
       <BaseBankAccount
         v-if="dataBankAccount"
-        btn-copy
         :account="dataBankAccount?.accountNumber"
         :bank-type="dataBankAccount?.bankName"
         :account-name="dataBankAccount?.accountName"
         :bank-short-name="dataBankAccount?.bankCode"
       />
-      <div
-        v-else
-        class="bank-account-wrapper w-full card-secondary flex justify-center items-center p-2 rounded-md gap-2 <sm:(flex-col gap-4)"
-      >
-        <div class="flex flex-col justify-center items-center gap-2 <sm:(w-full)">
-          <span>ไม่มีข้อมูลบัญชีธนาคาร</span>
-          <UButton
-            label="เพิ่มบัญชีธนาคาร"
-            class="!w-full"
-            size="md"
-            variant="solid"
-            @click="addBank()"
-          />
-        </div>
-      </div>
-      <UButton
-        label="ปิด"
-        class="!w-full"
-        :ui="{ rounded: 'rounded-full' }"
-        size="md"
-        variant="tertiary"
-        @click="handleBankAccountModal(false)"
-      />
     </div>
-    <div v-else class="w-full">
+    <div v-if="!dataBankAccount && !bankAccountsLoading" class="w-full">
       <div class="flex justify-center items-center flex-col w-full">
-        <div class="text-center">
-          <BaseLogo />
-          <div class="font-bold text-primary <sm:(text-sm)">กรุณาเพิ่มบัญชีธนาคาร</div>
-        </div>
         <div class="w-full">
           <UForm class="space-y-4" @submit="handleSubmit">
             <UFormGroup
@@ -200,7 +175,6 @@ watch(bankAccountModal, (val) => {
                 v-model="form.bankCode"
                 :options="bankList"
                 searchable
-                variant="none"
                 value-attribute="bankCode"
                 option-attribute="bankDescription"
                 :placeholder="t('selectBank')"
@@ -225,23 +199,23 @@ watch(bankAccountModal, (val) => {
               />
             </UFormGroup>
             <div class="w-full flex justify-center items-center gap-2">
-              <div class="w-50">
+              <!-- <div class="w-50">
                 <UButton size="sm" variant="outline" @click="handleCancelBank">
                   <p class="text-secondary flex justify-center">{{ t('back') }}</p>
                 </UButton>
-              </div>
-              <div class="w-50">
-                <UButton
-                  :label="t('addAccount')"
-                  class="!w-full"
-                  type="submit"
-                  :ui="{ rounded: 'rounded-full' }"
-                  size="xl"
-                  variant="solid"
-                  :loading="isLoading"
-                  :disabled="!validator.isFormValid || isLoading || isTyping"
-                />
-              </div>
+              </div> -->
+              <!-- <div class="w-50"> -->
+              <UButton
+                :label="t('save')"
+                class="!w-full"
+                type="submit"
+                :ui="{ rounded: 'rounded-full' }"
+                size="xl"
+                variant="solid"
+                :loading="isLoading"
+                :disabled="!validator.isFormValid || isLoading || isTyping"
+              />
+              <!-- </div> -->
             </div>
           </UForm>
         </div>

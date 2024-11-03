@@ -4,7 +4,8 @@ import { nextTick } from 'vue'
 // Composables
 const { showPaymentModal, showPaymentDepositQaModal, showTransactionsModal, paymentModal } =
   useModals()
-const { getGateWays, gateWayOption, createDeposit, dataCreateDeposit } = usePayment()
+const { getGateWays, gateWayOption, createDeposit, dataCreateDeposit, fetchTransactions } =
+  usePayment()
 const { fetchPromotions, promotionOptions, promotionDepositCheck } = usePromotion()
 const route = useRoute()
 
@@ -75,12 +76,21 @@ const handleDepositSubmit = async () => {
         // }
         loading.value = false
         showPaymentModal(false, '', null)
-      }, 3200)
+      }, 2200)
     } else {
       showPaymentModal(false, '', null)
       showPaymentDepositQaModal(true, true, dataCreateDeposit.value)
       loading.value = false
     }
+    setTimeout(() => {
+      fetchTransactions({
+        sDate: '1970-01-01 00:00:00',
+        eDate: $format.getLocalDate(),
+        page: 1,
+        pageSize: 5,
+        type: ['add'],
+      })
+    }, 2200)
   } catch (error) {
     //
     useAlert({

@@ -82,6 +82,7 @@ form {
     &::placeholder {
       color: var(--input-placeholder);
     }
+    caret-color: var(--font-primary);
   }
   .primary-wrapper {
     border: 1px solid var(--input-border);

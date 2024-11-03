@@ -155,7 +155,7 @@ const handleSubmit = () => {
             v-model="form.password"
             type="password"
             :placeholder="t('password')"
-            @update:model-value="handleInput('password'), handleInput('confirmPassword')"
+            @update:model-value="handleInput('password')"
           />
         </UFormGroup>
         <UFormGroup

@@ -164,7 +164,7 @@ watch(pincode, (val) => {
           })
         }}
         <span class="color-[var(--font-highlight)]">{{
-          signupSetting?.verifyWith === 'phone' ? phone : email
+          signupSetting?.verifyWith === 'phone' ? callingPhone : email
         }}</span></span
       >
     </div>

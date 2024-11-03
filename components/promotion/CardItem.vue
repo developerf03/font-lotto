@@ -1,7 +1,7 @@
 <script setup>
 import placeholder from '~/constants/placeholder'
 
-defineProps({
+const props = defineProps({
   id: {
     type: String,
     default: '',
@@ -74,6 +74,12 @@ const emit = defineEmits(['onRead', 'selected'])
 const onRead = (emitVal) => {
   emit(emitVal)
 }
+
+// Computed
+const remainingQuota = computed(() => props.redeem.redeemLimit - props.redeem.redeemCount || 0)
+const isDisable = computed(() =>
+  props.isRedeem ? !remainingQuota.value || props.isExpired : props.isExpired,
+)
 </script>
 
 <template>
@@ -92,10 +98,9 @@ const onRead = (emitVal) => {
     <div>
       <div class="flex items-center gap-2">
         <span class="font-normal <sm:text-sm sm:text-sm md:text-base">{{ t('code') }}: </span>
-        <span
-          class="text-highlight font-normal <sm:text-sm sm:text-sm md:text-base"
-          >{{ code }}</span
-        >
+        <span class="text-highlight font-normal <sm:text-sm sm:text-sm md:text-base">{{
+          code
+        }}</span>
       </div>
       <span v-if="tier.name" class="text-highlight text-base">({{ tier.name }})</span>
       <div class="flex items-center gap-2">
@@ -133,13 +138,7 @@ const onRead = (emitVal) => {
     </div>
 
     <div class="flex justify-between gap-2 mt-2">
-      <UButton
-        :label="t('seeDetails')"
-        size="sm"
-        variant="outline"
-        :disabled="isDisable"
-        @click="onRead('onRead')"
-      />
+      <UButton :label="t('seeDetails')" size="sm" variant="outline" @click="onRead('onRead')" />
       <UButton
         v-if="showSelectButton"
         :label="t('selectPromo')"

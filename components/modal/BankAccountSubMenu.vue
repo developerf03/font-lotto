@@ -126,6 +126,8 @@ watch(bankAccountModal, (val) => {
   if (val) {
     getBankAccounts({ currencyCode: useCurrencyCode() })
     fetchBankList({ currencyCode: useCurrencyCode() })
+  } else {
+    resetForm()
   }
 })
 </script>

@@ -370,10 +370,9 @@ const resetForm = () => {
           <div style="width: fit-content">
             <BaseInputOtp
               v-model="pincode"
-              autofocus
-              :error-fill="[
-                isBoolean(isVerifyValid) ? (isVerifyValid === true ? 'success' : 'error') : '',
-              ]"
+              :error-fill="
+                isBoolean(isVerifyValid) ? (isVerifyValid === true ? 'success' : 'error') : ''
+              "
             >
               <template #error>
                 <span v-show="isVerifyValid === false" class="text-danger text-sm">{{

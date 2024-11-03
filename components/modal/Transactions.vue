@@ -258,6 +258,7 @@ onMounted(() => {
             name="i-tabler:copy"
             class="w-5 h-5 cursor-pointer pointer-events-auto text-[var(--icon-default)]"
             @click="useCopyClipboard(transactionsViewModal?.item?.id)"
+            @touchend="useCopyClipboard(transactionsViewModal?.item?.id)"
           />
         </div>
         <div class="text-right text-base">{{ transactionsViewModal?.item?.currencyCode }}</div>
@@ -276,6 +277,7 @@ onMounted(() => {
       variant="cancel"
       :loading="loadingCancelTransaction"
       @click="onCancelTransaction"
+      @touchend="onCancelTransaction"
     />
   </baseModal>
   <!-- </div> -->

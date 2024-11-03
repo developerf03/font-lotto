@@ -10,6 +10,7 @@ import select from '~/constants/nuxt-ui/select'
 import popover from '~/constants/nuxt-ui/popover'
 import tabs from '~/constants/nuxt-ui/tabs'
 import radio from '~/constants/nuxt-ui/radio'
+import skeleton from '~/constants/nuxt-ui/skeleton'
 import verticalNavigation from '~/constants/nuxt-ui/verticalNavigation'
 import horizontalNavigation from '~/constants/nuxt-ui/horizontalNavigation'
 
@@ -25,6 +26,7 @@ export default defineAppConfig({
     popover,
     tabs,
     radio,
+    skeleton,
     verticalNavigation,
     horizontalNavigation,
   },

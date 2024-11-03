@@ -316,3 +316,9 @@
     border: 0px solid !important;
   }
 }
+
+.skeleton-wrapper {
+  &.bg-skeleton{
+    background-color: var(--skeleton);
+  }
+}

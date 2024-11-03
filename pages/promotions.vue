@@ -121,11 +121,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.promotion-wrapper {
-  .animate-pulse {
-    background-color: rgb(231, 226, 226);
-  }
-}
-</style>

@@ -5,11 +5,12 @@ import paymentDepositModal from '~/components/modal/PaymentDeposit.vue'
 import transactionsAllModal from '~/components/modal/Transactions.vue'
 import VerifyOtpModal from '~/components/modal/VerifyOtp.vue'
 import LanguageModal from '~/components/modal/Language.vue'
-import Login from '~/components/modal/Login.vue'
-import Register from '~/components/modal/Register.vue'
-import Launcher from '~/components/modal/Launcher.vue'
-import ForgotPassword from '~/components/modal/ForgotPassword.vue'
-import Profile from '~/components/modal/Profile.vue'
+import LoginModal from '~/components/modal/Login.vue'
+import RegisterModal from '~/components/modal/Register.vue'
+import LauncherModal from '~/components/modal/Launcher.vue'
+import ForgotPasswordModal from '~/components/modal/ForgotPassword.vue'
+import ProfileModal from '~/components/modal/Profile.vue'
+import PromotionDetailsModal from '~/components/modal/promotionDetails.vue'
 import BankAccountSubMenu from '~/components/modal/BankAccountSubMenu.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -39,16 +40,16 @@ onMounted(() => {
         <paymentModal />
         <paymentDepositModal />
         <transactionsAllModal />
-        <Login />
-        <Register />
-        <ForgotPassword />
+        <LoginModal />
+        <RegisterModal />
+        <ForgotPasswordModal />
         <BaseAlert />
-        <Launcher />
+        <LauncherModal />
         <VerifyOtpModal />
-        <Profile />
+        <ProfileModal />
         <BankAccountSubMenu />
         <LanguageModal />
-        <PromotionDetails />
+        <PromotionDetailsModal />
         <BaseLoadingPage />
       </NuxtLayout>
     </Body>

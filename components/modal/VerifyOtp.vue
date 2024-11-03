@@ -52,19 +52,16 @@ watch(
       ) {
         validator.value.validate('email')
         validator.value.validate('phoneNumber')
-        console.log('lll');
-
       }
 
       if (signUpSetting.value?.isVerify || userPlayer.value?.[signUpSetting.value?.verifyWith]) {
-        console.log('kk',signUpSetting.value?.isVerify, userPlayer.value?.[signUpSetting.value?.verifyWith]);
-
         if (!verifyOTPModal.value.type) {
           verifyOTPModal.value.type = stepType?.[signUpSetting.value?.verifyWith]?.verify
           fetchSendOtp()
+        } else {
+          step.value = 0
         }
       } else {
-        console.log('oo');
         verifyOTPModal.value.type = stepType?.[signUpSetting.value?.verifyWith]?.edit
       }
     }

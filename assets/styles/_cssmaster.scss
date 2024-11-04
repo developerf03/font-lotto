@@ -172,32 +172,36 @@ form {
 // Verical Navigation
 .navigation-wrapper {
   // default
-  .navigation-menu {
-    color: var(--vertical-navigation-text) !important;
-    background: transparent !important;
-    gap: 1rem;
-    padding: 4px 16px;
-    border-radius: 0;
-    height: 32px;
-    &::before {
-      display: none !important;
-    }
-    &.navigation-active {
-      color: var(--vertical-navigation-text-active) !important;
-      background: var(--vertical-navigation-bg-active) !important;
-    }
-    @media only screen and (min-width: 1025px) {
-      &:hover {
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    .navigation-menu {
+      color: var(--vertical-navigation-text) !important;
+      background: transparent !important;
+      gap: 1rem;
+      padding: 6px 16px;
+      border-radius: 0;
+      &::before {
+        display: none !important;
+      }
+      &.navigation-active {
+        color: var(--vertical-navigation-text-active) !important;
         background: var(--vertical-navigation-bg-active) !important;
+      }
+      @media only screen and (min-width: 1025px) {
+        &:hover {
+          background: var(--vertical-navigation-bg-active) !important;
+          span {
+            color: var(--vertical-navigation-text-active) !important;
+          }
+        }
+      }
+      &:active {
+        background: var(--vertical-navigation-bg-click) !important;
         span {
           color: var(--vertical-navigation-text-active) !important;
         }
-      }
-    }
-    &:active {
-      background: var(--vertical-navigation-bg-click) !important;
-      span {
-        color: var(--vertical-navigation-text-active) !important;
       }
     }
   }
@@ -205,7 +209,6 @@ form {
   // secondary
   &.navigation-secondary {
     ul {
-      gap: 4px;
       .navigation-menu {
         border-radius: 30px;
         font-weight: 400;
@@ -228,6 +231,35 @@ form {
           span {
             color: var(--font-white);
           }
+        }
+      }
+    }
+  }
+
+  // font
+  &.text-primary {
+    ul {
+      .navigation-menu {
+        span {
+          color: var(--font-primary);
+        }
+      }
+    }
+  }
+  &.text-secondary {
+    ul {
+      .navigation-menu {
+        span {
+          color: var(--font-secondary);
+        }
+      }
+    }
+  }
+  &.text-tertiary {
+    ul {
+      .navigation-menu {
+        span {
+          color: var(--font-tertiary);
         }
       }
     }

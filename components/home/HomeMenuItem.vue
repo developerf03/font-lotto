@@ -13,23 +13,20 @@ defineProps({
     type: String,
     default: '',
   },
+  sectionScroll: {
+    type: String,
+    default: '',
+  },
 })
 
 // Composables
 const { handleLauncherModal } = useModals()
-
-// States
-
-// Functions
-const handleLauncher = () => {
-  handleLauncherModal(true, 'slkdjfklds')
-}
 </script>
 
 <template>
   <div
     class="provider-item-wrapper w-full border border-solid border-[var(--provider-item-border)] rounded-[10px] p-3 flex items-center gap-[14px] cursor-pointer relative overflow-hidden mlg:px-4"
-    @click="handleLauncher"
+    @click="handleLauncherModal(true, sectionScroll)"
   >
     <img :src="background" alt="provider background" class="provider-background" >
     <img :src="icon" :alt="name" srcset="" class="w-6 rounded-full relative" >

@@ -25,31 +25,37 @@ const mockup = [
     name: 'lotteryResult1',
     flag: flag1,
     background: lotteryResult1,
+    sectionScroll: '#thai-government',
   },
   {
     name: 'lotteryResult2',
     flag: flag2,
     background: lotteryResult2,
+    sectionScroll: '#government-savings-bank',
   },
   {
     name: 'lotteryResult3',
     flag: flag3,
     background: lotteryResult3,
+    sectionScroll: '#thai-stock',
   },
   {
     name: 'lotteryResult4',
     flag: flag4,
     background: lotteryResult4,
+    sectionScroll: '#foreign-stock',
   },
   {
     name: 'lotteryResult5',
     flag: flag5,
     background: lotteryResult5,
+    sectionScroll: '#set-stock',
   },
   {
     name: 'lotteryResult6',
     flag: flag6,
     background: lotteryResult6,
+    sectionScroll: '#yeekee-stock',
   },
 ]
 
@@ -119,6 +125,7 @@ const handleLaunchGame = () => {
         :name="t(item?.name)"
         :icon="item?.flag"
         :background="item?.background"
+        :section-scroll="item?.sectionScroll"
       />
     </div>
 

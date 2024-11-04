@@ -28,7 +28,7 @@ export const useModalStore = defineStore('modal', () => {
   })
   const launcherModal = reactive({
     open: false,
-    url: '',
+    sectionScroll: '',
   })
 
   const verifyOTPModal = reactive({
@@ -72,9 +72,9 @@ export const useModalStore = defineStore('modal', () => {
     registerModal.value = isOpen
   }
 
-  const handleLauncherModal = (isOpen, url) => {
-    launcherModal.open = !!isOpen && !!url
-    launcherModal.url = url || ''
+  const handleLauncherModal = (isOpen, sectionScroll) => {
+    launcherModal.open = !!isOpen
+    launcherModal.sectionScroll = sectionScroll || ''
   }
 
   const handleForgotPasswordModal = (val) => {

@@ -275,7 +275,7 @@ const onSubmit = async () => {
 
       <!-- REFERAL CODE -->
       <UFormGroup v-if="lobbySetting?.enableReferCode" :label="t('referralCode')" name="code">
-        <BaseInput :model-value="referralLink" :copy="referralLink" readonly />
+        <BaseInput :model-value="userPlayer?.code" :copy="referralLink" readonly />
       </UFormGroup>
       <!-- BUTTON -->
       <div v-if="isEdit" class="flex gap-4">

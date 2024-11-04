@@ -103,7 +103,7 @@ export const urlPath = (path) => {
 
 export const useInitThemeColor = () => {
   const themePreview = useCookie('themePreview', '')
-  const theme = useCookie('theme')
+  const theme = useCookie('themeMode')
   const { setting } = useLobbySetting()
   const { _route: route } = useNuxtApp()
 

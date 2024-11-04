@@ -23,7 +23,7 @@ onClickOutside(target, () => (isExpan.value = false))
     <div class="flex items-center">
       <div class="flex-1" />
       <div class="flex-1 flex min-w-max">
-        <BaseLogo class="!h-[50px] flex-shrink-0 mx-auto lg:!h-[69px]" />
+        <BaseLogo class="!h-[50px] flex-shrink-0 mx-auto lg:!h-[69px]" @click="$navigateTo('/')" />
       </div>
       <div class="flex-1 flex items-center justify-end">
         <UButton variant="outline" class="!w-11 !h-11" @click="isExpan = !isExpan">

@@ -1,6 +1,6 @@
 <script setup>
 // Composables
-const theme = useCookie('theme')
+const theme = useCookie('themeMode')
 
 // Variables
 const themeSetting = {

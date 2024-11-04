@@ -15,8 +15,7 @@
 html {
   height: 100%;
   width: 100%;
-  background-color: var(--text-primary);
-  background-image: url('~/assets/images/backgrounds/bg.webp');
+  background: url('~/assets/images/backgrounds/bg.webp'), var(--site-bg);
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
@@ -25,7 +24,7 @@ html {
 }
 
 body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
   font-family: var(--font-family);
   color: var(--text-primary);
   font-size: var(--base-font-size);

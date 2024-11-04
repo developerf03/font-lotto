@@ -8,10 +8,14 @@ export const useInitAppSSR = async () => {
 
   try {
     // Init langauge
-    useInitLang()
+    useInitLang(setting)
 
-    // Init functions
-    useInitHead(setting.value)
+    // Init meta tag SEO
+    useMetaTagSEO({
+      title: setting.value.title,
+      description: setting.value.description,
+      faviconUrl: setting.value.faviconUrl,
+    })
   } catch (error) {
     return Promise.reject(error)
   }
@@ -55,64 +59,26 @@ export const useFetchAfterAuthen = () => {
   }
 }
 
-export const useInitLang = () => {
+export const useInitLang = (setting) => {
   const { $i18n } = useNuxtApp()
   const i18n = useCookie('i18n_redirected')
   const lang = useCookie('lang')
-  const theme = useCookie('theme')
+  const theme = useCookie('themeMode')
+  const themeColor = useCookie('themeColor')
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
-  
+  const themeList = ['blue', 'orange']
+
   if (agentLang.length && !lang.value) {
     $i18n.setLocale(agentLang[0])
     lang.value = agentLang[0]
     i18n.value = agentLang[0]
   }
 
+  // theme mode
   if (!theme.value || theme.value === 'undefined' || theme.value === 'null') {
     theme.value = 'light-theme'
   }
-}
 
-export const useInitHead = (setting) => {
-  useHead({
-    title: setting.title,
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: setting?.description,
-      },
-      {
-        property: 'og:title',
-        hid: 'og:title',
-        name: 'og:title',
-        content: setting?.title,
-      },
-      {
-        property: 'og:description',
-        hid: 'og:description',
-        name: 'og:description',
-        content: setting?.description,
-      },
-      {
-        property: 'og:type',
-        hid: 'og:type',
-        name: 'og:type',
-        content: 'website',
-      },
-      {
-        property: 'og:image',
-        hid: 'og:image',
-        name: 'og:image',
-        content: setting?.faviconUrl,
-      },
-    ],
-    link: [
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: setting?.faviconUrl,
-      },
-    ],
-  })
+  // theme color
+  themeColor.value = themeList.includes(setting?.value?.theme) ? setting?.value?.theme : 'blue'
 }

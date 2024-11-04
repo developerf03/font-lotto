@@ -144,6 +144,9 @@ export default {
   addBankAccount: 'Add bank account',
   pleaseAddBankAccount: 'Please Add Bank Account',
   bankAccountlabel: 'Bank account',
+  duplicateBankAccount: 'Duplicate bank account',
+  duplicateAccountName: 'Duplicate account name',
+  duplicateAccountNumber: 'Duplicate bank account number',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

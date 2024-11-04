@@ -144,6 +144,9 @@ export default {
   addBankAccount: 'Thêm số tài khoản',
   pleaseAddBankAccount: 'Vui lòng thêm tài khoản ngân hàng',
   bankAccountlabel: 'Tài khoản ngân hàng',
+  duplicateBankAccount: 'Tài khoản ngân hàng trùng lặp',
+  duplicateAccountName: 'Tên tài khoản trùng lặp',
+  duplicateAccountNumber: 'Số tài khoản trùng lặp',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

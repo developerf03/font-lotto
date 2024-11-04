@@ -142,6 +142,9 @@ export default {
   addBankAccount: 'เพิ่มบัญชีธนาคาร',
   pleaseAddBankAccount: 'กรุณาเพิ่มบัญชีธนาคาร',
   bankAccountlabel: 'บัญชีธนาคาร',
+  duplicateBankAccount: 'บัญชีธนาคารซ้ำในระบบ',
+  duplicateAccountName: 'ชื่อบัญชีซ้ำในระบบ',
+  duplicateAccountNumber: 'หมายเลขบัญชีธนาคารซ้ำ',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

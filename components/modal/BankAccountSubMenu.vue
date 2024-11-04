@@ -70,13 +70,13 @@ const handleCheckData = async (field) => {
     return ''
   } catch (error) {
     if (field === 'accountName' && [5030, 5031, 5032, 5033, 5034].includes(error?.data?.code)) {
-      return 'Duplicate account name'
+      return t('duplicateAccountName')
     }
     if (field === 'accountNumber' && [5032, 5034, 5035, 5036, 5038].includes(error?.data?.code)) {
-      return 'Duplicate bank account number'
+      return t('duplicateAccountNumber')
     }
     if (field === 'bankCode' && [5030, 5033, 5034, 5035, 5036, 5038].includes(error?.data?.code)) {
-      return 'Duplicate bank account'
+      return t('duplicateBankAccount')
     }
     return ''
   } finally {

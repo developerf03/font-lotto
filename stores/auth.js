@@ -29,7 +29,7 @@ export const useAuthStore = defineStore(
 
     // Functions
     const login = async (payload = {}) => {
-      const apiUrl = 'phone' in payload ? '/api/auth/mobile/signin' : '/api/auth/signin'
+      const apiUrl = '/api/auth/v2/signin'
 
       try {
         loading.value = true

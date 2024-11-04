@@ -15,6 +15,7 @@ import BankAccountSubMenu from '~/components/modal/BankAccountSubMenu.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/bundle'
+import 'vue3-toastify/dist/index.css'
 
 // Composables
 const theme = useCookie('theme')

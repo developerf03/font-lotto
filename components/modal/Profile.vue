@@ -1,7 +1,7 @@
 <script setup>
 // Imports
 import { useDebounceFn } from '@vueuse/core'
-import { dateToISOString } from '~/utils/utils'
+import { dateToISOString, getReferalLink } from '~/utils/utils'
 
 // Composables
 const { userPlayer, fetchUser } = useAuth()
@@ -29,6 +29,7 @@ const errors = reactive({})
 const isEdit = ref(false)
 
 // Computeds
+const referralLink = computed(() => getReferalLink(userPlayer.value?.code))
 const isLoading = computed(() => !Object.values(loading).every((o) => o === false))
 const validator = computed(() =>
   useValidator(form, errors).rules({
@@ -274,7 +275,7 @@ const onSubmit = async () => {
 
       <!-- REFERAL CODE -->
       <UFormGroup v-if="lobbySetting?.enableReferCode" :label="t('referralCode')" name="code">
-        <BaseInput :model-value="userPlayer?.code" :copy="userPlayer?.code" readonly />
+        <BaseInput :model-value="referralLink" :copy="referralLink" readonly />
       </UFormGroup>
       <!-- BUTTON -->
       <div v-if="isEdit" class="flex gap-4">

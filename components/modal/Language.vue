@@ -5,9 +5,13 @@ import flags from '~/constants/flags'
 // Composables
 const { setLocale, locale, locales } = useI18n()
 const { languageModal } = useModals()
+const setting = useSetting()
 
 // Computed
 const flag = computed(() => (code) => flags?.[code])
+const languageList = computed(() =>
+  locales.value.filter((v) => setting.value.languages.includes(v.IETF)),
+)
 
 // Funtions
 const handleChangeLang = (val) => {
@@ -27,7 +31,7 @@ const handleChangeLang = (val) => {
   >
     <div class="w-full flex justify-center items-center flex-col gap-4">
       <UButton
-        v-for="(item, index) in locales"
+        v-for="(item, index) in languageList"
         :key="index"
         size="md"
         :variant="locale === item.code ? 'outline' : 'tertiary'"

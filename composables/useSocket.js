@@ -6,7 +6,7 @@ let socket = null
 
 export const useSocket = () => {
   const config = useRuntimeConfig()
-
+  const { $i18n } = useNuxtApp()
   const { fetchTransactions } = usePaymentStore()
   const { depositTrigger, depositTransactionDataTable } = storeToRefs(usePaymentStore())
   const signUpSetting = computed(() => useSignUpSetting())
@@ -102,8 +102,11 @@ export const useSocket = () => {
 
     depositTrigger.value = data
 
+    console.log('handleDepositEvent', data.status)
+
     // Check status
     if (status === 'success') {
+      console.log('status', status)
       useAlert({
         success: true,
         title: $i18n.t('depositSuccessful'),

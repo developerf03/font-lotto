@@ -423,6 +423,7 @@ export default {
   8124: 'Please calculate cashback before you receive cashback.',
   8126: 'Have new transactions to calculate, please calculate first',
   8129: 'Payment Account Creation Failed',
+  8133: 'this player have Outstanding and Freespin can not withdraw',
   8134: 'Credit Less Than Minimum Receive Setting',
   9001: 'You Got Baned From System, Please contact admin',
   9999: 'An error occurred. Please try again',

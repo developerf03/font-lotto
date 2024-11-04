@@ -3,7 +3,7 @@ import { locales } from './locales/setting'
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  ssr: false,
+  ssr: true,
   devtools: { enabled: false },
   colorMode: {
     preference: 'nuxt',
@@ -73,7 +73,10 @@ export default defineNuxtConfig({
   // i18n
   i18n: {
     detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
       alwaysRedirect: true,
+      fallbackLocale: 'th'
     },
     strategy: 'prefix_except_default',
     langDir: 'locales/',

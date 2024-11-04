@@ -185,7 +185,7 @@ onMounted(() => {
           :placeholder="t('selectServiceProvider')"
           :options="gateWayOption"
           value-attribute="gatewayCode"
-          option-attribute="channelName"
+          option-attribute="channelNameDisplay"
           @change="onSelectGateway"
         >
           <template #empty> {{ t('noItems') }} </template>

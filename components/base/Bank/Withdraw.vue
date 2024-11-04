@@ -156,7 +156,6 @@ const onTransactions = () => {
 }
 
 const onRadioOtherBank = () => {
-  console.log('onRadioOtherBank')
   addBankForm.accountName = dataBankAccount.value?.accountName
 }
 
@@ -249,7 +248,7 @@ onMounted(() => {
             :placeholder="t('selectServiceProvider')"
             :options="gateWayOption"
             value-attribute="gatewayCode"
-            option-attribute="channelName"
+            option-attribute="channelNameDisplay"
             @change="onSelectGateway"
           >
             <template #empty> {{ t('noItems') }} </template></USelectMenu

@@ -48,7 +48,7 @@ const emit = defineEmits(['opened', 'closed'])
 const vFocus = {
   mounted: (el) => {
     emit('opened')
-    document.activeElement.blur()
+    document?.activeElement?.blur()
     el.focus()
   },
 }

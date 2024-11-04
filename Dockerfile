@@ -1,9 +1,7 @@
 # First stage - Base
 FROM node:18-alpine AS base
 WORKDIR /usr/src/app
-
 RUN apk --no-cache add ca-certificates wget
-
     # เช็ค cpu เครื่อง
 RUN if [[ $(uname -m) == "aarch64" ]] ; \
     then \
@@ -18,26 +16,27 @@ RUN if [[ $(uname -m) == "aarch64" ]] ; \
     apk add --no-cache --force-overwrite glibc-2.28-r0.apk ; \
     rm glibc-2.28-r0.apk ; \
     fi
-
 RUN npm install -g bun
-
 RUN bun --version
 
+# Second stage - Installing Dependencies
 FROM base AS install
-WORKDIR /usr/src/app
-COPY package.json bun.lockb ./
-RUN bun install
+RUN mkdir -p /temp
+COPY package.json bun.lockb /temp/
+RUN  cd /temp && bun install
+
+# Third stage - Build
+FROM install AS prerelease
+COPY --from=install /temp/node_modules node_modules
 COPY . .
+ENV NODE_ENV=production
 RUN bun run build
 
+# Fourth stage - Production
 FROM base AS release
-WORKDIR /usr/src/app
-COPY --from=install /usr/src/app/.output ./.output
-
-RUN addgroup -S bungroup && adduser -S bunuser -G bungroup
-USER bunuser
-
+COPY --chown=bun:bun --from=install /temp/node_modules node_modules
+COPY --chown=bun:bun --from=prerelease /usr/src/app/.output .
+USER bun
 ENV HOST 0.0.0.0
-ENV PORT 3000
 EXPOSE 3000
-ENTRYPOINT ["bun", "run", "./.output/server/index.mjs"]
+ENTRYPOINT [ "bun", "run", "server/index.mjs" ]

@@ -50,7 +50,7 @@ onClickOutside(target, () => (isExpan.value = false))
       class="max-h-[0] overflow-hidden transition-all duration-300"
       :class="[{ 'max-h-[1000px]': isExpan }]"
     >
-      <div class="pt-3 flex flex-col gap-4">
+      <div class="pt-4 flex flex-col gap-4">
         <UVerticalNavigation v-if="user" :links="menu" class="navigation-secondary text-primary" />
         <div class="w-full divide-x-1 flex items-center">
           <div class="flex-1 flex items-center justify-center gap-4">

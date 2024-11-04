@@ -64,3 +64,48 @@ body {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;
 }
+
+/*=========================================================================================
+  Toast
+==========================================================================================*/
+.Toastify__toast {
+  padding: 0;
+  border: unset;
+  border-radius: 10px !important;
+  background-color: var(--card-primary);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.8);
+  min-height: 52px !important;
+  box-shadow: 0px 3px 12px 0px #2f2b3d24;
+
+  // &:has(.toast-status-success) {
+  //   box-shadow: 0px 3px 12px 0px #2f2b3d24, -3px 0px 0px 0px var(--card-success);
+  // }
+  // &:has(.toast-status-error) {
+  //   box-shadow: 0px 3px 12px 0px #2f2b3d24, -3px 0px 0px 0px var(--card-error);
+  // }
+  // &:has(.toast-status-copy) {
+  //   box-shadow: 0px 3px 12px 0px #2f2b3d24, -3px 0px 0px 0px var(--icon-default);
+  // }
+  .Toastify__close-button {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    opacity: 0.2;
+    &:hover {
+      opacity: 0.3;
+    }
+    * {
+      fill: var(--alert-bg);
+      margin-left: 2px;
+    }
+  }
+}
+
+.Toastify__progress-bar {
+  bottom: -1px !important;
+  --toastify-color-progress-light: var(--icon-default);
+}

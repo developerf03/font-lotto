@@ -86,7 +86,7 @@ const handleSubmit = async () => {
         <BaseInput
           v-model="form.password"
           type="password"
-          :placeholder="'password'"
+          :placeholder="t('password')"
           @update:model-value="validator.validate('password')"
         />
       </UFormGroup>

@@ -423,6 +423,7 @@ export default {
   8124: 'Vui lòng tính tiền hoàn lại trước khi bạn nhận được tiền hoàn lại.',
   8126: 'Có giao dịch mới để tính toán, vui lòng tính toán trước',
   8129: 'Tạo tài khoản thanh toán không thành công',
+  8133: 'Người chơi này có các khoản chưa thanh toán và có lượt quay miễn phí, không thể rút tiền',
   8134: 'Cài đặt nhận tín dụng ít hơn mức tối thiểu',
   9001: 'Bạn đã bị cấm khỏi hệ thống. Vui lòng liên hệ với quản trị viên',
   9999: 'Đã xảy ra lỗi. Vui lòng thử lại',

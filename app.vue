@@ -31,9 +31,6 @@ onMounted(() => {
 
 <template>
   <Html :class="[theme || 'dark-theme', themeColor || 'blue']" :lang="locale">
-    <Head>
-      <Title>{{ $t('welcome') }}</Title>
-    </Head>
     <Body>
       <NuxtLayout>
         <NuxtPage />

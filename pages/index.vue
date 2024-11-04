@@ -7,16 +7,6 @@ definePageMeta({
   // middleware: ['auth'],
   layout: 'home',
 })
-useHead({
-  title: t('home'),
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: t('home'),
-    },
-  ],
-})
 
 onMounted(() => {
   nextTick(() => {

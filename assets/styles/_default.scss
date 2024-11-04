@@ -24,7 +24,7 @@ html {
 }
 
 body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
   font-family: var(--font-family);
   color: var(--text-primary);
   font-size: var(--base-font-size);

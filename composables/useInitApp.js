@@ -62,6 +62,7 @@ export const useInitLang = (setting) => {
   const theme = useCookie('themeMode')
   const themeColor = useCookie('themeColor')
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
+  const themeList = ['blue', 'orange']
 
   if (agentLang.length && !lang.value) {
     $i18n.setLocale(agentLang[0])
@@ -75,7 +76,7 @@ export const useInitLang = (setting) => {
   }
 
   // theme color
-  themeColor.value = setting?.value?.theme
+  themeColor.value = themeList.includes(setting?.value?.theme) ? setting?.value?.theme : 'blue'
 }
 
 export const useInitHead = (setting) => {

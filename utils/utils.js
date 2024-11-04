@@ -87,15 +87,22 @@ export const copyReferalLink = (referralCode) => {
 }
 
 export const useCopyClipboard = (text) => {
+  const copyTimeout = useState('copyTimeout', () => false)
+
+  if (copyTimeout.value) return
+
+  copyTimeout.value = true
   const { $i18n } = useNuxtApp()
 
-  useAlert({
-    copy: true,
-    title: $i18n.t('copySuccess'),
-    autoHide: true,
-    duration: 400,
+  const { copy } = useToasts()
+
+  copy({
+    text: $i18n.t('copySuccess'),
   })
   navigator.clipboard.writeText(text)
+  setTimeout(() => {
+    copyTimeout.value = false
+  }, 3000)
 }
 
 export const useLauncherRouter = (launcher) => {

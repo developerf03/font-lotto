@@ -98,8 +98,8 @@ const handleSubmit = async () => {
         aff_regis_code: form.affCode,
       }),
       password: form.password,
-      currency: useCurrencyCode(),
-      playerCurrency: useCurrencyCode(),
+      currency: useDefaults()?.currencyCode,
+      playerCurrency: useDefaults()?.currencyCode,
     })
     utm.value = ''
     affCodeLocal.value = ''

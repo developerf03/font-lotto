@@ -204,13 +204,11 @@ export const useSubMenu = () => {
   ])
 }
 
-// export const useDefaultLangauge = () => {
-//   // const { $i18n } = useNuxtApp()
+export const useDefaultLangauge = () => {
+  const { $i18n } = useNuxtApp()
 
-//   const { headerInfo } = storeToRefs(useSettingStore())
+  const { headerInfo } = storeToRefs(useSettingStore())
 
-//   console.log('headerInfo', headerInfo)
-
-//   // return $i18n.locales.value?.find((v) => v.countryCode === headerInfo.value?.countryCode)?.code
-//   return 'th-TH'
-// }
+  return $i18n.locales.value?.find((v) => v.countryCode === headerInfo.value?.data?.countryCode)
+    ?.IETF
+}

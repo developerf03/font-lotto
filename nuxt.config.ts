@@ -3,7 +3,7 @@ import { locales } from './locales/setting'
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  ssr: true,
+  ssr: false,
   devtools: { enabled: false },
   colorMode: {
     preference: 'nuxt',

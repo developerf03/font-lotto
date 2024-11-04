@@ -31,7 +31,7 @@ const isTyping = ref(false)
 
 // Computeds
 const isLoading = computed(() => !Object.values(loading).every((o) => o === false))
-const bankList = computed(() => bankListByCurrency.value(useCurrencyCode()))
+const bankList = computed(() => bankListByCurrency.value(useDefaults()?.currencyCode))
 const validator = computed(() =>
   useValidator(form, errors).rules({
     accountName: Rules().required(t('specifyHolderName')).custom(checkAccountName),
@@ -107,7 +107,7 @@ const handleSubmit = () => {
 }
 
 onMounted(() => {
-  fetchBankList({ currencyCode: useCurrencyCode() })
+  fetchBankList({ currencyCode: useDefaults()?.currencyCode })
 })
 </script>
 

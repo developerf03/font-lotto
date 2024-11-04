@@ -33,7 +33,7 @@ const isTyping = ref(false)
 // Computeds
 const dataBankAccount = computed(() => banks?.value?.bankAccountList?.find((v) => v?.isDefault))
 const isLoading = computed(() => !Object.values(loading).every((o) => o === false))
-const bankList = computed(() => bankListByCurrency.value(useCurrencyCode()))
+const bankList = computed(() => bankListByCurrency.value(useDefaults()?.currencyCode))
 const validator = computed(() =>
   useValidator(form, errors).rules({
     accountName: Rules().required(t('specifyHolderName')).custom(checkAccountName),
@@ -98,7 +98,7 @@ const handleSubmit = async () => {
       accountName: form.accountName,
       accountNumber: form.accountNumber,
       bankCode: form.bankCode,
-      currencyCode: useCurrencyCode(),
+      currencyCode: useDefaults()?.currencyCode,
       type: 'withdraw',
     })
     useAlert({
@@ -106,7 +106,7 @@ const handleSubmit = async () => {
       text: t('addedBankAccountSuccess'),
       autoHide: true,
     })
-    getBankAccounts({ currencyCode: useCurrencyCode() })
+    getBankAccounts({ currencyCode: useDefaults()?.currencyCode })
     resetForm()
   } catch (error) {
     useAlert({
@@ -124,8 +124,8 @@ const resetForm = () => {
 // Watchs
 watch(bankAccountModal, (val) => {
   if (val) {
-    getBankAccounts({ currencyCode: useCurrencyCode() })
-    fetchBankList({ currencyCode: useCurrencyCode() })
+    getBankAccounts({ currencyCode: useDefaults()?.currencyCode })
+    fetchBankList({ currencyCode: useDefaults()?.currencyCode })
   } else {
     resetForm()
   }

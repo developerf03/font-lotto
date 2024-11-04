@@ -39,7 +39,7 @@ defineProps({
 
 // onMounted
 onMounted(() => {
-  // Promise.all([fetchBankList({ currencyCode: useCurrencyCode() })])
+  // Promise.all([fetchBankList({ currencyCode: useDefaults()?.currencyCode })])
 })
 </script>
 

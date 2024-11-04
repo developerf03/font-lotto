@@ -23,7 +23,7 @@ onMounted(() => {
     fetchGames({
       page: 1,
       pageSize: 30,
-      currency: useCurrencyCode(),
+      currency: useDefaults()?.currencyCode,
     })
   })
 })

@@ -285,7 +285,7 @@ const resetForm = () => {
   form.callingCode =
     CountryCallingCodes.value?.length === 1
       ? CountryCallingCodes.value?.[0]
-      : CountryCallingCodes.value?.find((o) => o?.currencyCode === useCurrencyCode())
+      : CountryCallingCodes.value?.find((o) => o?.currencyCode === useDefaults()?.currencyCode)
 }
 
 const handleCheckData = async () => {

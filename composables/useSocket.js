@@ -107,11 +107,8 @@ export const useSocket = () => {
 
     depositTrigger.value = data
 
-    console.log('handleDepositEvent', data.status)
-
     // Check status
     if (status === 'success') {
-      console.log('status', status)
       useAlert({
         success: true,
         title: $i18n.t('depositSuccessful'),

@@ -28,6 +28,7 @@ WORKDIR /usr/src/app
 COPY package.json bun.lockb ./
 RUN bun install
 COPY . .
+RUN ls -la
 RUN bun run build
 
 FROM base AS release

@@ -73,7 +73,7 @@ const isDisableSubmitBtn = computed(() => {
 })
 
 const enableOtherBank = computed(
-  () => useLobbySetting()?.setting.value?.withdrawSetting?.[useCurrencyCode()]?.enableOtherBank,
+  () => useLobbySetting()?.setting.value?.withdrawSetting?.[useDefaults()?.currencyCode]?.enableOtherBank,
 )
 
 const withdrawCondition = computed(() =>
@@ -103,7 +103,7 @@ const submitWithdraw = async () => {
   try {
     //
     await createWithdraw({
-      currencyCode: useCurrencyCode(),
+      currencyCode: useDefaults()?.currencyCode,
       gatewayCode: selectGateWay.value?.gatewayCode,
       channelCode: selectGateWay.value?.channelCode,
       redirectUrl: `${location.origin}${route.fullPath}`,
@@ -170,13 +170,13 @@ const handlePhoneOTP = () => {
 onMounted(() => {
   getGateWays({
     channelType: 'withdraw',
-    currencyCode: useCurrencyCode(), // KRW , THB
+    currencyCode: useDefaults()?.currencyCode, // KRW , THB
   })
-  promotionWithdrawCheck({ currencyCode: useCurrencyCode() }).then((res) => {
+  promotionWithdrawCheck({ currencyCode: useDefaults()?.currencyCode }).then((res) => {
     currentPromotion.value = res
   })
-  fetchBankList({ currencyCode: useCurrencyCode() })
-  getBankAccounts({ currencyCode: useCurrencyCode() })
+  fetchBankList({ currencyCode: useDefaults()?.currencyCode })
+  getBankAccounts({ currencyCode: useDefaults()?.currencyCode })
 })
 </script>
 

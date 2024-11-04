@@ -33,7 +33,6 @@ const formatHHMM = (dateInInt) => {
 }
 
 export const usePromotionData = (item = {}) => {
-  // const locale = useDefaultLangauge()
   const { $i18n } = useNuxtApp()
 
   const detail =

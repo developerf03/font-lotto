@@ -18,7 +18,7 @@ const promotionList = computed(() => {
 // Functions
 const fetchPromotionList = () => {
   fetchPromotions({
-    currency: useCurrencyCode(),
+    currency: useDefaults()?.currencyCode,
     page: 1,
     pageSize: 100,
   })

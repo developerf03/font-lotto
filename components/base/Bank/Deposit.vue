@@ -55,7 +55,7 @@ const handleDepositSubmit = async () => {
     //
     loading.value = true
     const { url } = await createDeposit({
-      currencyCode: useCurrencyCode(),
+      currencyCode: useDefaults()?.currencyCode,
       gatewayCode: selectGateWay.value.gatewayCode,
       channelCode: selectGateWay.value.channelCode,
       redirectUrl: `${location.origin}${route.fullPath}`,
@@ -118,7 +118,7 @@ const onPromotionSelected = async (val) => {
     try {
       const res = await promotionDepositCheck({
         amount: depositInput.value || 0,
-        currencyCode: useCurrencyCode(),
+        currencyCode: useDefaults()?.currencyCode,
         promotionCode: val,
       })
       promotionCheck.value = res
@@ -159,10 +159,10 @@ onMounted(() => {
   nextTick(() => {
     getGateWays({
       channelType: 'deposit',
-      currencyCode: useCurrencyCode(), // KRW , THB
+      currencyCode: useDefaults()?.currencyCode, // KRW , THB
     })
     fetchPromotions({
-      currency: useCurrencyCode(),
+      currency: useDefaults()?.currencyCode,
       page: 1,
       pageSize: 100,
     })

@@ -11,6 +11,11 @@ export const useSocket = () => {
   const { depositTrigger, depositTransactionDataTable } = storeToRefs(usePaymentStore())
   const signUpSetting = computed(() => useSignUpSetting())
   const { handVerifyOTPModal } = useModals()
+  const { fetchUser } = useAuth()
+  const pagination = {
+    page: 1,
+    pageSize: 5,
+  }
 
   const fetchTransactionList = ({ type, currencyType } = {}) => {
     fetchTransactions({
@@ -102,11 +107,8 @@ export const useSocket = () => {
 
     depositTrigger.value = data
 
-    console.log('handleDepositEvent', data.status)
-
     // Check status
     if (status === 'success') {
-      console.log('status', status)
       useAlert({
         success: true,
         title: $i18n.t('depositSuccessful'),

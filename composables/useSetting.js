@@ -203,3 +203,12 @@ export const useSubMenu = () => {
     },
   ])
 }
+
+export const useDefaultLangauge = () => {
+  const { $i18n } = useNuxtApp()
+
+  const { headerInfo } = storeToRefs(useSettingStore())
+
+  return $i18n.locales.value?.find((v) => v.countryCode === headerInfo.value?.data?.countryCode)
+    ?.IETF
+}

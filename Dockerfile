@@ -34,9 +34,8 @@ RUN bun run build
 
 # Fourth stage - Production
 FROM base AS release
-COPY --chown=bun:bun --from=install /temp/node_modules node_modules
-COPY --chown=bun:bun --from=prerelease /usr/src/app/.output .
-USER bun
+COPY --from=install /temp/node_modules node_modules
+COPY --from=prerelease /usr/src/app/.output .
 ENV HOST 0.0.0.0
 EXPOSE 3000
 ENTRYPOINT [ "bun", "run", "server/index.mjs" ]

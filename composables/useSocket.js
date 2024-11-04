@@ -11,6 +11,11 @@ export const useSocket = () => {
   const { depositTrigger, depositTransactionDataTable } = storeToRefs(usePaymentStore())
   const signUpSetting = computed(() => useSignUpSetting())
   const { handVerifyOTPModal } = useModals()
+  const { fetchUser } = useAuth()
+  const pagination = {
+    page: 1,
+    pageSize: 5,
+  }
 
   const fetchTransactionList = ({ type, currencyType } = {}) => {
     fetchTransactions({

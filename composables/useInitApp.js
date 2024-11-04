@@ -8,7 +8,7 @@ export const useInitAppSSR = async () => {
 
   try {
     // Init langauge
-    useInitLang()
+    useInitLang(setting)
 
     // Init functions
     useInitHead(setting.value)
@@ -55,22 +55,27 @@ export const useFetchAfterAuthen = () => {
   }
 }
 
-export const useInitLang = () => {
+export const useInitLang = (setting) => {
   const { $i18n } = useNuxtApp()
   const i18n = useCookie('i18n_redirected')
   const lang = useCookie('lang')
-  const theme = useCookie('theme')
+  const theme = useCookie('themeMode')
+  const themeColor = useCookie('themeColor')
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
-  
+
   if (agentLang.length && !lang.value) {
     $i18n.setLocale(agentLang[0])
     lang.value = agentLang[0]
     i18n.value = agentLang[0]
   }
 
+  // theme mode
   if (!theme.value || theme.value === 'undefined' || theme.value === 'null') {
     theme.value = 'light-theme'
   }
+
+  // theme color
+  themeColor.value = setting?.value?.theme
 }
 
 export const useInitHead = (setting) => {

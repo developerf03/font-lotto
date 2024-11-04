@@ -18,7 +18,8 @@ import 'swiper/css/bundle'
 import 'vue3-toastify/dist/index.css'
 
 // Composables
-const theme = useCookie('theme')
+const theme = useCookie('themeMode')
+const themeColor = useCookie('themeColor')
 const { locale } = useI18n()
 
 useInitAppSSR()
@@ -29,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Html :class="theme || 'dark-theme'" :lang="locale">
+  <Html :class="[theme || 'dark-theme', themeColor || 'blue']" :lang="locale">
     <Head>
       <Title>{{ $t('welcome') }}</Title>
     </Head>

@@ -10,7 +10,8 @@ import RegisterModal from '~/components/modal/Register.vue'
 import LauncherModal from '~/components/modal/Launcher.vue'
 import ForgotPasswordModal from '~/components/modal/ForgotPassword.vue'
 import ProfileModal from '~/components/modal/Profile.vue'
-import PromotionDetailsModal from '~/components/modal/promotionDetails.vue'
+import PromotionsModal from '~/components/modal/Promotions.vue'
+import PromotionDetailsModal from '~/components/modal/PromotionDetails.vue'
 import BankAccountSubMenu from '~/components/modal/BankAccountSubMenu.vue'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -51,6 +52,7 @@ onMounted(() => {
         <LanguageModal />
         <PromotionDetailsModal />
         <BaseLoadingPage />
+        <PromotionsModal />
       </NuxtLayout>
     </Body>
   </Html>

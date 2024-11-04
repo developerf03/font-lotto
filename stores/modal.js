@@ -8,6 +8,7 @@ export const useModalStore = defineStore('modal', () => {
   const profileModal = ref(false)
   const bankAccountModal = ref(false)
   const languageModal = ref(false)
+  const promotionsModal = ref(false)
   const promotionDetailsModal = reactive({
     active: false,
     item: null,
@@ -111,6 +112,10 @@ export const useModalStore = defineStore('modal', () => {
     verifyOTPModal.cb = cb
   }
 
+  const handlePromotionsModal = (val) => {
+    promotionsModal.value = val
+  }
+
   return {
     // state
     loginModal,
@@ -125,6 +130,7 @@ export const useModalStore = defineStore('modal', () => {
     profileModal,
     languageModal,
     promotionDetailsModal,
+    promotionsModal,
     // function
     handleLoginModal,
     handleRegisterModal,
@@ -138,5 +144,6 @@ export const useModalStore = defineStore('modal', () => {
     handleProfileModal,
     handleLanguageModal,
     showPromotionDetailsModal,
+    handlePromotionsModal,
   }
 })

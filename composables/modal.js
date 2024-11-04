@@ -16,6 +16,7 @@ export const useModals = () => {
     profileModal,
     languageModal,
     promotionDetailsModal,
+    promotionsModal,
   } = storeToRefs(useModalStore())
   // store function
   const {
@@ -31,6 +32,7 @@ export const useModals = () => {
     handleProfileModal,
     handleLanguageModal,
     showPromotionDetailsModal,
+    handlePromotionsModal,
   } = useModalStore()
 
   const closeAuthModal = () => {
@@ -41,6 +43,7 @@ export const useModals = () => {
     handVerifyOTPModal({ active: false })
     handleProfileModal(false)
     showPromotionDetailsModal(false)
+    handlePromotionsModal(false)
   }
 
   return {
@@ -57,6 +60,7 @@ export const useModals = () => {
     profileModal,
     languageModal,
     promotionDetailsModal,
+    promotionsModal,
 
     // function
     handleLoginModal,
@@ -72,5 +76,6 @@ export const useModals = () => {
     handleLanguageModal,
     showPromotionDetailsModal,
     closeAuthModal,
+    handlePromotionsModal,
   }
 }

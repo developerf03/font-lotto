@@ -131,7 +131,7 @@ export const useDefaults = () => {
 }
 
 export const useMenu = () => {
-  const { showPaymentModal, handleLoginModal } = useModals()
+  const { showPaymentModal, handleLoginModal, handlePromotionsModal } = useModals()
   const route = useRoute()
   const { user } = useAuth()
 
@@ -142,6 +142,7 @@ export const useMenu = () => {
         user.value ? showPaymentModal(true, 'deposit', null) : handleLoginModal(true),
       withdraw: () =>
         user.value ? showPaymentModal(true, 'withdraw', null) : handleLoginModal(true),
+      // promotion: () => handlePromotionsModal(true),
       promotion: () => $navigateTo('/promotions'),
     }
 

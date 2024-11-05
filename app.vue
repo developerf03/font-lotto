@@ -2,7 +2,6 @@
 // Imports
 import paymentModal from '~/components/modal/Payment.vue'
 import paymentDepositModal from '~/components/modal/PaymentDeposit.vue'
-import transactionsAllModal from '~/components/modal/Transactions.vue'
 import VerifyOtpModal from '~/components/modal/VerifyOtp.vue'
 import LanguageModal from '~/components/modal/Language.vue'
 import LoginModal from '~/components/modal/Login.vue'
@@ -36,9 +35,8 @@ onMounted(() => {
         <NuxtPage />
 
         <!-- MODAL -->
-        <paymentModal />
+        <paymentModal/>
         <paymentDepositModal />
-        <transactionsAllModal />
         <LoginModal />
         <RegisterModal />
         <ForgotPasswordModal />

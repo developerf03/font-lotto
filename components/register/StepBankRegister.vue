@@ -57,13 +57,13 @@ const checkAccountNumber = useDebounceFn(() => handleCheckData('accountNumber'),
 const debounceTyped = useDebounceFn(() => (isTyping.value = false), 300)
 
 const handleCheckData = async (field) => {
-  if (!(form.accountName && form.accountNumber && form.bankCode)) return
+  if (!(form.accountName && form.accountNumber && form.bankCode?.bankCode)) return
   try {
     loading[field] = true
     await profileCheckData({
       accountName: form.accountName,
       accountNumber: form.accountNumber,
-      bankCode: form.bankCode,
+      bankCode: form.bankCode?.bankCode,
     })
     return ''
   } catch (error) {
@@ -131,15 +131,20 @@ onMounted(() => {
             v-model="form.bankCode"
             :options="bankList"
             searchable
-            variant="none"
-            value-attribute="bankCode"
-            option-attribute="bankDescription"
             :placeholder="t('selectBank')"
+            option-attribute="bankDescription"
             @update:model-value="handleInput('bankCode')"
           >
+            <template v-if="form.bankCode?.imageUrl" #leading>
+              <UAvatar
+                v-if="form.bankCode?.imageUrl"
+                v-bind="{ src: form.bankCode?.imageUrl }"
+                size="2xs"
+              />
+            </template>
             <template #option="{ option: value }">
               <UAvatar v-if="value" v-bind="{ src: value?.imageUrl }" size="2xs" />
-              <span>{{ value.bankDescription }}</span>
+              <span>{{ value?.bankDescription }}</span>
             </template>
           </USelectMenu>
         </UFormGroup>

@@ -132,6 +132,7 @@ const onVerify = (type) => {
     active: true,
     typeSend: 'changeprofile',
     type,
+    cb: reset,
   })
 }
 
@@ -219,7 +220,7 @@ const onSubmit = async () => {
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
               @click="onVerify('editPhone')"
             >
-              {{ t('verifyNow') }}
+              {{ userPlayer?.verifyPhone ? t('verifyNow') : t('addAPhoneNumber') }}
             </p>
           </template>
         </BaseInput>
@@ -248,7 +249,7 @@ const onSubmit = async () => {
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
               @click="onVerify('editEmail')"
             >
-              {{ t('verifyNow') }}
+              {{ userPlayer?.verify ? t('verifyNow') : t('addAnEmail') }}
             </p>
           </template>
         </BaseInput>

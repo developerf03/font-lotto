@@ -9,7 +9,6 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import { Transition } from 'vue'
 
 export default defineConfig({
   // ...UnoCSS options
@@ -55,6 +54,7 @@ export default defineConfig({
     ['text-success', { color: 'var(--font-success)' }],
     ['text-danger', { color: 'var(--font-error)' }],
     ['text-warning', { color: 'var(--font-warning)' }],
+    ['text-placecholder', { color: 'var(--input-placeholder)' }],
     // CARD
     [
       'card-primary',

@@ -110,7 +110,7 @@ export const useSocket = () => {
     // Check status
     if (status === 'success') {
       useAlert({
-        success: true,
+        wallet: true,
         title: $i18n.t('depositSuccessful'),
         text: $i18n.t('depositAmountSuccess', {
           amount: $format.currency(data.amount, isFiat ? 2 : 8),

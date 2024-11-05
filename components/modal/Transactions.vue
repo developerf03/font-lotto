@@ -153,7 +153,6 @@ onMounted(() => {
     :hide-icon-close="true"
     @closed="closedModal"
   >
-    <!-- <div class="w-full"><div class="text-base cursor-pointer">ย้อนกลับ</div></div> -->
     <UTabs v-model="tabPayment" :items="items" @change="onChange" />
     <div v-if="transactionsList?.transactionList.length" class="text-xs text-tertiary">
       (ทั้งหมด {{ transactionsList?.total }} รายการ)

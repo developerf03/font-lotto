@@ -1,5 +1,6 @@
 <script setup>
 // Imports
+import { useIntervalFn } from '@vueuse/core'
 import logo from '~/assets/images/logo.png'
 import flag1 from '~/assets/icons/flags/1.png'
 import flag2 from '~/assets/icons/flags/2.png'
@@ -19,7 +20,7 @@ const { $i18n } = useNuxtApp()
 const { user, balance } = useAuth()
 const { handleLoginModal, handleRegisterModal } = useModals()
 const { games } = useGame()
-
+const intervalTimeSec = 60
 const mockup = [
   {
     name: 'lotteryResult1',
@@ -59,9 +60,32 @@ const mockup = [
   },
 ]
 
+// State
+const mirror = ref(false)
+
+// computed
 const gameLotto = computed(() => games.value?.search?.list.find((o) => o?.type === 'lotto'))
 
 // function
+// const { isActive } = useIntervalFn(() => {
+//   mirror.value = true
+//   console.log('isActive', isActive)
+
+// setTimeout(() => {
+//   mirror.value = false
+// }, 1000)
+// }, intervalTimeSec * 1000)
+
+// const { pause, resume, isActive } = useIntervalFn(() => {
+//   mirror.value = true
+//   console.log('isActive', isActive.value, resume, pause)
+//   if (isActive.value) {
+//     pause()
+//     mirror.value = true
+//     isActive.value = false
+//   }
+// }, 2000)
+
 const handleLaunchGame = () => {
   if (!user.value) {
     handleLoginModal(true)
@@ -104,8 +128,12 @@ const handleLaunchGame = () => {
       />
     </div>
 
-    <UButton size="md" variant="play" class="mb-4 relative overflow-hidden" @click="handleLaunchGame">
-      <!-- <nuxt-icon name="svg/bank" class="" />  -->
+    <UButton
+      size="md"
+      variant="play"
+      class="mb-4 relative"
+      @click="handleLaunchGame"
+    >
       {{ t('betLotto') }}
       <div class="effect-mirror" />
     </UButton>

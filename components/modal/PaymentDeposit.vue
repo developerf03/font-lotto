@@ -87,7 +87,7 @@ const handleCountDownEnd = () => {
       <div class="w-full flex justify-center items-center flex-col gap-2">
         <div class="">
           <span class="text-highlight text-4xl <sm:(text-3xl)">{{
-            $format.number(paymentDepositQaModal?.item?.amount)
+            $format.currency(paymentDepositQaModal?.item?.amount)
           }}</span>
           <span class="text-2xl <sm:(text-xl) ml-1"> {{ useDefaults()?.currencyCode }}</span>
         </div>

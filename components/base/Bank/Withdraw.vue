@@ -5,8 +5,15 @@
 // Composables
 const { showPaymentModal, showTransactionsModal, handVerifyOTPModal, handleBankAccountModal } =
   useModals()
-const { gateWayOption, banks, getGateWays, getBankAccounts, fetchBankList, createWithdraw } =
-  usePayment()
+const {
+  bankListLoading,
+  gateWayOption,
+  banks,
+  getGateWays,
+  getBankAccounts,
+  fetchBankList,
+  createWithdraw,
+} = usePayment()
 const { promotionWithdrawCheck } = usePromotion()
 const route = useRoute()
 const signUpSetting = computed(() => useSignUpSetting())
@@ -184,56 +191,10 @@ onMounted(() => {
 <template>
   <div class="withdraw-wrapper gap-2 flex justify-center items-center flex-col w-full">
     <!-- <pre> ==>{{ signUpSetting }}</pre> -->
-    <!-- isVerify -->
     <div
-      v-if="!signUpSetting?.isVerify || !banks.bankAccountList.length"
-      class="gap-2 flex justify-center items-center flex-col w-full min-h-[454px]"
+      v-if="signUpSetting?.isVerify && !bankListLoading && banks.bankAccountList.length"
+      class="w-full gap-2 flex justify-center items-center flex-col"
     >
-      <!-- NOT VERIFY -->
-      <div
-        v-if="!signUpSetting?.isVerify"
-        class="flex flex-col justify-center items-center gap-2 w-full"
-      >
-        <nuxt-icon
-          :name="signUpSetting?.verifyWith === 'phone' ? 'svg/verify-phone' : 'email-account'"
-          class="text-6xl <sm:(text-5xl) text-tertiary"
-        />
-        <span class="text-tertiary mt-2 text-center <sm:(text-sm)">{{
-          signUpSetting?.verifyWith === 'phone'
-            ? $t('notVerifyPhoneForWithdrawal')
-            : $t('pleaseVerifyEmailBeforeMakingWithdrawal')
-        }}</span>
-        <UButton
-          :label="signUpSetting?.verifyWith === 'phone' ? $t('verifyPhone') : $t('verifyEmail')"
-          type="submit"
-          size="md"
-          variant="solid"
-          class="!min-w-[50px] w-auto mt-4"
-          @click="handlePhoneOTP"
-        />
-      </div>
-      <!-- NOT VERIFY -->
-
-      <!-- NO BANK -->
-      <div
-        v-else-if="!banks.bankAccountList.length"
-        class="flex flex-col justify-center items-center gap-2 w-full"
-      >
-        <nuxt-icon name="svg/bank" class="text-6xl <sm:(text-5xl) text-tertiary" />
-        <span class="text-tertiary mt-2 text-center <sm:(text-sm)">{{
-          $t('noAccountForWithdrawal')
-        }}</span>
-        <UButton
-          :label="t('goToAddAccountForWithdrawal')"
-          type="submit"
-          size="md"
-          variant="solid"
-          class="!min-w-[50px] w-auto mt-4"
-          @click="handleBankAccountModal(true), showPaymentModal(false, '', null)"
-        />
-      </div>
-    </div>
-    <div v-else class="w-full gap-2 flex justify-center items-center flex-col">
       <div
         class="crad-Wallet card-tertiary w-full rounded-md flex justify-center items-center flex-col h-[81px]"
       >
@@ -316,7 +277,7 @@ onMounted(() => {
         <UFormGroup name="deposit">
           <template #label>
             <div class="flex items-center gap-1 mb-1">
-              <div >{{ t('table.amount') }}</div>
+              <div>{{ t('table.amount') }}</div>
               <div v-if="withdrawForm.gateway" class="text-error">
                 <span
                   v-if="selectGateWay.channelAmountMin && selectGateWay.channelAmountMax"
@@ -424,6 +385,52 @@ onMounted(() => {
         @click="onTransactions"
       >
         {{ t('transactionHistory') }}
+      </div>
+    </div>
+    <!-- isVerify -->
+    <div v-else class="gap-2 flex justify-center items-center flex-col w-full min-h-[454px]">
+      <!-- NOT VERIFY -->
+      <div
+        v-if="!signUpSetting?.isVerify"
+        class="flex flex-col justify-center items-center gap-2 w-full"
+      >
+        <nuxt-icon
+          :name="signUpSetting?.verifyWith === 'phone' ? 'svg/verify-phone' : 'email-account'"
+          class="text-6xl <sm:(text-5xl) text-tertiary"
+        />
+        <span class="text-tertiary mt-2 text-center <sm:(text-sm)">{{
+          signUpSetting?.verifyWith === 'phone'
+            ? $t('notVerifyPhoneForWithdrawal')
+            : $t('pleaseVerifyEmailBeforeMakingWithdrawal')
+        }}</span>
+        <UButton
+          :label="signUpSetting?.verifyWith === 'phone' ? $t('verifyPhone') : $t('verifyEmail')"
+          type="submit"
+          size="md"
+          variant="solid"
+          class="!min-w-[50px] w-auto mt-4"
+          @click="handlePhoneOTP"
+        />
+      </div>
+      <!-- NOT VERIFY -->
+
+      <!-- NO BANK -->
+      <div
+        v-else-if="!banks.bankAccountList.length"
+        class="flex flex-col justify-center items-center gap-2 w-full"
+      >
+        <nuxt-icon name="svg/bank" class="text-6xl <sm:(text-5xl) text-tertiary" />
+        <span class="text-tertiary mt-2 text-center <sm:(text-sm)">{{
+          $t('noAccountForWithdrawal')
+        }}</span>
+        <UButton
+          :label="t('goToAddAccountForWithdrawal')"
+          type="submit"
+          size="md"
+          variant="solid"
+          class="!min-w-[50px] w-auto mt-4"
+          @click="handleBankAccountModal(true), showPaymentModal(false, '', null)"
+        />
       </div>
     </div>
   </div>

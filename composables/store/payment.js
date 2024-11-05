@@ -13,6 +13,7 @@ export const usePayment = () => {
     bankAccountsLoading,
     bankListByCurrency,
     depositTrigger,
+    bankListLoading,
   } = storeToRefs(usePaymentStore())
 
   // Methodss
@@ -38,6 +39,7 @@ export const usePayment = () => {
     bankAccountsLoading,
     bankListByCurrency,
     depositTrigger,
+    bankListLoading,
     // Actions
     fetchBankList,
     getBankAccounts,

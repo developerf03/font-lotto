@@ -146,6 +146,7 @@ export const usePaymentStore = defineStore('payment', () => {
     bankListByCurrency,
     depositTransactionDataTable,
     depositTrigger,
+    bankListLoading,
     // function
     fetchBankList,
     getBankAccounts,

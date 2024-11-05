@@ -70,7 +70,7 @@ const handleCancelSubmit = () => {
         />
         <div
           v-if="globalAlerts.title"
-          class="font-medium text-primary"
+          class="font-medium text-primary text-center"
           :class="isConfirmDialog ? 'text-xl' : 'text-xl <sm:(text-lg)'"
         >
           {{ globalAlerts.title }}

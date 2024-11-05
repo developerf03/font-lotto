@@ -2,13 +2,13 @@
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 
 // Composables
-const { depositTrigger, cancelTransactionPayment, fetchApiTransactions } = usePayment()
+const { depositTrigger, cancelTransactionPayment, fetchTransactions } = usePayment()
 
 // Stores
 const { paymentDepositQaModal, showPaymentDepositQaModal } = useModals()
 
 // State
-const depositCountdownTimeSec = ref(120)
+const depositCountdownTimeSec = ref(300)
 const loadingCancelTransaction = ref(false)
 
 // Computed
@@ -16,6 +16,7 @@ const paymentQrCode = computed(() => useQRCode(paymentDepositQaModal.value?.item
 
 // Watch
 watch(depositTrigger, () => {
+  console.log('depositTrigger', depositTrigger)
   showPaymentDepositQaModal(false, false, null)
 })
 
@@ -36,7 +37,13 @@ const onCancelTransaction = () => {
           success: true,
           title: t('success'),
         })
-        fetchApiTransactions()
+        fetchTransactions({
+          sDate: '1970-01-01 00:00:00',
+          eDate: $format.getLocalDate(),
+          page: 1,
+          pageSize: 5,
+          type: ['add'],
+        })
         showPaymentDepositQaModal(false, false, null)
       } catch {
         loadingCancelTransaction.value = false
@@ -52,7 +59,6 @@ const onCancelTransaction = () => {
     },
   })
 }
-
 </script>
 
 <template>
@@ -63,7 +69,7 @@ const onCancelTransaction = () => {
     :hide-icon-close="false"
   >
     <div class="body-payment-deposit flex justify-center items-center flex-col w-full gap-4">
-      <div class="text-base <sm:(text-sm)">
+      <div class="text-lg <sm:(text-base)">
         <!-- {{
           paymentDepositQaModal.qa
             ? 'กรุณาแสกน QR นี้เพื่อเติมเงิน'

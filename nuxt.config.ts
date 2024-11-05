@@ -8,13 +8,6 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'nuxt',
   },
-  nitro: {
-    esbuild: {
-      options: {
-        target: "esnext",
-      },
-    },
-  },
   app: {
     head: {
       meta: [

@@ -207,7 +207,9 @@ const onSubmit = async () => {
         <BaseInput
           v-model="form.phone"
           :placeholder="userPlayer?.phone ? t('phone') : '-'"
-          input-class="!pr-[100px]"
+          :input-class="
+            signUpSetting?.verifyWith === 'phone' && !userPlayer?.verifyPhone ? '!pr-[100px]' : ''
+          "
           trailing
           :readonly="!isEdit || userPlayer?.verifyPhone || signUpSetting?.verifyWith === 'phone'"
           @update:model-value="onInput('phone')"
@@ -239,7 +241,9 @@ const onSubmit = async () => {
         <BaseInput
           v-model="form.email"
           :placeholder="userPlayer?.email ? t('email') : '-'"
-          input-class="!pr-[100px]"
+          :input-class="
+            signUpSetting?.verifyWith === 'email' && !userPlayer?.verify ? '!pr-[100px]' : ''
+          "
           trailing
           :readonly="!isEdit || userPlayer?.verify || signUpSetting?.verifyWith === 'email'"
           @update:model-value="onInput('email')"

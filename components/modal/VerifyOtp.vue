@@ -330,7 +330,6 @@ const handleCheckData = async () => {
             <BaseInput
               v-model="form.phoneNumber"
               :placeholder="t('phone')"
-              input-class="!pr-[100px]"
               trailing
               @update:model-value="validator.validate('phoneNumber')"
             />
@@ -345,7 +344,6 @@ const handleCheckData = async () => {
             <BaseInput
               v-model="form.email"
               :placeholder="t('email')"
-              input-class="!pr-[100px]"
               trailing
               @update:model-value="validator.validate('email')"
             />

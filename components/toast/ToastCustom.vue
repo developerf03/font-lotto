@@ -28,7 +28,14 @@ const status = {
     :class="`toast-status-${data?.status}`"
     @click="props.closeToast()"
   >
-    <Vue3Lottie :animation-data="status?.[data?.status]" :height="24" :width="24" class="!m-0" />
+    <Vue3Lottie
+      :animation-data="status?.[data?.status]"
+      :height="24"
+      :width="24"
+      class="!m-0"
+      :speed="0.7"
+      :loop="false"
+    />
     <span>{{ data?.text }}</span>
   </div>
 </template>

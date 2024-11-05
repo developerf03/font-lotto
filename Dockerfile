@@ -1,5 +1,5 @@
 # First stage - Base
-FROM node:18-alpine AS base
+FROM node:20-alpine3.18 AS base
 WORKDIR /usr/src/app
 
 RUN apk --no-cache add ca-certificates wget
@@ -31,7 +31,12 @@ RUN bun run build
 
 FROM base AS release
 WORKDIR /usr/src/app
-COPY --from=install /usr/src/app/.output ./.output
-EXPOSE 3000
-ENTRYPOINT ["node","./.output/server/index.mjs"]
 
+RUN addgroup --system --gid 1001 nodejs; \
+    adduser --system --uid 1001 nuxt
+
+COPY --from=install /usr/src/app/.output ./.output
+
+USER nuxt
+
+CMD [ "node", ".output/server/index.mjs" ]

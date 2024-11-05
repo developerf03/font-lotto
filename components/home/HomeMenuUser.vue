@@ -27,7 +27,7 @@ const menu = useSubMenu()
         </UButton>
 
         <template #panel>
-          <div class="w-[200px]">
+          <div class="py-2 w-[230px]">
             <UVerticalNavigation :links="menu" />
           </div>
         </template>

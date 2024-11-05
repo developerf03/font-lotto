@@ -322,9 +322,10 @@ onMounted(() => {
             v-for="(item, index) in selectGateWay?.amountRatio"
             :key="index"
             :label="numeralCommas(item)"
-            class="!w-[23%] !h-9 <sm:(!w-[48%])"
+            class="!w-[23%] !h-9 border border-solid border-[var(--input-border)] active:bg-[var(--icon-default)] <sm:(!w-[48%])"
+            :ui="{ font: '!font-normal' }"
             size="sm"
-            variant="tertiary"
+            variant="none"
             @click="setWithdraw(item)"
             ><span class="<sm:text-lg"> {{ numeralCommas(item) }}</span></UButton
           >

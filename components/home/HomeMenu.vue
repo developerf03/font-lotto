@@ -77,14 +77,19 @@ const handleLaunchGame = () => {
 
 <template>
   <div
-    class="home-menu-wrapper w-full card-primary text-[var(--font-primary)] rounded-[20px] px-4 py-[14px] flex flex-col items-center sm:(p-5) 2xl:px-8 mlg:rounded-[60px]"
+    class="home-menu-wrapper w-full card-primary text-[var(--font-primary)] rounded-[20px] px-4 py-[14px] flex flex-col items-center sm:(p-4 py-3) xl:p-5 2xl:px-8 mlg:rounded-[60px]"
   >
     <!-- LOGO -->
-    <img :src="logo" alt="logo" srcset="" class="h-[69px] mb-4 mx-auto hidden mlg:block" >
+    <img
+      :src="logo"
+      alt="logo"
+      srcset=""
+      class="h-[69px] mb-4 mx-auto hidden mlg:(block mb-3 h-[59px]) xl:(mb-4 h-[69px])"
+    >
     <!-- WALLET AND PROFILE -->
     <div
       v-if="user"
-      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:flex"
+      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:(flex gap-3 mb-3) xl:(gap-4 mb-4)"
     >
       <HomeMenuUser :user="user?.player?.playerNickname || '-'" />
       <HomeMenuWallet :balance="balance" />
@@ -104,22 +109,20 @@ const handleLaunchGame = () => {
       />
     </div>
 
-    <UButton size="md" variant="play" class="mb-4 relative overflow-hidden" @click="handleLaunchGame">
+    <UButton
+      size="md"
+      variant="play"
+      class="mb-4 relative overflow-hidden mlg:mb-3 xl:mb-4"
+      @click="handleLaunchGame"
+    >
       <!-- <nuxt-icon name="svg/bank" class="" />  -->
       {{ t('betLotto') }}
       <div class="effect-mirror" />
     </UButton>
     <!-- LAUNCHER -->
-    <div class="w-full gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex flex-col)">
-      <!-- <HomeMenuItem
-        v-for="item in providers"
-        :key="item?.description"
-        :title="item?.lang?.[locale] || item?.description"
-        :icon="flag1"
-        :background="item?.images?.['dark']?.url"
-      /> -->
-      <!-- v-for="(item, index) in games?.search?.list"
-      :key="index" -->
+    <div
+      class="w-full gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex flex-col gap-2) xl:gap-3"
+    >
       <HomeMenuItem
         v-for="(item, index) in mockup"
         :key="index"
@@ -131,7 +134,7 @@ const handleLaunchGame = () => {
     </div>
 
     <!-- LANGUAGE AND THEME -->
-    <div class="w-full h-6 my-auto divide-x-1 divide-[var(--home-menu-divide)] hidden mlg:flex">
+    <div class="w-full my-auto divide-x-1 divide-[var(--home-menu-divide)] hidden mlg:flex">
       <div class="flex-1 flex items-center justify-center gap-4">
         <BaseChangeLanguage />
       </div>

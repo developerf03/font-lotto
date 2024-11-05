@@ -29,14 +29,8 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM node:20-alpine3.18 AS release
+FROM gcr.io/distroless/nodejs20-debian12 AS release
 WORKDIR /usr/src/app
-
-RUN addgroup --system --gid 1001 nodejs; \
-    adduser --system --uid 1001 nuxt
-
+ENV NODE_ENV=production
 COPY --from=install /usr/src/app/.output ./.output
-
-USER nuxt
-
 CMD [ "node", ".output/server/index.mjs" ]

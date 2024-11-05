@@ -59,13 +59,13 @@ const checkAccountNumber = useDebounceFn(() => handleCheckData('accountNumber'),
 const debounceTyped = useDebounceFn(() => (isTyping.value = false), 300)
 
 const handleCheckData = async (field) => {
-  if (!(form.accountName && form.accountNumber && form.bankCode)) return
+  if (!(form.accountName && form.accountNumber && form.bankCode?.bankCode)) return
   try {
     loading[field] = true
     await profileCheckData({
       accountName: form.accountName,
       accountNumber: form.accountNumber,
-      bankCode: form.bankCode,
+      bankCode: form.bankCode?.bankCode,
     })
     return ''
   } catch (error) {
@@ -97,7 +97,7 @@ const handleSubmit = async () => {
     await createBank({
       accountName: form.accountName,
       accountNumber: form.accountNumber,
-      bankCode: form.bankCode,
+      bankCode: form.bankCode?.bankCode,
       currencyCode: useDefaults()?.currencyCode,
       type: 'withdraw',
     })
@@ -141,9 +141,14 @@ watch(bankAccountModal, (val) => {
     :hide-icon-close="true"
   >
     <!-- Skeleton -->
-    <div v-if="bankAccountsLoading" class="flex justify-center items-center flex-col w-full gap-4">
-      <USkeleton class="h-[200px] !rounded-lg 2xl:rounded-[20px] w-full" />
-      <USkeleton class="h-[42px] !rounded-xl 2xl:rounded-[20px] w-full" />
+    <div
+      v-if="!dataBankAccount && bankAccountsLoading"
+      class="bank-account-wrapper w-full card-secondary flex flex-col p-2 rounded-md gap-2 <sm:(gap-4)"
+    >
+      <div v-for="item in 3" :key="item" class="flex items-center gap-2">
+        <USkeleton class="!rounded-lg w-[20px] h-[20px]" />
+        <USkeleton class="!rounded-lg w-1/3 h-[13px]" />
+      </div>
     </div>
     <div
       v-if="dataBankAccount && !bankAccountsLoading"
@@ -177,14 +182,20 @@ watch(bankAccountModal, (val) => {
                 v-model="form.bankCode"
                 :options="bankList"
                 searchable
-                value-attribute="bankCode"
                 option-attribute="bankDescription"
                 :placeholder="t('selectBank')"
                 @update:model-value="handleInput('bankCode')"
               >
+                <template v-if="form.bankCode?.imageUrl" #leading>
+                  <UAvatar
+                    v-if="form.bankCode?.imageUrl"
+                    v-bind="{ src: form.bankCode?.imageUrl }"
+                    size="2xs"
+                  />
+                </template>
                 <template #option="{ option: value }">
                   <UAvatar v-if="value" v-bind="{ src: value?.imageUrl }" size="2xs" />
-                  <span>{{ value.bankDescription }}</span>
+                  <span>{{ value?.bankDescription }}</span>
                 </template>
               </USelectMenu>
             </UFormGroup>

@@ -86,7 +86,7 @@ const handleSubmit = async () => {
       ...(signupSetting.value?.requireBank && {
         accountNumber: form.accountNumber,
         accountName: form.accountName,
-        bankCode: form.bankCode,
+        bankCode: form.bankCode?.bankCode,
       }),
       // if have utm source
       ...((route.query?.utm_source || utm.value) && {

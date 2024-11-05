@@ -158,6 +158,9 @@ export default {
   pleaseTransferOnly: 'Please transfer only the amount stated, do not round up.',
   depositDetails: 'Deposit details',
   withdrawalDetails: 'Withdrawal details',
+  addAPhoneNumber: 'Add a phone number',
+  addAnEmail: 'Add an email',
+
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

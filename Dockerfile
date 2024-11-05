@@ -1,5 +1,5 @@
 # First stage - Base
-FROM node:20-alpine AS base
+FROM node:18-alpine AS base
 WORKDIR /usr/src/app
 
 RUN apk --no-cache add ca-certificates wget
@@ -20,13 +20,12 @@ RUN if [[ $(uname -m) == "aarch64" ]] ; \
     fi
 
 RUN npm install -g bun
-
 RUN bun --version
 
 FROM base AS install
 WORKDIR /usr/src/app
 COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfil
+RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 

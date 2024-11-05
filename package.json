@@ -12,6 +12,7 @@
     "build-test": "nuxt build && node .output/server/index.mjs",
     "clean": "rm -rf .nuxt dist node_modules .output bun.lockb"
   },
+  "trustedDependencies": ["/@biomejs/biome", "@biomejs/biome", "@parcel/watche", "@parcel/watcher", "bufferutil", "esbuild"],
   "dependencies": {
     "@nuxt/ui": "^2.18.7",
     "@nuxtjs/i18n": "^8.0.0",

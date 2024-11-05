@@ -34,20 +34,24 @@ const oncancelPaymentQa = () => {
   >
     <div class="body-payment-deposit flex justify-center items-center flex-col w-full gap-4">
       <div class="text-base <sm:(text-sm)">
-        {{
+        <!-- {{
           paymentDepositQaModal.qa
             ? 'กรุณาแสกน QR นี้เพื่อเติมเงิน'
             : 'กรุณาคัดลอกบัญชีและโอนเงินตามที่กำหนด'
-        }}
+        }} -->
+        {{ t('topUpAmount') }}
       </div>
       <div class="w-full flex justify-center items-center flex-col gap-2">
-        <div class="text-4xl <sm:(text-3xl)">{{ paymentDepositQaModal?.item?.amount }} บาท</div>
+        <div class="text-4xl <sm:(text-3xl)">
+          <span class="text-highlight">{{ paymentDepositQaModal?.item?.amount }}</span> บาท
+        </div>
         <div class="text-xs <sm:(text-2xs)">
-          {{
+          <!-- {{
             paymentDepositQaModal.qa
               ? '(โอนตามจำนวนที่กำหนดภายใน 5 นาที ห้ามปัดยอด)'
               : '(โอนตามจำนวนที่กำหนดภายใน 5 นาที ห้ามปัดยอด เมื่อโอนแล้วห้ามปิดหน้านี้)'
-          }}
+          }} -->
+          {{ t('pleaseTransferOnly') }}
         </div>
       </div>
       <div
@@ -64,7 +68,7 @@ const oncancelPaymentQa = () => {
 
         <!-- 600000 = 10นาที -->
         <base-countdown v-slot="props" :time="depositCountdownTimeSec * 1000" :pad-start="true">
-          <div v-if="props.fullSeconds" class="flex gap-2 justify-center">
+          <div v-if="props.fullSeconds" class="flex gap-2 justify-center mt-2">
             <div class="font-light text-base <sm:(text-sm)">{{ $t('withinTime') }}</div>
             <div class="font-light text-base <sm:(text-sm) text-primary">
               <span v-if="props.minutes > 0"> {{ props.minutes }}.</span
@@ -82,11 +86,11 @@ const oncancelPaymentQa = () => {
         :bank-short-name="paymentDepositQaModal?.item?.bankShortName"
       />
       <UButton
-        label="ยกเลิกรายการ"
+        :label="t('cancelTransaction')"
         class="!w-full"
         :ui="{ rounded: 'rounded-full' }"
         size="md"
-        variant="tertiary"
+        variant="cancel"
         @click="oncancelPaymentQa"
       />
     </div>

@@ -153,6 +153,8 @@ export default {
   day: 'day',
   withinTime: 'Within time',
   pleaseTransferMoney: 'Please transfer money to',
+  topUpAmount: 'Transfer amount',
+  pleaseTransferOnly: 'Please transfer only the amount stated, do not round up.',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

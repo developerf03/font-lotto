@@ -151,6 +151,8 @@ export default {
   day: 'วัน',
   withinTime: 'ภายในเวลา',
   pleaseTransferMoney: 'กรุณาโอนเงินไปยัง',
+  topUpAmount: 'ยอดเงินที่ต้องโอน',
+  pleaseTransferOnly: 'กรุณาโอนให้ตรงยอดที่แจ้งเท่านั้น ห้ามปัดเศษ',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

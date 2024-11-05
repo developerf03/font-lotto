@@ -56,7 +56,12 @@ const handleCancelSubmit = () => {
         />
         <Vue3Lottie v-if="globalAlerts?.info" :animation-data="info" :height="100" :width="100" />
         <Vue3Lottie v-if="globalAlerts?.wifi" :animation-data="wifi" :height="100" :width="100" />
-        <Vue3Lottie v-if="globalAlerts?.wallet" :animation-data="wallet" :height="100" :width="100" />
+        <Vue3Lottie
+          v-if="globalAlerts?.wallet"
+          :animation-data="wallet"
+          :height="100"
+          :width="100"
+        />
         <Vue3Lottie
           v-if="globalAlerts?.noWifi"
           :animation-data="noWifi"
@@ -70,7 +75,9 @@ const handleCancelSubmit = () => {
         >
           {{ globalAlerts.title }}
         </div>
-        <p v-if="globalAlerts.text" class="text-lg <sm:(text-base)">{{ globalAlerts.text }}</p>
+        <p v-if="globalAlerts.text" class="text-lg text-center <sm:(text-base)">
+          {{ globalAlerts.text }}
+        </p>
         <div
           v-if="globalAlerts.cancelButtonText || globalAlerts.confirmButtonText"
           class="w-full flex justify-center gap-4 mt-4 max-w-[400px]"

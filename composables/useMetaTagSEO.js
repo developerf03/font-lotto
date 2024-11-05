@@ -3,6 +3,7 @@ export const useMetaTagSEO = ({
   description,
   image,
   url,
+  keywords,
   type = 'website',
   faviconUrl,
 } = {}) => {
@@ -71,14 +72,19 @@ export const useMetaTagSEO = ({
     title: title,
     meta: [
       {
-        property: 'title',
+        name: 'title',
         hid: 'title',
         content: title,
       },
       {
-        property: 'description',
+        name: 'description',
         hid: 'description',
         content: title,
+      },
+      {
+        name: 'keywords',
+        hid: 'keywords',
+        content: keywords,
       },
       ...openGraph(),
       ...twitterCard(),

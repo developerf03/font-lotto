@@ -15,8 +15,10 @@ export const useInitAppSSR = async () => {
 
     // Init meta tag SEO
     useMetaTagSEO({
-      title: setting.value.title[locale],
-      description: setting.value.description[locale],
+      title: setting.value.metaTags?.[locale]?.title,
+      description: setting.value.metaTags?.[locale]?.description,
+      image: setting.value.metaTags?.[locale]?.image,
+      keywords: setting.value.metaTags?.[locale]?.keywords,
       faviconUrl: setting.value.faviconUrl
     })
   } catch (error) {

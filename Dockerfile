@@ -33,8 +33,5 @@ FROM base AS release
 WORKDIR /usr/src/app
 COPY --from=install /usr/src/app/.output ./.output
 
-RUN addgroup -S bungroup && adduser -S bunuser -G bungroup
-USER bunuser
-
 ENTRYPOINT ["node","./.output/server/index.mjs"]
 

@@ -113,13 +113,14 @@ body {
 .effect-mirror {
   position: absolute;
   top: 0;
-  left: 0%;
-  width: 100%;
+  left: 50%;
+  width: 50vw;
   height: 100%;
+  transform: translateX(-50%);
   border-radius: 100px;
   pointer-events: none;
   background: linear-gradient(120deg, #ff4c0000 63%, #dddad969 82%, #ffffff59 85%, #97979700 90%);
-  animation: mymove 4s infinite linear;
+  animation: mymove 2s infinite linear;
 }
 
 @keyframes mymove {
@@ -127,6 +128,6 @@ body {
     background-position: 0px 0px;
   }
   100% {
-    background-position: 1000px 0px;
+    background-position: 500px 0px;
   }
 }

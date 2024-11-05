@@ -32,7 +32,6 @@ export const useModals = () => {
     handleProfileModal,
     handleLanguageModal,
     showPromotionDetailsModal,
-    handlePromotionsModal,
   } = useModalStore()
 
   const closeAuthModal = () => {
@@ -43,7 +42,6 @@ export const useModals = () => {
     handVerifyOTPModal({ active: false })
     handleProfileModal(false)
     showPromotionDetailsModal(false)
-    handlePromotionsModal(false)
   }
 
   return {
@@ -76,6 +74,5 @@ export const useModals = () => {
     handleLanguageModal,
     showPromotionDetailsModal,
     closeAuthModal,
-    handlePromotionsModal,
   }
 }

@@ -20,13 +20,12 @@ RUN if [[ $(uname -m) == "aarch64" ]] ; \
     fi
 
 RUN npm install -g bun
-
 RUN bun --version
 
 FROM base AS install
 WORKDIR /usr/src/app
 COPY package.json bun.lockb ./
-RUN bun install
+RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
@@ -40,4 +39,5 @@ USER bunuser
 ENV HOST 0.0.0.0
 ENV PORT 3000
 EXPOSE 3000
-ENTRYPOINT ["bun", "run", "./.output/server/index.mjs"]
+ENTRYPOINT ["node","./.output/server/index.mjs"]
+

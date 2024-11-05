@@ -98,7 +98,7 @@ const handleSubmit = async () => {
         {{ t('forgotPassword') }}
       </p>
       <!-- BUTTON SUBMIT -->
-      <UButton :label="t('login')" :loading="loading" type="submit" class="mb-4" />
+      <UButton :label="t('login')" :loading="loading" type="submit" class="mb-4" size="md" />
     </UForm>
     <!-- LINK REGISTER -->
     <p class="text-sm">

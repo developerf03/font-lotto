@@ -31,18 +31,17 @@ onClickOutside(target, () => (isExpan.value = false))
         </UButton>
       </div>
     </div>
-    <!-- CONTENT -->
     <!-- WALLET -->
     <div v-if="user">
       <HomeMenuWallet :balance="balance" class="mt-3" />
     </div>
     <!-- BUTTON => LOGIN / REGISTER -->
     <div v-else class="w-full flex gap-4 mt-3">
-      <UButton :label="t('login')" variant="outline" size="sm" @click="handleLoginModal(true)" />
+      <UButton :label="t('login')" variant="outline" size="md" @click="handleLoginModal(true)" />
       <UButton
         :label="t('register')"
         variant="solid"
-        size="sm"
+        size="md"
         @click="handleRegisterModal(true)"
       />
     </div>

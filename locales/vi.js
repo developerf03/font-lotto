@@ -147,6 +147,14 @@ export default {
   duplicateBankAccount: 'Tài khoản ngân hàng trùng lặp',
   duplicateAccountName: 'Tên tài khoản trùng lặp',
   duplicateAccountNumber: 'Số tài khoản trùng lặp',
+  hour: 'giờ',
+  minutes: 'phút',
+  seconds: 'giây',
+  day: 'ngày',
+  withinTime: 'Trong thời gian',
+  pleaseTransferMoney: 'Vui lòng chuyển tiền đến',
+  topUpAmount: 'Số tiền chuyển khoản',
+  pleaseTransferOnly: 'Vui lòng chỉ chuyển số tiền đã nêu, không làm tròn số.',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

@@ -32,6 +32,6 @@ RUN bun run build
 FROM base AS release
 WORKDIR /usr/src/app
 COPY --from=install /usr/src/app/.output ./.output
-
-CMD ["node","./.output/server/index.mjs"]
+EXPOSE 3000
+ENTRYPOINT ["node","./.output/server/index.mjs"]
 

@@ -33,4 +33,4 @@ FROM gcr.io/distroless/nodejs20-debian12 AS release
 WORKDIR /usr/src/app
 ENV NODE_ENV=production
 COPY --from=install /usr/src/app/.output ./.output
-CMD [ "node", ".output/server/index.mjs" ]
+CMD [".output/server/index.mjs" ]

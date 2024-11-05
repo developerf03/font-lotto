@@ -23,7 +23,7 @@ const promotionCheckApprove = ref(true)
 
 // Computed
 const selectGateWay = computed(() =>
-  gateWayOption.value?.find((v) => v.gatewayCode === depositForm.gateway),
+  gateWayOption.value?.find((v) => v.gatewayCode === depositForm?.gateway?.gatewayCode),
 )
 
 const depositInput = computed(() => +`${depositForm.deposit}`.replace(/,|\./g, ''))
@@ -37,7 +37,7 @@ const checkMinMax = computed(
 const promotionDetail = computed(() => usePromotionData(promotionCheck.value?.detail?.promotion))
 
 const isDisableSubmitBtn = computed(() => {
-  return !checkMinMax.value || !depositForm.gateway || !depositForm.deposit
+  return !checkMinMax.value || !depositForm?.gateway?.gatewayCode || !depositForm.deposit
 })
 
 // Watch
@@ -135,7 +135,6 @@ const onSelectGateway = () => {
 }
 
 const onTransactions = () => {
-  showPaymentModal(false, '', null)
   showTransactionsModal(true, 'deposit')
 }
 
@@ -173,47 +172,51 @@ onMounted(() => {
     </div>
     <UForm :state="depositForm" class="space-y-4 w-full" @submit="handleDepositSubmit">
       <UFormGroup :label="t('serviceProviderChannel')" name="gateway">
+        <!-- value-attribute="gatewayCode" -->
         <USelectMenu
           v-model="depositForm.gateway"
           :placeholder="t('selectServiceProvider')"
           :options="gateWayOption"
-          value-attribute="gatewayCode"
           option-attribute="channelNameDisplay"
           @change="onSelectGateway"
         >
           <template #empty> {{ t('noItems') }} </template>
-          <!-- <template #leading="{ leading: person }">
-            <UAvatar :src="person?.avatar.src" alt="Avatar" />
-          </template> -->
+          <template v-if="depositForm?.gateway?.avatar?.src" #leading>
+            <UAvatar
+              v-if="depositForm?.gateway?.avatar?.src"
+              v-bind="depositForm?.gateway?.avatar"
+              size="2xs"
+            />
+          </template>
         </USelectMenu>
       </UFormGroup>
       <UFormGroup name="deposit">
         <template #label>
           <div class="flex items-center gap-1 mb-1">
             <div class="text-sm">{{ t('table.amount') }}</div>
-            <div v-if="depositForm.gateway" class="text-sm text-error">
+            <div v-if="depositForm?.gateway" class="text-sm text-error">
               <span
-                v-if="selectGateWay.channelAmountMin && selectGateWay.channelAmountMax"
+                v-if="selectGateWay?.channelAmountMin && selectGateWay?.channelAmountMax"
                 class="text-xs font-normal text-danger"
                 >{{
                   $t('minMax', {
-                    min: $format.number(selectGateWay.channelAmountMin),
-                    max: $format.number(selectGateWay.channelAmountMax),
+                    min: $format.number(selectGateWay?.channelAmountMin),
+                    max: $format.number(selectGateWay?.channelAmountMax),
                   })
                 }}</span
               >
               <span
-                v-else-if="selectGateWay.channelAmountMin"
+                v-else-if="selectGateWay?.channelAmountMin"
                 class="text-xs font-normal text-danger"
                 >{{
                   $t('minimum', {
-                    min: $format.number(selectGateWay.channelAmountMin),
+                    min: $format.number(selectGateWay?.channelAmountMin),
                   })
                 }}</span
               >
               <span v-else class="text-xs font-normal text-danger">{{
                 $t('maximum', {
-                  max: $format.number(selectGateWay.channelAmountMax),
+                  max: $format.number(selectGateWay?.channelAmountMax),
                 })
               }}</span>
             </div>
@@ -224,7 +227,7 @@ onMounted(() => {
           placeholder="0.00"
           type="currency"
           font-size="lg"
-          :disabled="!depositForm.gateway"
+          :disabled="!depositForm.gateway?.gatewayCode"
           @input="inputCheckPro"
         />
       </UFormGroup>

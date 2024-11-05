@@ -58,7 +58,7 @@ const bankListOption = computed(() =>
 
 const isAddNewBank = computed(() => {
   return bankOption.value !== 'main'
-    ? !addBankForm?.accountName || !addBankForm?.bankCode || !addBankForm?.accountNumber
+    ? !addBankForm?.accountName || !addBankForm?.bankCode?.bankCode || !addBankForm?.accountNumber
     : false
 })
 
@@ -115,7 +115,7 @@ const submitWithdraw = async () => {
       ...(enableOtherBank.value &&
         !['main'].includes(bankOption.value) && {
           ...addBankForm,
-          bankCode: bankOtherForm.bankCode,
+          bankCode: addBankForm?.bankCode?.bankCode,
         }),
     })
     loading.value = false
@@ -153,7 +153,6 @@ const onSelectGateway = () => {
 }
 
 const onTransactions = () => {
-  showPaymentModal(false, '', null)
   showTransactionsModal(true, 'withdraw')
 }
 
@@ -280,19 +279,27 @@ onMounted(() => {
                   <BaseInput
                     v-model="addBankForm.accountName"
                     :placeholder="t('accountHoldername')"
-                    disabled
+                    readonly
                   />
                 </UFormGroup>
                 <UFormGroup :label="t('bank')" name="bankCode">
+                  <!-- value-attribute="bankCode" -->
                   <USelectMenu
                     v-model="addBankForm.bankCode"
                     :placeholder="t('selectBank')"
                     :options="bankListOption"
-                    value-attribute="bankCode"
+                    searchable
                     option-attribute="bankDescription"
                   >
-                    <template #empty> {{ t('noItems') }} </template></USelectMenu
-                  >
+                    <template #empty> {{ t('noItems') }} </template>
+                    <template v-if="addBankForm.bankCode?.imageUrl" #leading>
+                      <UAvatar
+                        v-if="addBankForm.bankCode?.imageUrl"
+                        v-bind="{ src: addBankForm.bankCode?.imageUrl }"
+                        size="2xs"
+                      />
+                    </template>
+                  </USelectMenu>
                 </UFormGroup>
                 <UFormGroup :label="t('accountNumber')" name="accountNumber">
                   <BaseInput

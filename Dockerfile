@@ -36,8 +36,5 @@ COPY --from=install /usr/src/app/.output ./.output
 RUN addgroup -S bungroup && adduser -S bunuser -G bungroup
 USER bunuser
 
-ENV HOST 0.0.0.0
-ENV PORT 3000
-EXPOSE 3000
 ENTRYPOINT ["node","./.output/server/index.mjs"]
 

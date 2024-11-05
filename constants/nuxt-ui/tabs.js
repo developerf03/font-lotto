@@ -24,7 +24,7 @@ export default {
         inactive: 'tab-btn-inactive',
         height: 'h-8',
         padding: 'px-3',
-        size: 'text-sm',
+        size: 'text-base',
         font: 'font-medium',
         rounded: 'rounded-md',
         shadow: '',

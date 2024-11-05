@@ -9,11 +9,11 @@ const { user } = useAuth()
 
 // computed
 const promotionSelectedDetail = computed(() => usePromotionData(promotionDetailsModal.value.item))
-const remainingQuota = computed(
-  () =>
-    promotionSelectedDetail?.value?.redeem?.redeemLimit -
-      promotionSelectedDetail?.value?.redeem?.redeemCount || 0,
-)
+// const remainingQuota = computed(
+//   () =>
+//     promotionSelectedDetail?.value?.redeem?.redeemLimit -
+//       promotionSelectedDetail?.value?.redeem?.redeemCount || 0,
+// )
 
 // function
 const dateFormat = (date) => {
@@ -83,7 +83,7 @@ const handlePromotionSelected = (code) => {
           {{ dateFormat(promotionSelectedDetail?.endDate) }}
         </div>
       </div>
-      <div v-if="promotionSelectedDetail?.type" class="flex items-center gap-2 mt-4">
+      <!-- <div v-if="promotionSelectedDetail?.type" class="flex items-center gap-2 mt-4">
         <div class="font-medium <sm:text-sm sm:text-sm md:text-base">
           {{ t('remainingGuota') }}:
         </div>
@@ -93,7 +93,7 @@ const handlePromotionSelected = (code) => {
         >
           {{ remainingQuota || t('overGuota') }}
         </span>
-      </div>
+      </div> -->
       <div class="mt-4 <sm:text-sm sm:text-sm md:text-base font-semibold">
         {{ t('details') }}
       </div>

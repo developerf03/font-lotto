@@ -24,6 +24,7 @@ export default {
   deposit: 'Nạp tiền',
   copySuccess: 'Sao chép thành công',
   success: 'Thành công',
+  copy: 'Sao chép',
   inProgress: 'Đang thực hiện',
   pending: 'Chờ xử lý',
   error: 'Lỗi',
@@ -155,6 +156,8 @@ export default {
   pleaseTransferMoney: 'Vui lòng chuyển tiền đến',
   topUpAmount: 'Số tiền chuyển khoản',
   pleaseTransferOnly: 'Vui lòng chỉ chuyển số tiền đã nêu, không làm tròn số.',
+  depositDetails: 'Chi tiết tiền gửi',
+  withdrawalDetails: 'Chi tiết tiền rút',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {
@@ -202,6 +205,8 @@ export default {
   },
   table: {
     amount: 'Số tiền',
+    currency: 'Tiền tệ',
+    transactionID: 'ID giao dịch',
   },
   condition: {
     beAtLeastCharacters: 'Có độ dài ít nhất {min} ký tự',

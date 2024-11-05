@@ -132,6 +132,7 @@ const onVerify = (type) => {
     active: true,
     typeSend: 'changeprofile',
     type,
+    cb: reset,
   })
 }
 

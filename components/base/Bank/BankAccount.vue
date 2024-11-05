@@ -2,7 +2,8 @@
 // Import
 import placeholder from '~/constants/placeholder'
 
-const { banks } = usePayment()
+// Composables
+const { banks, fetchBankList } = usePayment()
 
 // Props
 defineProps({
@@ -27,8 +28,7 @@ defineProps({
     default: false,
   },
 })
-// Composables
-// const { banks, fetchBankList } = usePayment()
+
 // Stores
 
 // State
@@ -39,7 +39,7 @@ defineProps({
 
 // onMounted
 onMounted(() => {
-  // Promise.all([fetchBankList({ currencyCode: useDefaults()?.currencyCode })])
+  Promise.all([fetchBankList({ currencyCode: useDefaults()?.currencyCode })])
 })
 </script>
 

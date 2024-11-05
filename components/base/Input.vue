@@ -8,6 +8,10 @@ const props = defineProps({
     type: String,
     default: 'text',
   },
+  fontSize: {
+    type: String,
+    default: 'sm',
+  },
   placeholder: {
     type: String,
     default: '',
@@ -27,10 +31,24 @@ const emit = defineEmits(['update:modelValue', 'maska'])
 
 // Variables
 const digitSetting = {
-  0: { class: '!pr-[32px]', text: '.00' },
-  1: { class: '!pr-[29px]', text: '00' },
-  2: { class: '!pr-[20px]', text: '0' },
-  3: { class: '!pr-3', text: '' },
+  sm: {
+    0: { class: '!pr-[32px]', text: '.00' },
+    1: { class: '!pr-[29px]', text: '00' },
+    2: { class: '!pr-[20px]', text: '0' },
+    3: { class: '!pr-3', text: '' },
+  },
+  md: {
+    0: { class: '!pr-[34px]', text: '.00' },
+    1: { class: '!pr-[31px]', text: '00' },
+    2: { class: '!pr-[22px]', text: '0' },
+    3: { class: '!pr-3', text: '' },
+  },
+  lg: {
+    0: { class: '!pr-[36px]', text: '.00' },
+    1: { class: '!pr-[33px]', text: '00' },
+    2: { class: '!pr-[24px]', text: '0' },
+    3: { class: '!pr-3', text: '' },
+  },
 }
 
 // States
@@ -64,9 +82,9 @@ const convertCurrency = (value) => {
 
 const getDigitSetting = (value) => {
   if (value) {
-    return digitSetting[numeralCommas(value, 'decimal')?.length || 0]
+    return digitSetting[props.fontSize][numeralCommas(value, 'decimal')?.length || 0]
   }
-  return digitSetting[0]
+  return digitSetting[props.fontSize][0]
 }
 
 const handleInput = (e) => {
@@ -121,7 +139,11 @@ onMounted(() => {
     :data-maska="dataMaska"
     :type="inputType"
     :placeholder="type === 'currency' ? '0' : placeholder"
-    :class="[{ 'text-right': type === 'currency' }, { 'input-readonly': readonly }]"
+    :class="[
+      `text-${fontSize}`,
+      { 'text-right': type === 'currency' },
+      { 'input-readonly': readonly },
+    ]"
     :input-class="type === 'currency' ? digit.setting?.class : ''"
     :disabled="disabled || readonly"
     @maska="emit('maska', $event)"
@@ -132,7 +154,7 @@ onMounted(() => {
       <div class="flex items-center justify-center gap-2">
         <span
           v-if="type === 'currency'"
-          class="text-sm text-[var(--input-placeholder)]"
+          class="text-sm text-[var(--input-placeholder)] input-digit"
           :class="[{ 'opacity-70': disabled }]"
           >{{ digit.setting?.text }}</span
         >

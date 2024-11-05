@@ -17,6 +17,7 @@ const utm = useStorage('utm_source', '')
 const referCodeLocal = useStorage('ref', '')
 const affCodeLocal = useStorage('aff_regis_code', '')
 const route = useRoute()
+const { connectSocket } = useSocket()
 
 // Sotres
 
@@ -115,6 +116,7 @@ const handleSubmit = async () => {
         autoHide: true,
       })
     })
+    connectSocket()
   } catch (error) {
     if (error.data?.code === 6049) {
       nextStep('input-phone')

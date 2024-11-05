@@ -38,16 +38,7 @@ export const usePaymentStore = defineStore('payment', () => {
     const { data, error } = await useAPI().post('/api/payment/createDeposit', payload)
 
     if (error.value) return Promise.reject(error.value)
-    // dataCreateDeposit.value = data.value.data
-    dataCreateDeposit.value = {
-      bankType: 'ธนาคาร ไทยพาณิชย์ จำกัด (มหาชน)',
-      bankShortName: 'SCB',
-      accountName: 'พศวีร์ แซ่ลิ้ม',
-      account: '2644433683',
-      amount: 14.72,
-      promptpayCode:
-        '00020101021229370016A000000677010111011300666297080825802TH5303764540514.72630491F0',
-    }
+    dataCreateDeposit.value = data.value.data
 
     return data.value.data
   }

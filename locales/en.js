@@ -147,6 +147,12 @@ export default {
   duplicateBankAccount: 'Duplicate bank account',
   duplicateAccountName: 'Duplicate account name',
   duplicateAccountNumber: 'Duplicate bank account number',
+  hour: 'hour',
+  minutes: 'minutes',
+  seconds: 'seconds',
+  day: 'day',
+  withinTime: 'Within time',
+  pleaseTransferMoney: 'Please transfer money to',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {

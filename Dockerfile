@@ -33,5 +33,5 @@ FROM base AS release
 WORKDIR /usr/src/app
 COPY --from=install /usr/src/app/.output ./.output
 
-ENTRYPOINT ["node","./.output/server/index.mjs"]
+CMD ["node","./.output/server/index.mjs"]
 

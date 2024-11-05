@@ -29,7 +29,7 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM base AS release
+FROM node:20-alpine3.18 AS release
 WORKDIR /usr/src/app
 
 RUN addgroup --system --gid 1001 nodejs; \

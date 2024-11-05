@@ -1,18 +1,6 @@
 <script setup>
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 
-// props
-// const props = defineProps({
-// data: {
-//   type: Object,
-//   default: () => {},
-// },
-// banks: {
-//   type: Array,
-//   default: () => [],
-// },
-// })
-
 // Composables
 const { depositTrigger, cancelTransactionPayment } = usePayment()
 
@@ -20,13 +8,13 @@ const { depositTrigger, cancelTransactionPayment } = usePayment()
 const { paymentDepositQaModal, showPaymentDepositQaModal } = useModals()
 
 // State
+const depositCountdownTimeSec = ref(120)
 
 // Computed
 const paymentQrCode = computed(() => useQRCode(paymentDepositQaModal.value?.item?.promptpayCode))
 
 // Watch
 watch(depositTrigger, () => {
-  console.log('depositTrigger', depositTrigger)
   showPaymentDepositQaModal(false, false, null)
 })
 
@@ -44,7 +32,6 @@ const oncancelPaymentQa = () => {
     :disable-click-out="true"
     :hide-icon-close="false"
   >
-    <!-- <pre>{{ paymentDepositQaModal.item }}</pre> -->
     <div class="body-payment-deposit flex justify-center items-center flex-col w-full gap-4">
       <div class="text-base <sm:(text-sm)">
         {{
@@ -73,7 +60,19 @@ const oncancelPaymentQa = () => {
           alt="qrcode payment"
           class="w-1/2 min-w-[168px]"
         >
-        <div class="text-sm <sm:(text-xs)">( โอนภายใน 04:30 น. )</div>
+        <!-- <div class="text-sm <sm:(text-xs)">( โอนภายใน 04:30 น. )</div> -->
+
+        <!-- 600000 = 10นาที -->
+        <base-countdown v-slot="props" :time="depositCountdownTimeSec * 1000" :pad-start="true">
+          <div v-if="props.fullSeconds" class="flex gap-2 justify-center">
+            <div class="font-light text-base <sm:(text-sm)">{{ $t('withinTime') }}</div>
+            <div class="font-light text-base <sm:(text-sm) text-primary">
+              <span v-if="props.minutes > 0"> {{ props.minutes }}.</span
+              ><span> {{ props.seconds }}</span>
+              {{ props.minutes > 0 ? $t('minutes') : $t('seconds') }}
+            </div>
+          </div>
+        </base-countdown>
       </div>
       <BaseBankAccount
         btn-copy

@@ -145,6 +145,12 @@ export default {
   duplicateBankAccount: 'บัญชีธนาคารซ้ำในระบบ',
   duplicateAccountName: 'ชื่อบัญชีซ้ำในระบบ',
   duplicateAccountNumber: 'หมายเลขบัญชีธนาคารซ้ำ',
+  hour: 'ชั่วโมง',
+  minutes: 'นาที',
+  seconds: 'วินาที',
+  day: 'วัน',
+  withinTime: 'ภายในเวลา',
+  pleaseTransferMoney: 'กรุณาโอนเงินไปยัง',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

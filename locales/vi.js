@@ -153,6 +153,8 @@ export default {
   day: 'ngày',
   withinTime: 'Trong thời gian',
   pleaseTransferMoney: 'Vui lòng chuyển tiền đến',
+  topUpAmount: 'Số tiền chuyển khoản',
+  pleaseTransferOnly: 'Vui lòng chỉ chuyển số tiền đã nêu, không làm tròn số.',
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

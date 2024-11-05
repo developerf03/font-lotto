@@ -71,7 +71,7 @@ export const useInitLang = (setting) => {
   const agentLang = useDefaults()?.ISOLanguageCode?.split('-')
   const themeList = ['blue', 'orange']
 
-  if (agentLang.length && !lang.value) {
+  if (agentLang?.length && !lang.value) {
     $i18n.setLocale(agentLang[0])
     lang.value = agentLang[0]
     i18n.value = agentLang[0]

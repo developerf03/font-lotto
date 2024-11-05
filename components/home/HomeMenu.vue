@@ -104,9 +104,10 @@ const handleLaunchGame = () => {
       />
     </div>
 
-    <UButton size="md" variant="play" class="mb-4" @click="handleLaunchGame">
+    <UButton size="md" variant="play" class="mb-4 relative overflow-hidden" @click="handleLaunchGame">
       <!-- <nuxt-icon name="svg/bank" class="" />  -->
       {{ t('betLotto') }}
+      <div class="effect-mirror" />
     </UButton>
     <!-- LAUNCHER -->
     <div class="w-full gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex flex-col)">

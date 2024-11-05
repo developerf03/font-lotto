@@ -1,5 +1,5 @@
 # First stage - Base
-FROM node:18-alpine AS base
+FROM node:20-alpine3.18 AS base
 WORKDIR /usr/src/app
 
 RUN apk --no-cache add ca-certificates wget
@@ -29,12 +29,8 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM base AS release
+FROM gcr.io/distroless/nodejs20-debian12 AS release
 WORKDIR /usr/src/app
+ENV NODE_ENV=production
 COPY --from=install /usr/src/app/.output ./.output
-
-RUN addgroup -S bungroup && adduser -S bunuser -G bungroup
-USER bunuser
-
-ENTRYPOINT ["node","./.output/server/index.mjs"]
-
+CMD [ "node", ".output/server/index.mjs" ]

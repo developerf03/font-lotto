@@ -24,6 +24,7 @@ export default {
   deposit: 'ฝาก',
   copySuccess: 'คัดลอกสำเร็จ',
   success: 'สำเร็จ',
+  copy: 'คัดลอก',
   inProgress: 'กำลังดำเนินการ',
   pending: 'รอดำเนินการ',
   error: 'เกิดความผิดพลาด',
@@ -153,6 +154,8 @@ export default {
   pleaseTransferMoney: 'กรุณาโอนเงินไปยัง',
   topUpAmount: 'ยอดเงินที่ต้องโอน',
   pleaseTransferOnly: 'กรุณาโอนให้ตรงยอดที่แจ้งเท่านั้น ห้ามปัดเศษ',
+  depositDetails: 'รายละเอียดการฝาก',
+  withdrawalDetails: 'รายละเอียดการถอน',
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {
@@ -200,6 +203,8 @@ export default {
   },
   table: {
     amount: 'จำนวนเงิน',
+    currency: 'สกุลเงิน',
+    transactionID: 'รหัสธุรกรรม',
   },
   condition: {
     beAtLeastCharacters: 'มีความยาวอย่างน้อย {min} ตัวอักษร',

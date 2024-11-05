@@ -2,13 +2,14 @@
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 
 // Composables
-const { depositTrigger, cancelTransactionPayment } = usePayment()
+const { depositTrigger, cancelTransactionPayment, fetchApiTransactions } = usePayment()
 
 // Stores
 const { paymentDepositQaModal, showPaymentDepositQaModal } = useModals()
 
 // State
 const depositCountdownTimeSec = ref(120)
+const loadingCancelTransaction = ref(false)
 
 // Computed
 const paymentQrCode = computed(() => useQRCode(paymentDepositQaModal.value?.item?.promptpayCode))
@@ -19,10 +20,39 @@ watch(depositTrigger, () => {
 })
 
 // Functions
-const oncancelPaymentQa = () => {
-  cancelTransactionPayment()
-  showPaymentDepositQaModal(false, false, null)
+
+const onCancelTransaction = () => {
+  loadingCancelTransaction.value = true
+  useAlert({
+    confirmButtonText: t('ok'),
+    cancelButtonText: t('cancel'),
+    // title: 'แจ้งเตือน',
+    text: t('warningCancelItem'),
+    confirmCallback: async () => {
+      try {
+        await cancelTransactionPayment()
+        loadingCancelTransaction.value = false
+        useAlert({
+          success: true,
+          title: t('success'),
+        })
+        fetchApiTransactions()
+        showPaymentDepositQaModal(false, false, null)
+      } catch {
+        loadingCancelTransaction.value = false
+        useAlert({
+          warning: true,
+          title: t('alert'),
+          text: t('pendingTransaction'),
+        })
+      }
+    },
+    cancelCallback: () => {
+      loadingCancelTransaction.value = false
+    },
+  })
 }
+
 </script>
 
 <template>
@@ -62,7 +92,7 @@ const oncancelPaymentQa = () => {
           v-if="paymentDepositQaModal?.item?.promptpayCode"
           :src="paymentQrCode?.value"
           alt="qrcode payment"
-          class="w-1/2 min-w-[168px]"
+          class="w-1/2 min-w-[168px] rounded-md border border-[2px]"
         >
         <!-- <div class="text-sm <sm:(text-xs)">( โอนภายใน 04:30 น. )</div> -->
 
@@ -91,7 +121,8 @@ const oncancelPaymentQa = () => {
         :ui="{ rounded: 'rounded-full' }"
         size="md"
         variant="cancel"
-        @click="oncancelPaymentQa"
+        :loading="loadingCancelTransaction"
+        @click="onCancelTransaction"
       />
     </div>
   </baseModal>

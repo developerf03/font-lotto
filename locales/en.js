@@ -24,6 +24,7 @@ export default {
   deposit: 'Deposit',
   copySuccess: 'Copy Success',
   success: 'Success',
+  copy: 'Copy',
   inProgress: 'In progress',
   pending: 'Pending',
   error: 'Error',
@@ -155,6 +156,8 @@ export default {
   pleaseTransferMoney: 'Please transfer money to',
   topUpAmount: 'Transfer amount',
   pleaseTransferOnly: 'Please transfer only the amount stated, do not round up.',
+  depositDetails: 'Deposit details',
+  withdrawalDetails: 'Withdrawal details',
   promotionConditions: {
     redeem: 'Distribute {amount} codes',
     deposit: {
@@ -202,6 +205,8 @@ export default {
   },
   table: {
     amount: 'Amount',
+    currency: 'Currency',
+    transactionID: 'Transaction ID',
   },
   condition: {
     beAtLeastCharacters: 'Be at least {min} characters long',

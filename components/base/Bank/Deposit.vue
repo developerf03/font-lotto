@@ -21,13 +21,6 @@ const promotionSelected = ref(paymentModal.value?.code || '')
 const promotionCheck = ref({})
 const promotionCheckApprove = ref(true)
 
-// const dataCreateDeposit = ref({bankNameTh: 'ธนาคาร ไทยพาณิชย์ จำกัด (มหาชน)',
-//     bankShortNameEN: 'SCB',
-//     accountName: 'พศวีร์ แซ่ลิ้ม',
-//     bankAccount: '2644433683',
-//     money: 14.72,
-//     promptpayQr: '00020101021229370016A000000677010111011300666297080825802TH5303764540514.72630491F0'
-// })
 // Computed
 const selectGateWay = computed(() =>
   gateWayOption.value?.find((v) => v.gatewayCode === depositForm.gateway),

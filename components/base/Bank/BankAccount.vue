@@ -47,8 +47,8 @@ onMounted(() => {
   <div
     class="bank-account-wrapper w-full card-secondary flex justify-between items-center p-2 rounded-md gap-2 <sm:(gap-4)"
   >
-    <div class="flex items-center gap-2 <sm:(w-full)">
-      <div class="flex justify-center flex-col gap-2">
+    <div class="flex flex-col gap-2 <sm:(w-full)">
+      <!-- <div class="flex justify-center flex-col gap-2">
         <nuxt-icon filled class="icon-bank-account" name="svg/user-circle" />
         <img
           :src="
@@ -63,11 +63,30 @@ onMounted(() => {
         <div class="text-base <sm:text-sm">{{ accountName || '-' }}</div>
         <div class="text-base <sm:text-sm">{{ bankType || '-' }}</div>
         <div class="text-base <sm:text-sm">{{ account || '-' }}</div>
+      </div> -->
+
+      <div class="flex items-center gap-2">
+        <nuxt-icon filled class="icon-bank-account" name="svg/user-circle" />
+        <div class="text-base <sm:text-sm">{{ accountName || '-' }}</div>
+      </div>
+      <div class="flex gap-2">
+        <img
+          :src="
+            banks?.bankList.filter((s) => s.bankCode === bankShortName)[0]?.imageUrl ||
+            placeholder.placeholderBank
+          "
+          class="w-[24px] h-[24px] rounded-full custom-position <sm:(w-[18px] h-[18px])"
+        >
+        <div class="text-base <sm:text-sm">{{ bankType || '-' }}</div>
+      </div>
+      <div class="flex items-center gap-2">
+        <nuxt-icon filled class="icon-bank-account" name="svg/bank" />
+        <div class="text-base <sm:text-sm">{{ account || '-' }}</div>
       </div>
     </div>
     <UButton
       v-if="btnCopy"
-      label="คัดลอกบัญชี"
+      :label="t('copy')"
       size="sm"
       variant="outline"
       class="!w-auto !whitespace-nowrap"
@@ -79,12 +98,12 @@ onMounted(() => {
 <style lang="scss">
 .bank-account-wrapper {
   .nuxt-icon svg {
-    width: 24px !important;
-    height: 24px !important;
+    width: 26px !important;
+    height: 26px !important;
     margin: 0px !important;
     @media (max-width: 639.9px) {
-      width: 18px !important;
-      height: 18px !important;
+      width: 20px !important;
+      height: 20px !important;
     }
   }
 }

@@ -19,7 +19,6 @@ const { $i18n } = useNuxtApp()
 const { user, balance } = useAuth()
 const { handleLoginModal, handleRegisterModal } = useModals()
 const { games } = useGame()
-
 const mockup = [
   {
     name: 'lotteryResult1',
@@ -59,9 +58,31 @@ const mockup = [
   },
 ]
 
+// State
+
+// computed
 const gameLotto = computed(() => games.value?.search?.list.find((o) => o?.type === 'lotto'))
 
 // function
+// const { isActive } = useIntervalFn(() => {
+//   mirror.value = true
+//   console.log('isActive', isActive)
+
+// setTimeout(() => {
+//   mirror.value = false
+// }, 1000)
+// }, intervalTimeSec * 1000)
+
+// const { pause, resume, isActive } = useIntervalFn(() => {
+//   mirror.value = true
+//   console.log('isActive', isActive.value, resume, pause)
+//   if (isActive.value) {
+//     pause()
+//     mirror.value = true
+//     isActive.value = false
+//   }
+// }, 2000)
+
 const handleLaunchGame = () => {
   if (!user.value) {
     handleLoginModal(true)
@@ -115,7 +136,6 @@ const handleLaunchGame = () => {
       class="mb-4 relative overflow-hidden mlg:mb-3 xl:mb-4"
       @click="handleLaunchGame"
     >
-      <!-- <nuxt-icon name="svg/bank" class="" />  -->
       {{ t('betLotto') }}
       <div class="effect-mirror" />
     </UButton>

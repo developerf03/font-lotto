@@ -198,7 +198,7 @@ onMounted(() => {
           :name="signUpSetting?.verifyWith === 'phone' ? 'svg/verify-phone' : 'email-account'"
           class="text-6xl <sm:(text-5xl) text-tertiary"
         />
-        <span class="text-base text-tertiary mt-2 text-center <sm:(text-sm)">{{
+        <span class="text-tertiary mt-2 text-center <sm:(text-sm)">{{
           signUpSetting?.verifyWith === 'phone'
             ? $t('notVerifyPhoneForWithdrawal')
             : $t('pleaseVerifyEmailBeforeMakingWithdrawal')
@@ -220,7 +220,7 @@ onMounted(() => {
         class="flex flex-col justify-center items-center gap-2 w-full"
       >
         <nuxt-icon name="svg/bank" class="text-6xl <sm:(text-5xl) text-tertiary" />
-        <span class="text-base text-tertiary mt-2 text-center <sm:(text-sm)">{{
+        <span class="text-tertiary mt-2 text-center <sm:(text-sm)">{{
           $t('noAccountForWithdrawal')
         }}</span>
         <UButton
@@ -316,11 +316,11 @@ onMounted(() => {
         <UFormGroup name="deposit">
           <template #label>
             <div class="flex items-center gap-1 mb-1">
-              <div class="text-sm">{{ t('table.amount') }}</div>
-              <div v-if="withdrawForm.gateway" class="text-sm text-error">
+              <div >{{ t('table.amount') }}</div>
+              <div v-if="withdrawForm.gateway" class="text-error">
                 <span
                   v-if="selectGateWay.channelAmountMin && selectGateWay.channelAmountMax"
-                  class="text-xs font-normal text-danger"
+                  class="text-sm font-normal text-danger"
                   >{{
                     $t('minMax', {
                       min: $format.number(selectGateWay.channelAmountMin),
@@ -330,14 +330,14 @@ onMounted(() => {
                 >
                 <span
                   v-else-if="selectGateWay.channelAmountMin"
-                  class="text-xs font-normal text-danger"
+                  class="text-sm font-normal text-danger"
                   >{{
                     $t('minimum', {
                       min: $format.number(selectGateWay.channelAmountMin),
                     })
                   }}</span
                 >
-                <span v-else class="text-xs font-normal text-danger">{{
+                <span v-else class="text-sm font-normal text-danger">{{
                   $t('maximum', {
                     max: $format.number(selectGateWay.channelAmountMax),
                   })
@@ -420,7 +420,7 @@ onMounted(() => {
         />
       </UForm>
       <div
-        class="mt-4 underline text-highlight cursor-pointer text-base <sm:(text-sm)"
+        class="mt-4 underline text-highlight cursor-pointer <sm:(text-sm)"
         @click="onTransactions"
       >
         {{ t('transactionHistory') }}

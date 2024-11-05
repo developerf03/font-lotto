@@ -279,7 +279,7 @@ onMounted(() => {
                   <BaseInput
                     v-model="addBankForm.accountName"
                     :placeholder="t('accountHoldername')"
-                    disabled
+                    readonly
                   />
                 </UFormGroup>
                 <UFormGroup :label="t('bank')" name="bankCode">

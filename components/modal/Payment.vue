@@ -1,4 +1,5 @@
 <script setup>
+import transactionsAllModal from '~/components/modal/Transactions.vue'
 // Composables
 const { paymentModal } = useModals()
 
@@ -46,6 +47,7 @@ const onChange = (val) => {
   <baseModal id="payment-modal-wrapper" v-model="paymentModal.active" :disable-click-out="true">
     <UTabs v-model="tabPayment" :items="items" @change="onChange" />
     <component :is="componentsPaymentBank?.[paymentModal.tab]?.component" />
+    <transactionsAllModal />
   </baseModal>
 </template>
 

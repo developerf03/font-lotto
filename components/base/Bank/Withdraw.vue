@@ -151,7 +151,6 @@ const onSelectGateway = () => {
 }
 
 const onTransactions = () => {
-  showPaymentModal(false, '', null)
   showTransactionsModal(true, 'withdraw')
 }
 

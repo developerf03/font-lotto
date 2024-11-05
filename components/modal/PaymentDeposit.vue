@@ -59,6 +59,18 @@ const onCancelTransaction = () => {
     },
   })
 }
+
+const handleCountDownEnd = () => {
+  cancelTransactionPayment()
+  fetchTransactions({
+    sDate: '1970-01-01 00:00:00',
+    eDate: $format.getLocalDate(),
+    page: 1,
+    pageSize: 5,
+    type: ['add'],
+  })
+  showPaymentDepositQaModal(false, false, null)
+}
 </script>
 
 <template>
@@ -70,23 +82,16 @@ const onCancelTransaction = () => {
   >
     <div class="body-payment-deposit flex justify-center items-center flex-col w-full gap-4">
       <div class="text-lg <sm:(text-base)">
-        <!-- {{
-          paymentDepositQaModal.qa
-            ? 'กรุณาแสกน QR นี้เพื่อเติมเงิน'
-            : 'กรุณาคัดลอกบัญชีและโอนเงินตามที่กำหนด'
-        }} -->
         {{ t('topUpAmount') }}
       </div>
       <div class="w-full flex justify-center items-center flex-col gap-2">
-        <div class="text-4xl <sm:(text-3xl)">
-          <span class="text-highlight">{{ paymentDepositQaModal?.item?.amount }}</span> บาท
+        <div class="">
+          <span class="text-highlight text-4xl <sm:(text-3xl)">{{
+            $format.number(paymentDepositQaModal?.item?.amount)
+          }}</span>
+          <span class="text-2xl <sm:(text-xl) ml-1"> {{ useDefaults()?.currencyCode }}</span>
         </div>
-        <div class="text-xs <sm:(text-2xs)">
-          <!-- {{
-            paymentDepositQaModal.qa
-              ? '(โอนตามจำนวนที่กำหนดภายใน 5 นาที ห้ามปัดยอด)'
-              : '(โอนตามจำนวนที่กำหนดภายใน 5 นาที ห้ามปัดยอด เมื่อโอนแล้วห้ามปิดหน้านี้)'
-          }} -->
+        <div class="text-xs <sm:(text-2xs) text-danger">
           {{ t('pleaseTransferOnly') }}
         </div>
       </div>
@@ -100,13 +105,17 @@ const onCancelTransaction = () => {
           alt="qrcode payment"
           class="w-1/2 min-w-[168px] rounded-md border border-[2px]"
         >
-        <!-- <div class="text-sm <sm:(text-xs)">( โอนภายใน 04:30 น. )</div> -->
-
-        <!-- 600000 = 10นาที -->
-        <base-countdown v-slot="props" :time="depositCountdownTimeSec * 1000" :pad-start="true">
+        <base-countdown
+          v-slot="props"
+          :time="depositCountdownTimeSec * 1000"
+          :pad-start="true"
+          @end="handleCountDownEnd"
+        >
           <div v-if="props.fullSeconds" class="flex gap-2 justify-center mt-2">
-            <div class="font-light text-base <sm:(text-sm)">{{ $t('withinTime') }}</div>
-            <div class="font-light text-base <sm:(text-sm) text-primary">
+            <div class="font-light text-base <sm:(text-sm) text-highlight">
+              {{ $t('withinTime') }}
+            </div>
+            <div class="font-light text-base <sm:(text-sm) text-highlight">
               <span v-if="props.minutes > 0"> {{ props.minutes }}.</span
               ><span> {{ props.seconds }}</span>
               {{ props.minutes > 0 ? $t('minutes') : $t('seconds') }}

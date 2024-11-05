@@ -7,6 +7,7 @@ import info from '~/assets/icons/lottie/info.json'
 import warning from '~/assets/icons/lottie/warning.json'
 import wifi from '~/assets/icons/lottie/wifi.json'
 import noWifi from '~/assets/icons/lottie/noWifi.json'
+import wallet from '~/assets/icons/lottie/wallet.json'
 // computed
 const isConfirmDialog = computed(
   () => globalAlerts.value.confirmButtonText && globalAlerts.value.cancelButtonText,
@@ -55,6 +56,7 @@ const handleCancelSubmit = () => {
         />
         <Vue3Lottie v-if="globalAlerts?.info" :animation-data="info" :height="100" :width="100" />
         <Vue3Lottie v-if="globalAlerts?.wifi" :animation-data="wifi" :height="100" :width="100" />
+        <Vue3Lottie v-if="globalAlerts?.wallet" :animation-data="wallet" :height="100" :width="100" />
         <Vue3Lottie
           v-if="globalAlerts?.noWifi"
           :animation-data="noWifi"

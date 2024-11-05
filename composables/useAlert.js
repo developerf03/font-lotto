@@ -20,6 +20,7 @@ export const globalAlerts = ref({
   wifi: false,
   noWifi: false,
   autoHide: true,
+  wallet: false,
   // showCountdown: false,
 })
 
@@ -50,6 +51,7 @@ export const useAlert = ({
   info,
   wifi,
   noWifi,
+  wallet,
   autoHide = true, // auto hide
   // showCountdown,
 } = {}) => {
@@ -74,6 +76,7 @@ export const useAlert = ({
     wifi,
     noWifi,
     autoHide,
+    wallet,
     // showCountdown,
   }
 

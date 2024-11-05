@@ -156,6 +156,9 @@ export default {
   pleaseTransferOnly: 'กรุณาโอนให้ตรงยอดที่แจ้งเท่านั้น ห้ามปัดเศษ',
   depositDetails: 'รายละเอียดการฝาก',
   withdrawalDetails: 'รายละเอียดการถอน',
+  addAPhoneNumber: 'เพิ่มเบอร์โทรศัพท์',
+  addAnEmail: 'เพิ่มอีเมล',
+
   promotionConditions: {
     redeem: 'แจกโค้ดจำนวน {amount} โค้ด',
     deposit: {

@@ -3,16 +3,15 @@ export default {
   base: 'btn-select-wrapper relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none border-0',
   form: 'form-select',
   rounded: 'rounded',
-  placeholder: 'text-gray-400 text-gray-500',
   file: {
     base: 'file:mr-1.5 file:font-medium file:text-gray-500 file:text-gray-400 file:bg-transparent file:border-0 file:p-0 file:outline-none',
   },
   size: {
-    '2xs': 'text-xs',
-    xs: 'text-xs',
-    sm: 'text-sm',
-    md: 'text-sm',
-    lg: 'text-sm',
+    '2xs': 'text-base',
+    xs: 'text-base',
+    sm: 'text-base',
+    md: 'text-base',
+    lg: 'text-base',
     xl: 'text-base',
   },
   gap: {
@@ -104,7 +103,7 @@ export default {
     },
   },
   default: {
-    size: 'sm',
+    size: 'md',
     color: 'white',
     variant: 'outline',
     loadingIcon: 'i-heroicons-arrow-path-20-solid',

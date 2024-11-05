@@ -73,7 +73,9 @@ const isDisableSubmitBtn = computed(() => {
 })
 
 const enableOtherBank = computed(
-  () => useLobbySetting()?.setting.value?.withdrawSetting?.[useDefaults()?.currencyCode]?.enableOtherBank,
+  () =>
+    useLobbySetting()?.setting.value?.withdrawSetting?.[useDefaults()?.currencyCode]
+      ?.enableOtherBank,
 )
 
 const withdrawCondition = computed(() =>
@@ -340,7 +342,7 @@ onMounted(() => {
             v-model="withdrawForm.withdraw"
             placeholder="0.00"
             type="currency"
-            font-size="md"
+            font-size="lg"
             :disabled="!withdrawForm.gateway"
           />
         </UFormGroup>

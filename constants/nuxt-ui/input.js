@@ -7,11 +7,11 @@ export default {
     base: 'file:mr-1.5 file:font-medium file:text-gray-500 file:text-gray-400 file:bg-transparent file:border-0 file:p-0 file:outline-none',
   },
   size: {
-    '2xs': 'text-xs',
-    xs: 'text-xs',
-    sm: 'text-sm',
-    md: 'text-sm h-[38px]',
-    lg: 'text-sm',
+    '2xs': 'text-base',
+    xs: 'text-base',
+    sm: 'text-base',
+    md: 'text-base',
+    lg: 'text-base',
     xl: 'text-base',
   },
   gap: {

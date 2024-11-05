@@ -223,7 +223,7 @@ onMounted(() => {
           v-model="depositForm.deposit"
           placeholder="0.00"
           type="currency"
-          font-size="md"
+          font-size="lg"
           :disabled="!depositForm.gateway"
           @input="inputCheckPro"
         />

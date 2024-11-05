@@ -158,6 +158,9 @@ export default {
   pleaseTransferOnly: 'Vui lòng chỉ chuyển số tiền đã nêu, không làm tròn số.',
   depositDetails: 'Chi tiết tiền gửi',
   withdrawalDetails: 'Chi tiết tiền rút',
+  addAPhoneNumber: 'Thêm số điện thoại',
+  addAnEmail: 'Thêm email',
+
   promotionConditions: {
     redeem: 'Phân phối {amount} mã',
     deposit: {

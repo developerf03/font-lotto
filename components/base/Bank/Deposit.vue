@@ -23,7 +23,7 @@ const promotionCheckApprove = ref(true)
 
 // Computed
 const selectGateWay = computed(() =>
-  gateWayOption.value?.find((v) => v.gatewayCode === depositForm.gateway),
+  gateWayOption.value?.find((v) => v.gatewayCode === depositForm?.gateway?.gatewayCode),
 )
 
 const depositInput = computed(() => +`${depositForm.deposit}`.replace(/,|\./g, ''))
@@ -37,7 +37,7 @@ const checkMinMax = computed(
 const promotionDetail = computed(() => usePromotionData(promotionCheck.value?.detail?.promotion))
 
 const isDisableSubmitBtn = computed(() => {
-  return !checkMinMax.value || !depositForm.gateway || !depositForm.deposit
+  return !checkMinMax.value || !depositForm?.gateway?.gatewayCode || !depositForm.deposit
 })
 
 // Watch
@@ -135,7 +135,6 @@ const onSelectGateway = () => {
 }
 
 const onTransactions = () => {
-  showPaymentModal(false, '', null)
   showTransactionsModal(true, 'deposit')
 }
 
@@ -168,52 +167,56 @@ onMounted(() => {
 
 <template>
   <div class="deposit-wrapper gap-2 flex justify-center items-center flex-col w-full">
-    <div class="text-error text-xs <sm:text-2xs">
+    <div class="text-error text-center text-base <sm:text-sm">
       {{ t('depositAdvice1') }}
     </div>
     <UForm :state="depositForm" class="space-y-4 w-full" @submit="handleDepositSubmit">
       <UFormGroup :label="t('serviceProviderChannel')" name="gateway">
+        <!-- value-attribute="gatewayCode" -->
         <USelectMenu
           v-model="depositForm.gateway"
           :placeholder="t('selectServiceProvider')"
           :options="gateWayOption"
-          value-attribute="gatewayCode"
           option-attribute="channelNameDisplay"
           @change="onSelectGateway"
         >
           <template #empty> {{ t('noItems') }} </template>
-          <!-- <template #leading="{ leading: person }">
-            <UAvatar :src="person?.avatar.src" alt="Avatar" />
-          </template> -->
+          <template v-if="depositForm?.gateway?.avatar?.src" #leading>
+            <UAvatar
+              v-if="depositForm?.gateway?.avatar?.src"
+              v-bind="depositForm?.gateway?.avatar"
+              size="2xs"
+            />
+          </template>
         </USelectMenu>
       </UFormGroup>
       <UFormGroup name="deposit">
         <template #label>
           <div class="flex items-center gap-1 mb-1">
-            <div class="text-sm">{{ t('table.amount') }}</div>
-            <div v-if="depositForm.gateway" class="text-sm text-error">
+            <div >{{ t('table.amount') }}</div>
+            <div v-if="depositForm?.gateway" class="text-error">
               <span
-                v-if="selectGateWay.channelAmountMin && selectGateWay.channelAmountMax"
-                class="text-xs font-normal text-danger"
+                v-if="selectGateWay?.channelAmountMin && selectGateWay?.channelAmountMax"
+                class="text-sm font-normal text-danger"
                 >{{
                   $t('minMax', {
-                    min: $format.number(selectGateWay.channelAmountMin),
-                    max: $format.number(selectGateWay.channelAmountMax),
+                    min: $format.number(selectGateWay?.channelAmountMin),
+                    max: $format.number(selectGateWay?.channelAmountMax),
                   })
                 }}</span
               >
               <span
-                v-else-if="selectGateWay.channelAmountMin"
-                class="text-xs font-normal text-danger"
+                v-else-if="selectGateWay?.channelAmountMin"
+                class="text-sm font-normal text-danger"
                 >{{
                   $t('minimum', {
-                    min: $format.number(selectGateWay.channelAmountMin),
+                    min: $format.number(selectGateWay?.channelAmountMin),
                   })
                 }}</span
               >
-              <span v-else class="text-xs font-normal text-danger">{{
+              <span v-else class="text-sm font-normal text-danger">{{
                 $t('maximum', {
-                  max: $format.number(selectGateWay.channelAmountMax),
+                  max: $format.number(selectGateWay?.channelAmountMax),
                 })
               }}</span>
             </div>
@@ -223,8 +226,8 @@ onMounted(() => {
           v-model="depositForm.deposit"
           placeholder="0.00"
           type="currency"
-          font-size="md"
-          :disabled="!depositForm.gateway"
+          font-size="lg"
+          :disabled="!depositForm.gateway?.gatewayCode"
           @input="inputCheckPro"
         />
       </UFormGroup>
@@ -269,9 +272,9 @@ onMounted(() => {
         ]"
       >
         <div class="flex justify-between items-center mb-4">
-          <span class="text-base font-semibold text-link">{{ promotionDetail.title }}</span>
+          <span class="font-semibold text-link">{{ promotionDetail.title }}</span>
         </div>
-        <div class="text-base font-semibold mb-1 mt-4">
+        <div class="font-semibold mb-1 mt-4">
           {{ t('details') }}
         </div>
         <div
@@ -279,7 +282,7 @@ onMounted(() => {
           v-html="promotionDetail?.detail || '-'"
         />
         <!-- Deposit conditions -->
-        <div class="text-base font-semibold mb-1 mt-4">
+        <div class="font-semibold mb-1 mt-4">
           {{ t('depositConditions') }}
         </div>
         <div class="mt-0 font-normal <sm:text-sm sm:text-sm md:text-base">
@@ -295,7 +298,7 @@ onMounted(() => {
         </div>
         <!-- withdraw conditions -->
         <div v-if="promotionDetail?.condition?.withdraw?.length === 1">
-          <div class="text-base font-semibold mb-1 mt-4">
+          <div class="font-semibold mb-1 mt-4">
             {{ t('withdrawalConditions') }}
           </div>
           <div class="mt-0 font-normal <sm:text-sm sm:text-sm md:text-base">
@@ -312,7 +315,7 @@ onMounted(() => {
         </div>
         <!-- withdraw group conditions -->
         <div v-if="promotionDetail?.condition?.withdraw.length > 1">
-          <div class="text-base font-semibold mb-1 mt-4">
+          <div class="font-semibold mb-1 mt-4">
             {{ t('withdrawalConditions') }}
           </div>
           <div
@@ -332,7 +335,7 @@ onMounted(() => {
         </div>
         <!-- Benefits -->
         <div class="mt-4">
-          <p class="text-base font-semibold mb-1">
+          <p class=" ont-semibold mb-1">
             {{ t('benefits') }}
           </p>
           <ul class="list-disc pl-8 text-sm sm:text-base">
@@ -370,7 +373,7 @@ onMounted(() => {
       />
     </UForm>
     <div
-      class="mt-4 underline text-highlight cursor-pointer text-base <sm:(text-sm)"
+      class="mt-4 underline text-highlight cursor-pointer <sm:(text-sm)"
       @click="onTransactions"
     >
       {{ t('transactionHistory') }}

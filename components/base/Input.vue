@@ -10,7 +10,7 @@ const props = defineProps({
   },
   fontSize: {
     type: String,
-    default: 'sm',
+    default: 'md',
   },
   placeholder: {
     type: String,
@@ -44,9 +44,9 @@ const digitSetting = {
     3: { class: '!pr-3', text: '' },
   },
   lg: {
-    0: { class: '!pr-[36px]', text: '.00' },
-    1: { class: '!pr-[33px]', text: '00' },
-    2: { class: '!pr-[24px]', text: '0' },
+    0: { class: '!pr-[37px]', text: '.00' },
+    1: { class: '!pr-[34px]', text: '00' },
+    2: { class: '!pr-[25px]', text: '0' },
     3: { class: '!pr-3', text: '' },
   },
 }
@@ -82,9 +82,9 @@ const convertCurrency = (value) => {
 
 const getDigitSetting = (value) => {
   if (value) {
-    return digitSetting[props.fontSize][numeralCommas(value, 'decimal')?.length || 0]
+    return digitSetting?.[props.fontSize]?.[numeralCommas(value, 'decimal')?.length || 0]
   }
-  return digitSetting[props.fontSize][0]
+  return digitSetting?.[props.fontSize]?.[0]
 }
 
 const handleInput = (e) => {
@@ -154,7 +154,7 @@ onMounted(() => {
       <div class="flex items-center justify-center gap-2">
         <span
           v-if="type === 'currency'"
-          class="text-sm text-[var(--input-placeholder)] input-digit"
+          class="text-[var(--input-placeholder)] input-digit"
           :class="[{ 'opacity-70': disabled }]"
           >{{ digit.setting?.text }}</span
         >

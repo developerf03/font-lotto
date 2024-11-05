@@ -9,7 +9,7 @@ const { user } = useAuth()
 <template>
   <div
     class="flex flex-col items-center justify-center !min-h-max pt-[146px] pb-[calc(70px_+_16px_+_20px)] 2xl:(py-6 h-[100dvh]) mlg:(pt-10 min-h-[100dvh]) lg:pt-[173px]"
-    :class="[{ 'pt-[161px] lg:pt-[201px]': user }]"
+    :class="[{ 'pt-[171px] lg:pt-[201px]': user }]"
   >
     <!-- BANNER AND MENU -->
     <div

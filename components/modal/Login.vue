@@ -92,7 +92,7 @@ const handleSubmit = async () => {
       </UFormGroup>
       <!-- LINK FORGOT PASSWORD -->
       <p
-        class="text-highlight text-xs underline cursor-pointer mb-4 mt-3 ml-auto w-max"
+        class="text-highlight text-sm underline cursor-pointer mb-4 mt-3 ml-auto w-max"
         @click="handleForgotPasswordModal(true), handleLoginModal(false)"
       >
         {{ t('forgotPassword') }}
@@ -104,7 +104,7 @@ const handleSubmit = async () => {
     <p class="text-sm">
       {{ t('dontHaveAccount') }}
       <span
-        class="text-highlight text-xs underline cursor-pointer"
+        class="text-highlight text-sm underline cursor-pointer"
         @click="handleRegisterModal(true), handleLoginModal(false)"
         >{{ t('register') }}</span
       >

@@ -15,9 +15,10 @@ const languageList = computed(() =>
 
 // Funtions
 const handleChangeLang = (val) => {
-  const langCookie = useCookie('i18n_redirected')
   setLocale(val)
-  langCookie.value = val
+
+  // Reload page
+  // setTimeout(() => window.location.reload(), 300);
 }
 </script>
 

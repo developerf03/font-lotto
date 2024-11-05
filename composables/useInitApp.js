@@ -5,6 +5,9 @@ import { useCurrencyStore } from '~/stores/currency'
 
 export const useInitAppSSR = async () => {
   const { setting } = storeToRefs(useSettingStore())
+  const { $i18n } = useNuxtApp()
+  const locale = $i18n.localeProperties.value.IETF
+  
 
   try {
     // Init langauge
@@ -12,9 +15,9 @@ export const useInitAppSSR = async () => {
 
     // Init meta tag SEO
     useMetaTagSEO({
-      title: setting.value.title,
-      description: setting.value.description,
-      faviconUrl: setting.value.faviconUrl,
+      title: setting.value.title[locale],
+      description: setting.value.description[locale],
+      faviconUrl: setting.value.faviconUrl
     })
   } catch (error) {
     return Promise.reject(error)

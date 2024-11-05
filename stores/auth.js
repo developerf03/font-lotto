@@ -6,7 +6,7 @@ import { timeDiff } from '@/utils/date'
 export const useAuthStore = defineStore(
   'auth',
   () => {
-    // const { disconnectSocket } = useSocket()
+    const { disconnectSocket } = useSocket()
 
     // State
     const accessToken = useCookie('accessToken')
@@ -40,7 +40,7 @@ export const useAuthStore = defineStore(
 
         // After authen
         await fetchUser()
-        // useFetchAfterAuthen()
+        useFetchAfterAuthen()
       } catch (error) {
         return Promise.reject(error)
       } finally {
@@ -52,7 +52,7 @@ export const useAuthStore = defineStore(
       user.value = null
       accessToken.value = null
       refreshToken.value = null
-      // disconnectSocket()
+      disconnectSocket()
     }
 
     const fetchUser = async () => {

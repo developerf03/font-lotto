@@ -8,7 +8,7 @@ export default {
   border: 'border text-secondary rounded',
   ring: '',
   inner: 'ms-3 flex flex-col',
-  label: 'text-base font-medium text-primary cursor-pointer',
+  label: 'text-base <sm:text-sm font-normal text-primary cursor-pointer',
   required: 'text-sm text-error',
   help: 'text-sm text-secondary',
   default: {

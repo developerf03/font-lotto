@@ -310,7 +310,13 @@ const handleCheckData = async () => {
 </script>
 
 <template>
-  <BaseModal id="verify-otp-modal" v-model="verifyOTPModal.active" disable-click-out logo>
+  <BaseModal
+    id="verify-otp-modal"
+    v-model="verifyOTPModal.active"
+    disable-click-out
+    :hide-icon-close="false"
+    logo
+  >
     <div class="w-full mt-4">
       <div
         v-if="['editEmail', 'editPhone'].includes(verifyOTPModal?.type) && step === 0"

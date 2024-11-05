@@ -109,3 +109,24 @@ body {
   bottom: -1px !important;
   --toastify-color-progress-light: var(--icon-default);
 }
+
+.effect-mirror {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  pointer-events: none;
+  background: linear-gradient(120deg, #ff4c0000 63%, #dddad969 82%, #ffffff59 85%, #97979700 90%);
+  animation: mymove 4s infinite linear;
+}
+
+@keyframes mymove {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 1000px 0px;
+  }
+}

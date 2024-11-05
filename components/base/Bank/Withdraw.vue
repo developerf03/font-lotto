@@ -340,6 +340,7 @@ onMounted(() => {
             v-model="withdrawForm.withdraw"
             placeholder="0.00"
             type="currency"
+            font-size="md"
             :disabled="!withdrawForm.gateway"
           />
         </UFormGroup>

@@ -46,7 +46,7 @@ const handleChangeLang = (val) => {
               :alt="item?.IETF"
               class="cursor-pointer rounded-full"
             >
-            <div class="flex justify-center items-center text-base <sm:text-sm">
+            <div class="flex justify-center items-center whitespace-nowrap text-base <sm:text-sm">
               {{ item?.name }}
             </div>
           </div>

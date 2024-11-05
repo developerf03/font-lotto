@@ -238,18 +238,18 @@ onMounted(() => {
   <baseModal
     id="transactions-view-modal-wrapper"
     v-model="transactionsViewModal.active"
-    title="รายละเอียดการเติมเงิน"
+    :title="transactionsModal?.tab === 'deposit' ? t('depositDetails') : t('withdrawalDetails')"
     :overlay="true"
     :disable-click-out="true"
     :hide-icon-close="true"
   >
     <div class="flex justify-between items-center gap-4 <sm:gap-4 w-full">
-      <div>
-        <div class="text-base whitespace-nowrap">Transaction ID</div>
-        <div class="text-base whitespace-nowrap">สกุลเงิน</div>
-        <div class="text-base whitespace-nowrap">จำนวนเงิน</div>
+      <div class="flex flex-col gap-2 <sm:gap-1">
+        <div class="text-base whitespace-nowrap">{{ t('table.transactionID') }}</div>
+        <div class="text-base whitespace-nowrap">{{ t('table.currency') }}</div>
+        <div class="text-base whitespace-nowrap">{{ t('table.amount') }}</div>
       </div>
-      <div>
+      <div class="flex flex-col gap-2 <sm:gap-1">
         <div class="flex justify-end items-center gap-2 <sm:gap-0">
           <div class="base-truncate-1">
             {{ transactionsViewModal?.item?.id }}

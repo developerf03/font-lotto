@@ -115,6 +115,24 @@ form {
       text-align: left;
     }
   }
+  &.text-sm {
+    input,
+    .input-digit {
+      font-size: 14px;
+    }
+  }
+  &.text-md {
+    input,
+    .input-digit {
+      font-size: 16px;
+    }
+  }
+  &.text-lg {
+    input,
+    .input-digit {
+      font-size: 18px;
+    }
+  }
 }
 
 // SELECT

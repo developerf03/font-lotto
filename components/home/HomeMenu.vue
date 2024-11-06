@@ -1,6 +1,5 @@
 <script setup>
 // Imports
-import logo from '~/assets/images/logo.png'
 import flag1 from '~/assets/icons/flags/1.png'
 import flag2 from '~/assets/icons/flags/2.png'
 import flag3 from '~/assets/icons/flags/3.png'
@@ -98,59 +97,58 @@ const handleLaunchGame = () => {
 
 <template>
   <div
-    class="home-menu-wrapper w-full card-primary text-[var(--font-primary)] rounded-[20px] px-4 py-[14px] flex flex-col items-center sm:(p-4 py-3) xl:p-5 2xl:px-8 mlg:rounded-[60px]"
+    class="home-menu-wrapper w-full card-primary text-[var(--font-primary)] rounded-[20px] py-[14px] flex flex-col items-center sm:(py-3) xl:py-5 mlg:rounded-[60px]"
   >
-    <!-- LOGO -->
-    <img
-      :src="logo"
-      alt="logo"
-      srcset=""
-      class="h-[69px] mb-4 mx-auto hidden mlg:(block mb-3 h-[59px]) xl:(mb-4 h-[69px])"
-    >
-    <!-- WALLET AND PROFILE -->
-    <div
-      v-if="user"
-      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:(flex gap-3 mb-3) xl:(gap-4 mb-4)"
-    >
-      <HomeMenuUser :user="user?.player?.playerNickname || '-'" />
-      <HomeMenuWallet :balance="balance" />
-    </div>
+    <div class="w-full px-4 2xl:px-8">
+      <!-- LOGO -->
+      <BaseLogo class="h-[69px] mb-4 mx-auto hidden mlg:(block mb-3 h-[59px]) xl:(mb-4 h-[69px])" />
+      <!-- WALLET AND PROFILE -->
+      <div
+        v-if="user"
+        class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:(flex gap-3 mb-3) xl:(gap-4 mb-4)"
+      >
+        <HomeMenuUser :user="user?.player?.playerNickname || '-'" />
+        <HomeMenuWallet :balance="balance" />
+      </div>
 
-    <!-- BUTTON => LOGIN / REGISTER -->
-    <div
-      v-else
-      class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:flex"
-    >
-      <UButton :label="t('login')" variant="outline" size="md" @click="handleLoginModal(true)" />
+      <!-- BUTTON => LOGIN / REGISTER -->
+      <div
+        v-else
+        class="w-full flex-col gap-4 pb-4 mb-4 border-b border-b-solid border-b-[var(--home-menu-divide)] hidden mlg:flex"
+      >
+        <UButton :label="t('login')" variant="outline" size="md" @click="handleLoginModal(true)" />
+        <UButton
+          :label="t('register')"
+          variant="solid"
+          size="md"
+          @click="handleRegisterModal(true)"
+        />
+      </div>
+
       <UButton
-        :label="t('register')"
-        variant="solid"
         size="md"
-        @click="handleRegisterModal(true)"
-      />
+        variant="play"
+        class="mb-4 relative overflow-hidden mlg:mb-3 xl:mb-4"
+        @click="handleLaunchGame"
+      >
+        {{ t('betLotto') }}
+        <div class="effect-mirror" />
+      </UButton>
     </div>
-
-    <UButton
-      size="md"
-      variant="play"
-      class="mb-4 relative overflow-hidden mlg:mb-3 xl:mb-4"
-      @click="handleLaunchGame"
-    >
-      {{ t('betLotto') }}
-      <div class="effect-mirror" />
-    </UButton>
     <!-- LAUNCHER -->
-    <div
-      class="w-full gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex flex-col gap-2) xl:gap-3"
-    >
-      <HomeMenuItem
-        v-for="(item, index) in mockup"
-        :key="index"
-        :name="t(item?.name)"
-        :icon="item?.flag"
-        :background="item?.background"
-        :section-scroll="item?.sectionScroll"
-      />
+    <div class="w-full pr-2">
+      <div
+        class="see-result-wrapper w-full py-2 pl-4 pr-2 gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex gap-2 overflow-auto) xl:(gap-3) 2xl:px-8"
+      >
+        <HomeMenuItem
+          v-for="(item, index) in mockup"
+          :key="index"
+          :name="t(item?.name)"
+          :icon="item?.flag"
+          :background="item?.background"
+          :section-scroll="item?.sectionScroll"
+        />
+      </div>
     </div>
 
     <!-- LANGUAGE AND THEME -->
@@ -164,3 +162,40 @@ const handleLaunchGame = () => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.see-result-wrapper {
+  --item-count: 4;
+  --item-height: 50px;
+  --item-gap: 12px;
+  height: calc(var(--item-height) * var(--item-count) + var(--item-gap) * (var(--item-count) - 1));
+
+  @media only screen and (min-width: 1025) {
+    --item-gap: 8px;
+  }
+  @media only screen and (min-width: 1280px) {
+    --item-gap: 12px;
+  }
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+</style>

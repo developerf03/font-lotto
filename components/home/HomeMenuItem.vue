@@ -25,7 +25,7 @@ const { handleLauncherModal } = useModals()
 
 <template>
   <div
-    class="provider-item-wrapper w-full card-secondary border border-solid border-[var(--provider-item-border)] rounded-[10px] p-3 flex items-center gap-[14px] cursor-pointer relative overflow-hidden mlg:px-4"
+    class="provider-item-wrapper w-full min-h-max card-secondary border border-solid border-[var(--provider-item-border)] rounded-[10px] p-3 flex items-center gap-[14px] cursor-pointer relative overflow-hidden mlg:px-4"
     @click="handleLauncherModal(true, sectionScroll)"
   >
     <img :src="background" alt="provider background" class="provider-background" >

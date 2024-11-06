@@ -51,4 +51,10 @@ const onChange = (val) => {
   </baseModal>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+#payment-modal-wrapper {
+  .body-modal {
+    max-width: 500px !important;
+  }
+}
+</style>

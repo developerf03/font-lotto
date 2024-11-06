@@ -193,7 +193,7 @@ onMounted(() => {
       <UFormGroup name="deposit">
         <template #label>
           <div class="flex items-center gap-1 mb-1">
-            <div >{{ t('table.amount') }}</div>
+            <div>{{ t('table.amount') }}</div>
             <div v-if="depositForm?.gateway" class="text-error">
               <span
                 v-if="selectGateWay?.channelAmountMin && selectGateWay?.channelAmountMax"
@@ -238,9 +238,10 @@ onMounted(() => {
         <UButton
           v-for="(item, index) in selectGateWay?.amountRatio"
           :key="index"
-          class="!w-[23%] !h-9 <sm:(!w-[48%])"
+          class="!w-[23%] !h-9 border border-solid border-[var(--input-border)] active:bg-[var(--icon-default)] <sm:(!w-[48%])"
+          :ui="{ font: '!font-normal' }"
           size="sm"
-          variant="tertiary"
+          variant="none"
           @click="setDeposit(item)"
         >
           <span class="<sm:text-lg"> {{ numeralCommas(item) }}</span></UButton
@@ -335,7 +336,7 @@ onMounted(() => {
         </div>
         <!-- Benefits -->
         <div class="mt-4">
-          <p class=" ont-semibold mb-1">
+          <p class="ont-semibold mb-1">
             {{ t('benefits') }}
           </p>
           <ul class="list-disc pl-8 text-sm sm:text-base">
@@ -372,10 +373,7 @@ onMounted(() => {
         :disabled="isDisableSubmitBtn || !promotionCheckApprove"
       />
     </UForm>
-    <div
-      class="mt-4 underline text-highlight cursor-pointer <sm:(text-sm)"
-      @click="onTransactions"
-    >
+    <div class="mt-4 underline text-highlight cursor-pointer <sm:(text-sm)" @click="onTransactions">
       {{ t('transactionHistory') }}
     </div>
   </div>

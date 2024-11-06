@@ -15,7 +15,11 @@ const onChange = (o) => {
 </script>
 
 <template>
-  <div v-if="theme" class="flex items-center gap-3 w-max cursor-pointer" @click="onChange(theme)">
+  <div
+    v-if="theme"
+    class="flex items-center gap-3 w-max cursor-pointer py-2 mlg:py-0"
+    @click="onChange(theme)"
+  >
     <UIcon
       :name="themeSetting?.[theme]?.icon"
       class="w-5 h-5 lg:(w-6 h-6) text-[var(--icon-inactive)]"

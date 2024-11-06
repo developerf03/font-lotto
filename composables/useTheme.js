@@ -1,5 +1,6 @@
 import placeholder from '~/constants/placeholder'
 import categorySetting from '~/constants/categorySetting'
+import { useWindowSize } from '@vueuse/core'
 
 export const useTheme = () => {
   const isDarkMode = useState('isDarkMode', () =>
@@ -15,6 +16,12 @@ export const useTheme = () => {
   }
 }
 
+// export const useThemeMode = () => {
+//   const appConfig = useAppConfig()
+
+//   return !appConfig.lightThemes.includes(useSetting().value?.theme) ? 'dark' : 'light'
+// }
+
 export const usePlaceholder = (type = 'game') => {
   const { setting } = useLobbySetting()
 
@@ -26,10 +33,19 @@ export const usePlaceholderDefault = () => {
 }
 
 export const useLogo = () => {
-  const { setting } = useLobbySetting()
-  const { $width } = useNuxtApp()
+  const { width } = useWindowSize()
+  const theme = useCookie('themeMode')
+  const setting = useSetting()
 
-  return $width.value <= 640 ? setting?.value?.logoUrlLightMobile : setting?.value?.logoUrlLightPC
+  let logo = null
+
+  if (theme.value === 'light-theme') {
+    logo = width.value <= 640 ? setting?.value?.logoUrlLightMobile : setting?.value?.logoUrlLightPC
+  } else {
+    logo = width.value <= 640 ? setting?.value?.logoUrlDarkMobile : setting?.value?.logoUrlDarkPC
+  }
+
+  return logo
 }
 
 export const useLoadingUrl = () => {

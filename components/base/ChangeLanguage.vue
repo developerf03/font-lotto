@@ -11,7 +11,10 @@ const language = computed(() => locales.value?.find((o) => o?.code === locale.va
 </script>
 
 <template>
-  <div class="flex items-center gap-3 w-max cursor-pointer" @click="handleLanguageModal(true)">
+  <div
+    class="flex items-center gap-3 w-max cursor-pointer py-2 mlg:py-0"
+    @click="handleLanguageModal(true)"
+  >
     <img
       :src="flags?.[language?.countryCode]"
       alt="country flag"

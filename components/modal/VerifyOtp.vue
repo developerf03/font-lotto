@@ -312,7 +312,7 @@ const handleCheckData = async () => {
 <template>
   <BaseModal id="verify-otp-modal" v-model="verifyOTPModal.active" disable-click-out logo>
     <div class="w-full mt-4">
-      <div
+      <UForm
         v-if="['editEmail', 'editPhone'].includes(verifyOTPModal?.type) && step === 0"
         class="w-full"
       >
@@ -320,35 +320,31 @@ const handleCheckData = async () => {
           {{ verifyOTPModal?.type === 'editPhone' ? t('phone') : t('email') }}
         </div>
         <!-- Phone / Email -->
-        <div v-if="verifyOTPModal?.type === 'editPhone'" class="flex gap-3">
-          <!-- PHONE -->
-          <UFormGroup
-            :label="t('validation.pleaseEnterPhoneNumber')"
-            name="phoneNumber"
-            :error="errors?.phoneNumber?.message"
-          >
-            <BaseInput
-              v-model="form.phoneNumber"
-              :placeholder="t('phone')"
-              trailing
-              @update:model-value="validator.validate('phoneNumber')"
-            />
-          </UFormGroup>
-        </div>
-        <div v-else class="flex gap-3">
-          <UFormGroup
-            :label="t('validation.pleaseEnterEmail')"
-            name="email"
-            :error="errors?.email?.message"
-          >
-            <BaseInput
-              v-model="form.email"
-              :placeholder="t('email')"
-              trailing
-              @update:model-value="validator.validate('email')"
-            />
-          </UFormGroup>
-        </div>
+        <!-- PHONE -->
+        <UFormGroup
+          v-if="verifyOTPModal?.type === 'editPhone'"
+          :label="t('validation.pleaseEnterPhoneNumber')"
+          name="phoneNumber"
+          :error="errors?.phoneNumber?.message"
+        >
+          <BaseInput
+            v-model="form.phoneNumber"
+            :placeholder="t('phone')"
+            @update:model-value="validator.validate('phoneNumber')"
+          />
+        </UFormGroup>
+        <UFormGroup
+          v-else
+          :label="t('validation.pleaseEnterEmail')"
+          name="email"
+          :error="errors?.email?.message"
+        >
+          <BaseInput
+            v-model="form.email"
+            :placeholder="t('email')"
+            @update:model-value="validator.validate('email')"
+          />
+        </UFormGroup>
 
         <div class="flex justify-center items-center gap-4 mt-4 <sm:(gap-2)">
           <UButton
@@ -361,12 +357,13 @@ const handleCheckData = async () => {
             :label="t('next')"
             variant="solid"
             :loading="loading"
+            type="submit"
             :disabled="!(form.phoneNumber || form.email) ? true : !validator.isFormValid"
             @click="handleSendCode"
             @touchend="handleSendCode"
           />
         </div>
-      </div>
+      </UForm>
       <!-- Step Verify -->
       <div
         v-if="['verifyEmail', 'verifyPhone'].includes(verifyOTPModal?.type) || step === 1"
@@ -408,7 +405,7 @@ const handleCheckData = async () => {
             class="w-full"
             @end="remainSec = 0"
           >
-            <div v-if="fullSeconds > 0" class="mt-2">
+            <div class="mt-2 opacity-0 min-h-[1em]" :class="{ 'opacity-100': fullSeconds > 0 }">
               <span v-if="!fullSeconds && fullSeconds !== null">{{ $t('resendCode') }}</span>
               <span v-else class="leading-none">{{
                 $t('resendWithin', { second: fullSeconds || remainSec })

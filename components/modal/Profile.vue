@@ -222,7 +222,7 @@ const onSubmit = async () => {
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
               @click="onVerify('editPhone')"
             >
-              {{ userPlayer?.verifyPhone ? t('verifyNow') : t('addAPhoneNumber') }}
+              {{ userPlayer?.phone ? t('verifyNow') : t('addAPhoneNumber') }}
             </p>
           </template>
         </BaseInput>
@@ -253,7 +253,7 @@ const onSubmit = async () => {
               class="text-highlight underline text-sm cursor-pointer pointer-events-auto"
               @click="onVerify('editEmail')"
             >
-              {{ userPlayer?.verify ? t('verifyNow') : t('addAnEmail') }}
+              {{ userPlayer?.email ? t('verifyNow') : t('addAnEmail') }}
             </p>
           </template>
         </BaseInput>

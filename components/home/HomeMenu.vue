@@ -136,17 +136,19 @@ const handleLaunchGame = () => {
       </UButton>
     </div>
     <!-- LAUNCHER -->
-    <div
-      class="w-full py-2 px-4 gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex gap-2 overflow-auto h-[232px]) xl:(gap-3 h-[244px]) 2xl:px-8"
-    >
-      <HomeMenuItem
-        v-for="(item, index) in mockup"
-        :key="index"
-        :name="t(item?.name)"
-        :icon="item?.flag"
-        :background="item?.background"
-        :section-scroll="item?.sectionScroll"
-      />
+    <div class="w-full pr-2">
+      <div
+        class="see-result-wrapper w-full py-2 pl-4 pr-2 gap-3 flex flex-col sm:(grid grid-cols-2) mlg:(flex gap-2 overflow-auto) xl:(gap-3) 2xl:px-8"
+      >
+        <HomeMenuItem
+          v-for="(item, index) in mockup"
+          :key="index"
+          :name="t(item?.name)"
+          :icon="item?.flag"
+          :background="item?.background"
+          :section-scroll="item?.sectionScroll"
+        />
+      </div>
     </div>
 
     <!-- LANGUAGE AND THEME -->
@@ -160,3 +162,40 @@ const handleLaunchGame = () => {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.see-result-wrapper {
+  --item-count: 4;
+  --item-height: 50px;
+  --item-gap: 12px;
+  height: calc(var(--item-height) * var(--item-count) + var(--item-gap) * (var(--item-count) - 1));
+
+  @media only screen and (min-width: 1025) {
+    --item-gap: 8px;
+  }
+  @media only screen and (min-width: 1280px) {
+    --item-gap: 12px;
+  }
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+</style>

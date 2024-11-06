@@ -1,5 +1,4 @@
 <script setup>
-// import { object, string } from 'yup'
 // import placeholder from '~/constants/placeholder';
 
 // Composables
@@ -190,9 +189,10 @@ onMounted(() => {
 
 <template>
   <div class="withdraw-wrapper gap-2 flex justify-center items-center flex-col w-full">
-    <!-- <pre> ==>{{ signUpSetting }}</pre> -->
+    <!-- <pre>{{ banks.bankAccountList.length }}</pre>
+    <pre>{{ gateWayOption.length }}</pre> -->
     <div
-      v-if="signUpSetting?.isVerify && !bankListLoading && banks.bankAccountList.length"
+      v-if="signUpSetting?.isVerify && banks.bankAccountList.length > 0"
       class="w-full gap-2 flex justify-center items-center flex-col"
     >
       <div

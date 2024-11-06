@@ -1,11 +1,11 @@
 <script setup>
 // Imports
-import logo from '~/assets/images/logo.png'
 </script>
 
 <template>
   <!-- 173 X 69 -->
-  <img :src="logo" alt="logo" srcset="" class="logo h-[69px]" >
+  <USkeleton v-if="!useLogo()" class="!rounded-lg h-[69px] w-[174px]" />
+  <img v-else :src="useLogo()" alt="logo" srcset="" class="logo h-[69px]" >
 </template>
 
 <style lang="scss" scoped></style>

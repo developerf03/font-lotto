@@ -30,4 +30,5 @@ export default defineAppConfig({
     verticalNavigation,
     horizontalNavigation,
   },
+  lightThemes: ['blue'],
 })

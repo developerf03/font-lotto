@@ -1,5 +1,4 @@
 <script setup>
-// import { object, string } from 'yup'
 // import placeholder from '~/constants/placeholder';
 
 // Composables
@@ -193,7 +192,7 @@ onMounted(() => {
     <!-- <pre>{{ banks.bankAccountList.length }}</pre>
     <pre>{{ gateWayOption.length }}</pre> -->
     <div
-      v-if="signUpSetting?.isVerify && banks.bankAccountList.length"
+      v-if="signUpSetting?.isVerify && banks.bankAccountList.length > 0"
       class="w-full gap-2 flex justify-center items-center flex-col"
     >
       <div

@@ -1,6 +1,5 @@
 <script setup>
 // Imports
-import logo from '~/assets/images/logo.png'
 import flag1 from '~/assets/icons/flags/1.png'
 import flag2 from '~/assets/icons/flags/2.png'
 import flag3 from '~/assets/icons/flags/3.png'
@@ -101,12 +100,7 @@ const handleLaunchGame = () => {
     class="home-menu-wrapper w-full card-primary text-[var(--font-primary)] rounded-[20px] px-4 py-[14px] flex flex-col items-center sm:(p-4 py-3) xl:p-5 2xl:px-8 mlg:rounded-[60px]"
   >
     <!-- LOGO -->
-    <img
-      :src="logo"
-      alt="logo"
-      srcset=""
-      class="h-[69px] mb-4 mx-auto hidden mlg:(block mb-3 h-[59px]) xl:(mb-4 h-[69px])"
-    >
+    <BaseLogo class="mb-4 mx-auto hidden mlg:(block mb-3) xl:(mb-4)" />
     <!-- WALLET AND PROFILE -->
     <div
       v-if="user"
